@@ -26,16 +26,29 @@
 
          GENERATE MODELS AND MIGRATIONS
         Always generate the table w/c doesn't have references to other table
-            php artisan make:model  User -m
+            php artisan make:model  User    -m
             php artisan make:model  Product -m
-            php artisan make:model  Order -m
+            php artisan make:model  Order   -m
             php artisan make:model  Country -m
             php artisan make:model  CartItem -m
             php artisan make:model  OrderDetail -m
-            php artisan make:model  OrderItem -m
-            php artisan make:model  Payment -m
-            php artisan make:model  Customer -m
+            php artisan make:model  OrderItem   -m
+            php artisan make:model  Payment     -m
+            php artisan make:model  Customer    -m
             php artisan make:model  CustomerAddress -m
+
+         WRITE / DATA MODELLING  MIGRATIONS
+                Research foreignIdFor , jsonb , foreign , foreignId
+                Product
+                Order
+                Country
+                CartItem 
+                OrderDetail
+                OrderItem
+                Payment
+                Customer
+                CustomerAddress
+         php artisan migrate
             
 
 

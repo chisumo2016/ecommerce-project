@@ -1,19 +1,15 @@
 <script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
-})
+import {computed} from "vue";
+import store from "../store";
+
+const  test = computed( () => store.state.test)
+
 </script>
 
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
+  <div>
     <h3 class="bg-purple-500">
-      You’ve successfully created a project with
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
+        {{ test}}
     </h3>
   </div>
 </template>

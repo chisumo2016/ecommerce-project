@@ -69,6 +69,17 @@
             https://tailwindcss.com/docs/guides/vite
         Installation done in backed folder of vue
         In the main.js import import './index.css'
+        Run : npm run dev
+        
+       INSTALL VUEX AND CREATE STORE
+            Installation done in backed folder of vue
+            npm install -S vuex@next
+            For exact version oof vuex use vue@4
+            Create Stoore and use to our application
+                backend/src/store/index.js
+            Register Store into main.js by importing
+            Test the store
+        
         
         
 

@@ -60,8 +60,15 @@
                             INPUT                   OUTPUT(DIST FOLDER WILL BE CREATED)
         Tailwindcss css IntelliSense
 
-        VUE  
-        npm create vite@latest
+        VUE  INSTALLATION
+        npm create vite@latest   
+        name: backend
+        
+        INSTALL TAILWINDCSS TO VUE PROJECT -VITE
+                v3.1.5
+            https://tailwindcss.com/docs/guides/vite
+        Installation done in backed folder of vue
+        In the main.js import import './index.css'
         
         
 

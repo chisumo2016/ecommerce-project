@@ -78,8 +78,40 @@
             Create Stoore and use to our application
                 backend/src/store/index.js
             Register Store into main.js by importing
-            Test the store
-        
+            Test the store   backend/src/store/index.js
+                    import {createStore} from "vuex";
+
+                const  store = createStore({
+                /**Specify Object*/
+                
+                    state:{
+                        test: '1253'
+                    },
+                    getters:{},
+                    actions:{},
+                    mutations:{},
+                });
+                
+                export  default  store;
+
+            UI 
+            import {computed} from "vue";
+            import store from "../store";
+            
+            const  test = computed( () => store.state.test)
+
+       INSTALL VUE-ROUTER AND CREATE ROUTES
+        installation of vue-router
+            npm install -S vue-router@next   
+            For exact version oof vuex use vue@4
+        Create a folder and file  backend/src/router/index.js 
+        Register the router into main js
+        Add routes in src/router/index.js 
+        Create a folder called views
+                - backend/src/views/Dashboard.vue
+                - backend/src/views/Login.vue
+                            
+            
         
         
 

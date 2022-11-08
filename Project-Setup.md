@@ -110,6 +110,13 @@
         Create a folder called views
                 - backend/src/views/Dashboard.vue
                 - backend/src/views/Login.vue
+        
+        CREATE LOGIN FORM
+            https://tailwindui.com/
+            https://headlessui.com/
+            https://github.com/tailwindlabs/headlessui
+            npm install -D @headlessui/vue @heroicons/vue @tailwindcss/forms
+        
                             
             
         

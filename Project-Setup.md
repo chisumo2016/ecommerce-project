@@ -116,6 +116,10 @@
             https://headlessui.com/
             https://github.com/tailwindlabs/headlessui
             npm install -D @headlessui/vue @heroicons/vue @tailwindcss/forms
+
+        CREATE REQUEST PASSWORD RESET AND RESET PASSWORD PAGES
+            Create a Views called RequestPasswordReset.vue
+            Add the routes in router file.
         
                             
             

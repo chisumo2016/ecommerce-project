@@ -49,6 +49,46 @@
                 Customer
                 CustomerAddress
          php artisan migrate
+
+
+        TAILWINDCSS SETUP
+        
+        npm init -y
+        npm install -D tailwindcss
+        npx tailwindcss init
+        npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch
+                            INPUT                   OUTPUT(DIST FOLDER WILL BE CREATED)
+        Tailwindcss css IntelliSense
+
+        VUE  
+        npm create vite@latest
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
 
 

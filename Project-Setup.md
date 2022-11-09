@@ -162,6 +162,9 @@
                    2: Main section (Header and Main)
             Add the h-full 
                 <div id="app" class="h-full"></div>
+            Coding in the side bar
+
+        CREATE THE NAVBAR
 
 
 

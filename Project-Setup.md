@@ -124,6 +124,7 @@
             Add the routes in router file. for both.
 
         CREATE LAYOUT FOR GUEST USERS
+            In Guest Layout we have three views
             If you observe quickly  , all three template looks similar ,Login, RequestPassward and Reset Password
             Define the GuestLayout under component
             Copy all code from Login.vue and Paste into GuestLayout.vue
@@ -139,11 +140,37 @@
                     <GuestLayout title="Sign in to your account" @submit="login">
 
             2 SECOND OPTION  (GUEST LAYOUT )
+                In GuestLayout we have three views
                 Is more generic
                 To use the Guest layout and add the form to each component
+                Attach thee GuestLaypout to each
             
         
-                            
+        CREATE EMPTY LAYOOUT FOR AUTHORIZED USERSS 
+            Copy and Paste GuestLayout and call AppLayout
+            Used when we try to open th dashboard page 
+                    Side bar nnavigation
+                    Header
+                    Footer
+            Inject the router-view in AppLayout.vue , wee will have nested view in AppLayout.vue
+            In ther router/index.js we are going to define parent root and children root
+            Child root will bee appended to parent root http://localhost:5173/app/dashboard
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
         
         

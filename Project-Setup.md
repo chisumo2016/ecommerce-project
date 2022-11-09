@@ -156,6 +156,13 @@
             In ther router/index.js we are going to define parent root and children root
             Child root will bee appended to parent root http://localhost:5173/app/dashboard
 
+        CREATE SIDEBAR  
+            outer div elements, split into two parts 
+                   1: Side bar 
+                   2: Main section (Header and Main)
+            Add the h-full 
+                <div id="app" class="h-full"></div>
+
 
 
 

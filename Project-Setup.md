@@ -119,7 +119,29 @@
 
         CREATE REQUEST PASSWORD RESET AND RESET PASSWORD PAGES
             Create a Views called RequestPasswordReset.vue
-            Add the routes in router file.
+                        backend/src/views/RequestPassword.vue
+                        backend/src/views/ResetPassword.vue
+            Add the routes in router file. for both.
+
+        CREATE LAYOUT FOR GUEST USERS
+            If you observe quickly  , all three template looks similar ,Login, RequestPassward and Reset Password
+            Define the GuestLayout under component
+            Copy all code from Login.vue and Paste into GuestLayout.vue
+            To Identify the layoout
+            Take form tag in GuestLayout and replace with SLOT
+            To listen how form inn login once iss submitted
+                1: Take the form and move to GuestLayoout and wrap into slot
+                    <form class="mt-8 space-y-6" @submit.prevent="emit('submit')" method="POST">
+                        <slot></slot>
+                    </form>
+                        const emit = defineEmits(['submit'])
+                    to parents
+                    <GuestLayout title="Sign in to your account" @submit="login">
+
+            2 SECOND OPTION  (GUEST LAYOUT )
+                Is more generic
+                To use the Guest layout and add the form to each component
+            
         
                             
             

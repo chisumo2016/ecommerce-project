@@ -63,8 +63,10 @@
         VUE  INSTALLATION
         npm create vite@latest   
         name: backend
+         npm install
         
         INSTALL TAILWINDCSS TO VUE PROJECT -VITE
+        Make sure your in backend folder
                 v3.1.5
             https://tailwindcss.com/docs/guides/vite
         Installation done in backed folder of vue
@@ -78,6 +80,8 @@
             Create Stoore and use to our application
                 backend/src/store/index.js
             Register Store into main.js by importing
+                    import store from "./store";
+                    .use(router)
             Test the store   backend/src/store/index.js
                     import {createStore} from "vuex";
 
@@ -165,6 +169,8 @@
             Coding in the side bar
 
         CREATE THE NAVBAR
+
+        CREATE AND IMPLEMENT SIDEBAR TOGGLE BUTTON
 
 
 

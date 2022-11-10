@@ -5,6 +5,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Login from "../views/Login.vue";
 import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
+import Product from "../views/Product.vue";
 
 /**Define an array of routes*/
 const  routes = [
@@ -18,6 +19,11 @@ const  routes = [
                 path: 'dashboard',
                 name:'app.dashboard',
                 component:Dashboard
+            },
+            {
+                path: 'products',
+                name:'app.products',
+                component:Product
             },
         ]
     },

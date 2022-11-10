@@ -171,6 +171,20 @@
         CREATE THE NAVBAR
 
         CREATE AND IMPLEMENT SIDEBAR TOGGLE BUTTON
+        In ToHeader.vue wee can listen, emit an event to the parents.
+            <button @click="emit('toggle-sidebar')"</button>
+            const emit = defineEmits(['toggle-sidebar'])
+
+        In thee parent of APPLAYOUT.VUE
+        We need to listen the  toggle-sidebar
+                 <TopHeader @toggle-sidebar="toggleSidebar"></TopHeader>
+        Write a function
+        Give the sidebar  -ml-[200px]
+        implement the logic on the method in AppLayout.vue
+        Duplicate the Dashboard.vue and create Products.vue
+        Add the routes in router/index.js
+        Add the links in sidebar
+        
 
 
 

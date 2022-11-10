@@ -1,11 +1,10 @@
 <template>
-    <header class="flex justify-between items-center h-14 shadow bg-white">
-        <button class="p-4 text-gray-700 ">
-            <BeakerIcon class="w-6" />
+    <header class="flex justify-between items-center p-3 h-14 shadow bg-white">
+        <button @click="emit('toggle-sidebar')" class="flex items-center justify-center w-8 h-8 text-gray-700 hover:bg-black/10 rounded transition-colors">
+            <Bars4Icon  class="w-6" />
         </button>
-        <div class="px-4">
+
             <Menu as="div" class="relative inline-block text-left">
-                <div>
                     <MenuButton class="flex items-center">
                         <img
                             class="rounded-full w-8 mr-2"
@@ -16,8 +15,6 @@
                             aria-hidden="true"
                         />
                     </MenuButton>
-                </div>
-
                 <transition
                     enter-active-class="transition duration-100 ease-out"
                     enter-from-class="transform scale-95 opacity-0"
@@ -52,7 +49,7 @@
                   'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                 ]"
                                 >
-                                    <LogoutIcon
+                                    <ArrowLeftIcon
                                         :active="active"
                                         class="mr-2 h-5 w-5 text-violet-400"
                                         aria-hidden="true"
@@ -65,14 +62,16 @@
                     </MenuItems>
                 </transition>
             </Menu>
-        </div>
     </header>
 </template>
 
 <script setup>
-import { BeakerIcon ,UserIcon } from '@heroicons/vue/24/outline'
+import { Bars4Icon ,UserIcon, ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+
+/**Emit Event*/
+const emit = defineEmits(['toggle-sidebar'])
 </script>
 
 <style scoped>

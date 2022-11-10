@@ -5,7 +5,7 @@
         <!--/ Sidebar-->
 
         <div class="flex-1">
-            <TopHeader @toggle-sidebar="toggleSidebar"></TopHeader>
+            <NavBar @toggle-sidebar="toggleSidebar"></NavBar>\
 
             <main class="p-6">
                <router-view></router-view>
@@ -16,8 +16,8 @@
 
 <script setup>
 import SideBar from "./SideBar.vue";
-import TopHeader from "./TopHeader.vue";
-import {ref} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
+import NavBar from "./NavBar.vue";
 
 /**Build In defineProps*/
 const { title }= defineProps({
@@ -31,6 +31,26 @@ const sidebarOpened = ref(true);
 const toggleSidebar = () => {
     sidebarOpened .value = !sidebarOpened.value
   console.log('works')
+}
+
+/**onMounted*/
+onMounted( () =>{
+    handleSidebarOpened();
+    window.addEventListener('resize', handleSidebarOpened)
+});
+
+/**onUnmounted*/
+onUnmounted(() =>{
+    window.removeEventListener('resize', handleSidebarOpened)
+})
+
+const handleSidebarOpened  = () => {
+    sidebarOpened.value = window.outerWidth > 768
+    // if (window.outerWidth < 768 ){
+    //     sidebarOpened.value = false
+    // }else{
+    //     sidebarOpened.value = true
+    // }
 }
 </script>
 

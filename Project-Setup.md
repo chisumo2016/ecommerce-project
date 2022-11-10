@@ -184,6 +184,10 @@
         Duplicate the Dashboard.vue and create Products.vue
         Add the routes in router/index.js
         Add the links in sidebar
+
+       MAKE LAYOUT RESPONSIVE
+        Let uss make some few changes in topHeader.vue, Rename into NavBar
+        Work on responsive on siidebar.vuee using javasccript
         
 
 

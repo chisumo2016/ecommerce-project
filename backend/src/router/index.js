@@ -6,6 +6,7 @@ import Login from "../views/Login.vue";
 import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import Product from "../views/Product.vue";
+import NotFound from "../views/NotFound.vue";
 import store from "../store";
 
 /**Define an array of routes*/
@@ -58,6 +59,12 @@ const  routes = [
         },
         component: ResetPassword
     }
+    ,
+    {
+        path: '/:pathMatch(.*)',
+        name:'notFound',
+        component: NotFound
+    }
 ];
 
 
@@ -67,7 +74,7 @@ const  router = createRouter({
     routes
 });
 
-/** Authentication */
+/**HANDLE UNAUTHORIZED USERS TO REDIRECT TO LOGIN PAGE. */
 router.beforeEach((to, from, next ) =>{
     if (to.meta.requiresAuth && !store.state.user.token){
         /** Call next */

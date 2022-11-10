@@ -220,6 +220,26 @@
             requiresGuest:true
         }
 
+        router.beforeEach((to, from, next ) =>{
+            if (to.meta.requiresAuth && !store.state.user.token){
+                /** Call next */
+              next({name:'login'});
+            }else if (to.meta.requiresGuest &&  store.state.user.token){
+        
+                     /**Call next*/
+                next({ name: 'app.dashboard'});
+            }else{
+                next();
+            }
+        });
+
+        CREATE NOT FOUND PAGE
+        Access the path doesn't exist, or instead of empty page , show the not found page.
+        Add  new routes in the router
+        
+    
+
+
 
 
 

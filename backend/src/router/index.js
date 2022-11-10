@@ -6,6 +6,7 @@ import Login from "../views/Login.vue";
 import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import Product from "../views/Product.vue";
+import store from "../store";
 
 /**Define an array of routes*/
 const  routes = [
@@ -14,6 +15,9 @@ const  routes = [
         path: '/app',
         name: 'app',
         component: AppLayout,
+        meta:{
+            requiresAuth:true
+        },
         children:[
             {
                 path: 'dashboard',
@@ -31,18 +35,27 @@ const  routes = [
     {
         path: '/login',
         name:'login',
+        meta:{
+            requiresGuest:true
+        },
         component:Login
     }
     ,
     {
         path: '/password-request',
         name:'PasswordRequest',
+        meta:{
+            requiresGuest:true
+        },
         component: RequestPassword
     }
     ,
     {
         path: '/reset-password/:token',  ///reset-password/:token
         name:'ResetPassword',
+        meta:{
+            requiresGuest:true
+        },
         component: ResetPassword
     }
 ];
@@ -52,6 +65,20 @@ const  router = createRouter({
     /**Specify Object*/
     history: createWebHistory(), //domain.com/users not domain.com#/users
     routes
+});
+
+/** Authentication */
+router.beforeEach((to, from, next ) =>{
+    if (to.meta.requiresAuth && !store.state.user.token){
+        /** Call next */
+      next({name:'login'});
+    }else if (to.meta.requiresGuest &&  store.state.user.token){
+
+             /**Call next*/
+        next({ name: 'app.dashboard'});
+    }else{
+        next();
+    }
 });
 
 export  default  router;

@@ -4,7 +4,10 @@ const  store = createStore({
     /**Specify Object*/
 
     state:{
-        test: '1253'
+        user:{
+            token: 123,
+            data:{}
+        }
     },
     getters:{},
     actions:{},

@@ -188,6 +188,42 @@
        MAKE LAYOUT RESPONSIVE
         Let uss make some few changes in topHeader.vue, Rename into NavBar
         Work on responsive on siidebar.vuee using javasccript
+        Add some logic to handlre the resposiveeness in AppLayout.vue
+
+        HANDLE UNAOTHORIZED USERS TO REDIRECT TO LOGIN PAGE.
+        Open stote file and define the user state
+        In the router.js
+                router.beforeEach((to, next )=>{
+                
+                })
+            to: is the route w/c we want to navigate
+            form: is the route w/c we navigate
+            next: is the functiion w/c allow the navigation to another pagee
+        Callback will be used to every navigation
+        Add the meta:{} root path require authentication
+                meta:{
+                    requiresAuth:true
+                }
+
+
+            router.beforeEach((to, from, next )=>{
+            if (to.meta.requiresAuth && !store.state.user.token){
+            /**Call next*/
+            next({name:'login'})
+            }else {
+            next()
+            }
+            });
+
+        We can add meta  in login, request-password and reset-password
+            meta:{
+            requiresGuest:true
+        }
+
+
+
+
+
         
 
 

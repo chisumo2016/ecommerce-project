@@ -4,7 +4,7 @@ import './index.css'
 import store from "./store";
 import router from "./router";
 
-import './assets/main.css'
+//import './assets/main.css'
 
 
 createApp(App)

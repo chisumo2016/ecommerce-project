@@ -23,6 +23,53 @@
             - check for authenticated user
             - then will allow the usser to procedee
           Regisgter the middlware
+
+        INSTALL AND CONFIGURE AXIOS IN VUEJS
+        We have done the backend ,now it time toi focus with front end siide with vuejs
+        Open Login.VUE 
+        install the client axis to send api in vue project 
+            npm install -S axios  
+        Create a new file called axios.js
+                    backend/src/axios/axios.js
+                baseURL : `${import.meta.env.VITE_API_BASE_URL}/api`
+                VITE_API_BASE_URL - create this
+                interceptors is special function w/c executed before the request is made.
+                After the responsse is received
+        Create VITE_API_BASE_URL file .  Please 
+                https://vitejs.dev/guide/env-and-mode.html
+        Please create two files .env and .env.examle
+            VITE_API_BASE_URL = http://ecommerce-project.test
+        After that we can focuss on login.Vue file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
        
 
 

@@ -1,17 +1,18 @@
 import {createStore} from "vuex";
-
+import  * as actions  from './actions';
+import  * as mutations  from './mutations';
 const  store = createStore({
     /**Specify Object*/
 
     state:{
         user:{
-            token: 123,
+            token: sessionStorage.getItem('TOKEN'),
             data:{}
         }
     },
     getters:{},
-    actions:{},
-    mutations:{},
+    actions: actions,
+    mutations: mutations,
 });
 
 export  default  store;

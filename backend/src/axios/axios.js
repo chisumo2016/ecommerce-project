@@ -14,15 +14,15 @@ axiosClient.interceptors.request.use(config =>{
     return config;
 });
 
-axiosClient.interceptors.response.use(response =>{  // fullied or reject - promise
+axiosClient.interceptors.response.use(response => {  // fullied or reject - promise
     return response
 }, error => {
-    if (error.response.status === 401){
+    if (error.response.status == 401){
         /**remove the token from session*/
         sessionStorage.removeItem('TOKEN') //create thee  sessionStorage
         router.push({name : 'login'})
     }
-    throw  error;
+    console.error(error); //throw error
 })
 
 export  default  axiosClient;

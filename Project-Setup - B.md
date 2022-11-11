@@ -39,7 +39,22 @@
                 https://vitejs.dev/guide/env-and-mode.html
         Please create two files .env and .env.examle
             VITE_API_BASE_URL = http://ecommerce-project.test
-        After that we can focuss on login.Vue file
+        After that we can focus on login.Vue file
+             define property
+                    loading ,
+                    erroMsg
+             define the object user
+             Write the login  fuctionality .Then
+             Open Store , create different files foor actions ,getters, mutations
+             Open the actions and write the logic for login and logout
+             Afrer that go to mutations, implement two functions one for setUser annd setToken 
+            Go back in the index.js file of store 
+                import actions and mutation , oject
+                    actions:actions
+            Test the application  : OK
+
+            Open Navbar.vue components  , implemented the logout functionality
+            Test the application: OK
 
 
 

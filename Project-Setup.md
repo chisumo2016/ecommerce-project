@@ -50,7 +50,7 @@
                 CustomerAddress
          php artisan migrate
 
-
+        PART A BUILDING VUE.JS ADMIN PANEL
         TAILWINDCSS SETUP
         
         npm init -y
@@ -235,7 +235,11 @@
 
         CREATE NOT FOUND PAGE
         Access the path doesn't exist, or instead of empty page , show the not found page.
-        Add  new routes in the router
+        Add  new routes in the router file notFound
+        Create a NotFound.vue
+
+
+         PART B: CONNECT  VUE.JS ADMIN PANEL TO LARAVEL API 
         
     
 

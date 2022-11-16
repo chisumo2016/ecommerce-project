@@ -1,0 +1,25 @@
+### IMPLEMENT PRODUCT CRUD  IN LARAVEL API
+    We need to do couple of preparations.
+    Install spite laravel slaggable packages
+        composer require spatie/laravel-sluggable
+    Add into Product Model the trait
+    Generate Product Factory and Product Seeder
+         php artisan make:seeder ProductSeeder  
+         php artisan make:factory  ProductFactory   
+    Call the product Factory into Product Seeder
+    Open Database seed and call all  seeders
+    RUN:  
+        php artisan migrate:fresh --seed    
+
+    Implement the CRUD via controller for api
+        php artisan make:controller  ProductController --api --requests --model=Product   
+    Generate the resources
+         php artisan make:resource ProductResource 
+         php artisan make:resource ProductListResource 
+    What iss the purpose of resource ? 
+        Is the layer btn the controoller and actual response which returns to the browser
+    Implement the logic fisrt in ProductResource and ProductListResource 
+    Implement the Login in ProductController
+        - query on index
+        -  write all the logic 
+    Add the route in api controller

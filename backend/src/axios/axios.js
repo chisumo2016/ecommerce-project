@@ -22,7 +22,8 @@ axiosClient.interceptors.response.use(response => {  // fullied or reject - prom
         sessionStorage.removeItem('TOKEN') //create thee  sessionStorage
         router.push({name : 'login'})
     }
-    console.error(error); //throw error
+    throw error
+   // console.error(error); //throw error
 })
 
 export  default  axiosClient;

@@ -9,7 +9,7 @@
                         <img
                             class="rounded-full w-8 mr-2"
                             src="https://randomuser.me/api/portraits/women/29.jpg" alt="">
-                          <small>Bernard Chisumo</small>
+                          <small>{{ currentUser.name}}</small>
                         <ChevronDownIcon
                             class="h-5 w-5 text-indigo-200 hover:text-indigo-100"
                             aria-hidden="true"
@@ -71,11 +71,19 @@
 import { Bars4Icon ,UserIcon, ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
-import router from "../router";
+// import router from "../router";
 import store from "../store";
+import {useRouter} from "vue-router";
+import {computed} from "vue";
+
+
+const router = useRouter();
 
 /**Emit Event*/
 const emit = defineEmits(['toggle-sidebar'])
+
+const  currentUser = computed(() => store.state.user.data);
+
 
 /**Logout functionality*/
 const logout = () => {

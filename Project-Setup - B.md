@@ -58,7 +58,40 @@
 
 
         SHOW VALIDATION ERROR MESSAGE IN LOGIN FORM
-            
+            https://tailwindcss.com/docs/animation#spin
+         In Login.vue file we need to disabled the loading and conditional class
+            :disabled="loading"
+            :class="{}"
+        Cpoy the spinner from tailwindcss and paste before svg
+        Remove import router from "../router"  use  import {useRouter} from "vue-router"; in Login.vue and NavBAR.vue
+        We have the session but we need to dispaly the user information.
+            AppLayout.vue
+            Whenever the layout is onMounted
+            store.dispatch('getUser')
+            Add the getUser  in actions.js
+
+       Display the error messsage when the password is incorrect in Login.vue file
+                <div v-if="errorMsg" class="flex items-center justify-center py-3 px-5 bg-red-500 text-white rounded">
+                    {{ errorMsg }}
+                </div>
+       
+       
+
+        ADD SPLASH SCREEN LOADER AND OUTPUT USER IN NAVBAR
+        Display the name onn profile
+        Have some details about the user.
+        Create some user resource .
+                php artisan make:resource UserResource
+        Pass the UserResource() in AuthController
+        Up[date the api route
+        We need to access the user in the navbar, we should have computed property.
+        Add this into UserResourcce  public  static  $wrap = false;
+        Update the action.js
+        Add the  loader in AppLayout.vue components
+        
+        
+
+        
 
 
 

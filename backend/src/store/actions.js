@@ -24,3 +24,12 @@ export  function logout({commit}) { //data - user data
             return response;
         });
 }
+export  function getUser({ commit}, data)
+{
+    return axiosClient.get('/user', data)
+        .then(({data}) =>{ //object user
+            //debugger;
+            commit('setUser', data)
+            return data;
+        })
+}

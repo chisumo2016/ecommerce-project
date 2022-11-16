@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,8 @@ class AuthController extends Controller
        $token = $user->createToken('main')->plainTextToken;
 
        return response([
-           'user' => $user,
+           //'user' => $user,
+           'user' => new UserResource($user),
            'token' => $token
        ]);
 
@@ -53,5 +55,11 @@ class AuthController extends Controller
         $user->currentAccessToken()->delete();
 
         return response('', 204);
+    }
+
+    public  function  getUser(Request $request)
+    {
+        return new UserResource($request->user());
+        //return $request->user();
     }
 }

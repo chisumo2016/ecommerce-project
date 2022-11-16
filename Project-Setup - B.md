@@ -48,7 +48,7 @@
              Open Store , create different files foor actions ,getters, mutations
              Open the actions and write the logic for login and logout
              Afrer that go to mutations, implement two functions one for setUser annd setToken 
-            Go back in the index.js file of store 
+            Go back in the index.js file of state 
                 import actions and mutation , oject
                     actions:actions
             Test the application  : OK
@@ -67,7 +67,7 @@
         We have the session but we need to dispaly the user information.
             AppLayout.vue
             Whenever the layout is onMounted
-            store.dispatch('getUser')
+            state.dispatch('getUser')
             Add the getUser  in actions.js
 
        Display the error messsage when the password is incorrect in Login.vue file

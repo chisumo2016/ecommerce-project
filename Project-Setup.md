@@ -78,14 +78,14 @@
             npm install -S vuex@next
             For exact version oof vuex use vue@4
             Create Stoore and use to our application
-                backend/src/store/index.js
+                backend/src/state/index.js
             Register Store into main.js by importing
-                    import store from "./store";
+                    import state from "./state";
                     .use(router)
-            Test the store   backend/src/store/index.js
+            Test the state   backend/src/state/index.js
                     import {createStore} from "vuex";
 
-                const  store = createStore({
+                const  state = createStore({
                 /**Specify Object*/
                 
                     state:{
@@ -96,13 +96,13 @@
                     mutations:{},
                 });
                 
-                export  default  store;
+                export  default  state;
 
             UI 
             import {computed} from "vue";
-            import store from "../store";
+            import state from "../state";
             
-            const  test = computed( () => store.state.test)
+            const  test = computed( () => state.state.test)
 
        INSTALL VUE-ROUTER AND CREATE ROUTES
         installation of vue-router
@@ -207,7 +207,7 @@
 
 
             router.beforeEach((to, from, next )=>{
-            if (to.meta.requiresAuth && !store.state.user.token){
+            if (to.meta.requiresAuth && !state.state.user.token){
             /**Call next*/
             next({name:'login'})
             }else {
@@ -221,10 +221,10 @@
         }
 
         router.beforeEach((to, from, next ) =>{
-            if (to.meta.requiresAuth && !store.state.user.token){
+            if (to.meta.requiresAuth && !state.state.user.token){
                 /** Call next */
               next({name:'login'});
-            }else if (to.meta.requiresGuest &&  store.state.user.token){
+            }else if (to.meta.requiresGuest &&  state.state.user.token){
         
                      /**Call next*/
                 next({ name: 'app.dashboard'});

@@ -22,4 +22,25 @@
     Implement the Login in ProductController
         - query on index
         -  write all the logic 
-    Add the route in api controller
+    Add the product api route in api file
+
+
+#### CREATE VUEJS SPINNER COMPONENTS,
+    make some tweets in backend folder, inn AppLayout.vue, 
+    To make the components for spinner .
+            backend/src/components/core/Spinner.vue
+    Add the component in the AppLayout.vue file
+    In the state folder we nneed to create state file w/c declare const
+
+
+
+
+
+
+
+
+
+
+
+
+

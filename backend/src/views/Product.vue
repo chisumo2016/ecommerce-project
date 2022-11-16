@@ -1,11 +1,65 @@
 <template>
-    <h1>Product</h1>
+        <!-- Header   -->
+    <div class="flex items-center justify-between mb-3">
+        <h1 class="text-3xl font-semibold">Products</h1>
+        <button type="submit"
+                class="y-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600
+                 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Add New Product
+        </button>
+    </div>
+    <!-- Card   -->
+    <div class="bg-white p-4 rounded-lg shadow">
+        <div class="flex justify-between border-b-2 pb-3">
+            <div class="flex items-center">
+                <span class="whitespace-nowrap mr-3">Per Page</span>
+            </div>
+            <select @change="getProducts(null)" v-model="perPage" class="y-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <option value="6">6</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+        <div class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+             v-model="search"
+             @change="getProducts(null)"
+             placeholder="Type to Search products">
+        </div>
+    </div>
+    <spinner v-if="products.loading"></spinner>
+    <template v-else>
+        <table class="table-auto w-full">
+            <thead>
+            <tr>
+                <th class="border-b-2 p-2 text-left">ID</th>
+                <th class="border-b-2 p-2 text-left">Image</th>
+                <th class="border-b-2 p-2 text-left">Title</th>
+                <th class="border-b-2 p-2 text-left">Price</th>
+                <th class="border-b-2 p-2 text-left">Last Updated At</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr v-for="product of products.data">
+                    <td class="border-b p-2">{{ product.id }}</td>
+                    <td class="border-b p-2">
+                        <img :src="product.image" :alt="product.title">
+                    </td>
+                    <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden  text-ellipsis">
+                        {{ product.title }}
+                    </td>
+                    <td class="border-b p-2">{{ product.price }}</td>
+                    <td class="border-b p-2">{{ product.updated_at }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
 </template>
 
-<script>
-export default {
-    name: "Dashboard"
-}
+<script setup>
+
+import Spinner from "../components/core/Spinner";
 </script>
 
 <style scoped>

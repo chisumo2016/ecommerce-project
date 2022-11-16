@@ -30,7 +30,13 @@
     To make the components for spinner .
             backend/src/components/core/Spinner.vue
     Add the component in the AppLayout.vue file
-    In the state folder we nneed to create state file w/c declare const
+    Create a file called state.js wiithin store and call it iin index.js
+
+
+### CREATE PRODUCTS TABLE IN VUEJS
+    Open the product file views   backend/src/views/Product.vue
+    Go state.js in store folder define the prodducts object
+    Then go to products.vue
 
 
 

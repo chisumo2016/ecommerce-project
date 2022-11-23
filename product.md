@@ -36,7 +36,28 @@
 ### CREATE PRODUCTS TABLE IN VUEJS
     Open the product file views   backend/src/views/Product.vue
     Go state.js in store folder define the prodducts object
-    Then go to products.vue
+    Then go to products.vue conti... next
+
+### CONNECT PRODUCTS TABLE VUE.JS COMPONENT TO API
+    Definne the properties and method  in the prooduct.vue
+        const perPage = ref(10);
+        const  search   = ref('');
+        const  products = computed(() => store.state.products);
+    Add the onMounted(() =>{})
+    Define the function/method getProducts , will call store actions 
+        store.dispatch('getProducts')   is the actions
+    onMounted will call getProducts
+   
+    whenever this getProducts get eexecuuted will call the products in state.js
+    Products has been uused in the template.
+        const  products = computed(() => store.state.products);
+     Define the  function getProducts in actions.js
+    Define the mutations  state in mutations.js setProducts()
+    Create a constants.js file , import into Product.vue file
+        export  const  PRODUCTS_PER_PAGE = 10 ;
+        const    perPage   = ref(10);
+
+
 
 
 

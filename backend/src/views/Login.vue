@@ -83,7 +83,7 @@
 import { LockClosedIcon } from '@heroicons/vue/20/solid'
 import GuestLayout from "../components/GuestLayout.vue";
 import {ref} from "vue";
-import state from "../store";
+import store from "../store";
 import {useRouter} from "vue-router";
 // import router from "../router";
 

@@ -24,4 +24,9 @@ class Product extends Model
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
+//    public function getUpdatedAtAttribute(): string
+//    {
+//        return date('d M, Y H:i:s', strtotime($this->attributes['updated_at']));
+//    }
 }

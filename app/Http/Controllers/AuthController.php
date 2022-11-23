@@ -36,6 +36,7 @@ class AuthController extends Controller
                'message' => 'You don\'t have permission to authenticated as asmin'
            ], 403);
        }
+
        /**Create a token*/
        $token = $user->createToken('main')->plainTextToken;
 

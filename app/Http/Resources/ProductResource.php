@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
 {
+    public static $wrap = false;
+
     /**
      * Transform the resource into an array.
      *
@@ -22,8 +24,8 @@ class ProductResource extends JsonResource
             'description'   => $this->description ,
             'image'         => $this->image ,
             'price'         => $this-> price,
-            'created_at'    => (new \DateTime($this->created_at))->format('Y-m-d H:i:s') ,
-            'updated_at'    => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s') ,
+            'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
+            'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
         ];
     }
 }

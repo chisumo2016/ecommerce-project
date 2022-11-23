@@ -6,8 +6,8 @@ export  function login({commit}, data) { //data - user data
     return axiosClient.post('/login',data)
         .then(({data} ) => {
             /**Commit the user data save in state state, done using mutation*/
-            commit('setUser',data.user); //current setUser
-            commit('setToken',data.token);
+            commit('setUser',  data.user); //current setUser
+            commit('setToken', data.token);
 
             return data;
 
@@ -32,4 +32,20 @@ export  function getUser({ commit}, data)
             commit('setUser', data)
             return data;
         })
+}
+
+export  function  getProducts({commit})
+{
+    /**Commit Mutations*/
+    commit('setProducts',[true])
+    return  axiosClient.get('product')
+        .then(response => {
+            //debugger;
+   /**Commit Mutations*/
+        commit('setProducts',[false, response.data])
+   })
+    .catch(() =>{
+        /**Commit Mutations*/
+        commit('setProducts',[false])
+    })
 }

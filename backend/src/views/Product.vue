@@ -46,7 +46,10 @@
                 <tr v-for="product of products.data">
                     <td class="border-b p-2">{{ product.id }}</td>
                     <td class="border-b p-2">
-                        <img :src="product.image" :alt="product.title">
+                        <img
+                            class="w-16 h-16"
+                            :src="product.image"
+                            :alt="product.title">
                     </td>
                     <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden  text-ellipsis">
                         {{ product.title }}

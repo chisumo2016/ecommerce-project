@@ -12,8 +12,23 @@ export  function setToken(state, token) {
     }
 }
 
-export  function  setProducts(state , [loading , response ={}])  //data or response
+export  function  setProducts(state , [loading , response = null])  //data or response  response ={}
 {
+    //debugger;
+    /**Response eexist */
+    if (response){
+
+        state.products = {
+            /**Define the property */
+            data    :   response.meta.data ,
+            links   :   response.meta.links ,
+            total   :   response.meta.total ,
+            limit   :   response.meta.per_page ,
+            from    :   response.meta.from ,
+            to      :   response.meta.to ,
+            page    :   response .meta.current_page ,
+        }
+    }
     state.products.loading = loading;
-    state.products.data    = response.data
+
 }

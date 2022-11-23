@@ -57,6 +57,55 @@
         export  const  PRODUCTS_PER_PAGE = 10 ;
         const    perPage   = ref(10);
 
+###  IMPLEMENT PAGINATION
+    Add the div below  the end of table tag
+    Will be display when the total is greater than product limit
+    Showing from {{ products.from }} to {{ products.to }} ,products coming from state.js
+    We dont have from , to a, total and limit from product , in the backend we can see
+        meta:{
+            current_page: 1
+            from: 1
+            last_page
+        links:[{url: null}]
+        path: "http:........"
+        per_page:10
+        to: 10
+        total:30
+    After nav has been completed , 
+    Open the state.js
+    Open the mutation.js and defines  in setProducts()
+
+            export  function  setProducts(state , [loading , response = {})  //data or response  response ={}
+                    {
+                    
+                        state.products.loading = loading;
+                        state.products.data    = response.data
+
+                    }
+
+           After
+
+            export  function  setProducts(state , [loading , response = null])  //data or response  response ={}
+                {
+                //debugger;
+                /**Response eexist */
+                if (response){
+                
+                        state.products = {
+                            /**Define the property */
+                            data    :   response.meta.data ,
+                            links   :   response.meta.links ,
+                        }
+                    }
+                    state.products.loading = loading;
+                
+                }
+    Create the getForPage() function , will fetch the data for current page.
+    GetProduct wiill accept url
+    In actions.js we should accept the payload
+        before   return  axiosClient.get('product')
+        after   return  axiosClient.get('product')
+
 
 
 

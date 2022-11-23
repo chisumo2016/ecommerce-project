@@ -34,11 +34,14 @@ export  function getUser({ commit}, data)
         })
 }
 
-export  function  getProducts({commit})
+export  function  getProducts({commit} , { url = null })
 {
     /**Commit Mutations*/
     commit('setProducts',[true])
-    return  axiosClient.get('product')
+
+    url = url || '/product';
+
+    return  axiosClient.get(url)
         .then(response => {
             //debugger;
    /**Commit Mutations*/

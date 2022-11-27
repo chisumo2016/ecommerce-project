@@ -20,13 +20,13 @@ export  function  setProducts(state , [loading , response = null])  //data or re
 
         state.products = {
             /**Define the property */
-            data    :   response.meta.data ,
+            data    :   response.data ,
             links   :   response.meta.links ,
             total   :   response.meta.total ,
             limit   :   response.meta.per_page ,
             from    :   response.meta.from ,
             to      :   response.meta.to ,
-            page    :   response .meta.current_page ,
+            page    :   response.meta.current_page ,
         }
     }
     state.products.loading = loading;

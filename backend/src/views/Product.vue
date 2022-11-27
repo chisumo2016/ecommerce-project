@@ -1,5 +1,5 @@
 <template>
-    <pre>{{ products.data }}</pre>
+
         <!-- Header   -->
     <div class="flex items-center justify-between mb-3">
         <h1 class="text-3xl font-semibold">Products</h1>
@@ -79,13 +79,15 @@
                     :class="[
                         link.active
                         ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
-                        : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50',
+                       : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50',
                         i === 0 ? 'rounded-l-md' : '',
-                        i === products.links.length - 1 ? 'rounded-r-md' : '' ,
-                        !link.url ? 'bg-gray-100 text-gray-700' : ''
+                        i === products.links.length - 1 ? 'rounded-r-md' : '',
+                       !link.url ? ' bg-gray-100 text-gray-700': ''
                     ]"
                     v-html="link.label"
-                    href="#"></a>
+                    href="#">
+
+                </a>
             </nav>
         </div>
     </div>
@@ -108,7 +110,12 @@ onMounted(() =>{
 })
 
 function getProducts(url = null) {
-    store.dispatch("getProducts", { url }) //getProducts executed and get the products
+    store.dispatch('getProducts', { //getProducts executed and get the products
+        url ,
+        search  : search.value,
+        perPage : perPage.value
+
+    })
 }
 
 const  getForPage = (event , link ) => {

@@ -104,7 +104,18 @@
     GetProduct wiill accept url
     In actions.js we should accept the payload
         before   return  axiosClient.get('product')
-        after   return  axiosClient.get('product')
+        after   return  axiosClient.get(url)
+
+### IMPLEMENT PER PAGE AND SEARCH IN PRODUCTS
+    we have already have perPage and search in Products.vue file
+    Passs the search and perPage into getProduct() inn product.vue
+    We need to take that and pass into actions.js  in getProducts() method.
+    Pass into the request  
+              return  axiosClient.get(url, {
+                    /**Object*/
+                    params: { search , perPage: perPage}
+                 }
+    Open the backend on of the laravel of ProduuctController in index() method.
 
 
 

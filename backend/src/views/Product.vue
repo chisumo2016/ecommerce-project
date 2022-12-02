@@ -30,19 +30,29 @@
                        placeholder="Type to Search products">
             </div>
         </div>
-        <spinner v-if="products.loading"></spinner>
-        <template v-else>
+
+<!--        <spinner v-if="products.loading" class="my-4"></spinner>-->
+
             <table class="table-auto w-full">
                 <thead>
                 <tr>
-                    <th class="border-b-2 p-2 text-left">ID</th>
-                    <th class="border-b-2 p-2 text-left">Image</th>
-                    <th class="border-b-2 p-2 text-left">Title</th>
-                    <th class="border-b-2 p-2 text-left">Price</th>
-                    <th class="border-b-2 p-2 text-left">Last Updated At</th>
+                    <TableHeaderCell @click="sortProduct"  class="border-b-2 p-2 text-left" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
+                    <TableHeaderCell   class="border-b-2 p-2 text-left" field="" :sort-field="sortField" :sort-direction="sortDirection">Image</TableHeaderCell>
+                    <TableHeaderCell @click="sortProduct"  class="border-b-2 p-2 text-left" field="title" :sort-field="sortField" :sort-direction="sortDirection">Title</TableHeaderCell>
+                    <TableHeaderCell @click="sortProduct"  class="border-b-2 p-2 text-left" field="price" :sort-field="sortField" :sort-direction="sortDirection">Price</TableHeaderCell>
+                    <TableHeaderCell @click="sortProduct"  class="border-b-2 p-2 text-left" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
+
                 </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="products.loading">
+                    <tr>
+                        <td colspan="5">
+                            <spinner v-if="products.loading" class="my-4"></spinner>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tbody v-else>
                 <tr v-for="product of products.data">
                     <td class="border-b p-2">{{ product.id }}</td>
                     <td class="border-b p-2">
@@ -59,9 +69,11 @@
                 </tr>
                 </tbody>
             </table>
-        </template>
+
     <!--  Pagination  -->
-        <div class="flex justify-between items-center mt-5">
+        <div
+            v-if="!products.loading"
+            class="flex justify-between items-center mt-5">
             <span>
                  Showing from {{ products.from }} to {{ products.to }}
             </span>
@@ -98,11 +110,16 @@ import Spinner from "../components/core/Spinner.vue";
 import {computed, onMounted, ref} from "vue";
 import store from "../store";
 import {PRODUCTS_PER_PAGE} from "../constants.js";
+import TableHeaderCell from "../components/core/Table/TableHeaderCell.vue";
 
 /**Define properties*/
 const    perPage   = ref(PRODUCTS_PER_PAGE );
 const    search    = ref('');
 const    products  = computed(() => store.state.products);
+const    sortField = ref('updated_at');
+const    sortDirection = ref('desc');
+
+
 
 /**Methods*/
 onMounted(() =>{
@@ -112,8 +129,10 @@ onMounted(() =>{
 function getProducts(url = null) {
     store.dispatch('getProducts', { //getProducts executed and get the products
         url ,
-        search  : search.value,
-        perPage : perPage.value
+        search          : search.value,
+        perPage         : perPage.value,
+        sort_field      : sortField.value,
+        sort_direction  : sortDirection.value
 
     })
 }
@@ -123,6 +142,20 @@ const  getForPage = (event , link ) => {
         return
     }
     getProducts(link.url)
+}
+
+const sortProduct = (field) => {
+    if (sortField.value === field){
+        if (sortDirection.value === 'asc') {
+            sortDirection.value = 'desc'
+        }else {
+            sortDirection.value = 'asc'
+        }
+    }else {
+        sortField.value = field;
+        sortDirection.value = 'asc'
+    }
+    getProducts();
 }
 </script>
 

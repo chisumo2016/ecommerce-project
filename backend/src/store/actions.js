@@ -34,7 +34,7 @@ export  function getUser({ commit}, data)
         })
 }
 
-export  function  getProducts({commit} , { url = null, search = '', perPage = 10 })
+export  function  getProducts({commit} , { url = null, search = '', perPage = 10 , sort_field, sort_direction})
 {
     /**Commit Mutations*/
     commit('setProducts',[true])
@@ -43,7 +43,12 @@ export  function  getProducts({commit} , { url = null, search = '', perPage = 10
 
     return  axiosClient.get(url, {
         /**Object*/
-        params: { search , per_page: perPage}
+        params: {
+            search ,
+            per_page: perPage,
+            sort_field,
+            sort_direction
+        }
      })
         .then(response => {
             //debugger;

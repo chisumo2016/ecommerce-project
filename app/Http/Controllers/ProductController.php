@@ -17,9 +17,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $search  = request('search', false);
-        $perPage = request('per_page', 10);
-        $query   = Product::query();
+        $search         = request('search', false);
+        $perPage        = request('per_page', 10);
+        $sortField      = request('sort_field', 'updated_at');
+        $sortDirection  = request('sort_direction', 'desc');
+
+        $query = Product::query();
+        $query->orderBy($sortField, $sortDirection);
 
         /**Search is available */
         if ($search){

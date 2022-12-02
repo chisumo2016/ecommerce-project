@@ -116,6 +116,47 @@
                     params: { search , perPage: perPage}
                  }
     Open the backend on of the laravel of ProduuctController in index() method.
+        $search  = request('search', false);
+        $perPage = request('per_page', 10);
+        $query   = Product::query();
+
+        /**Search is available */
+        if ($search){
+            $query->where(  'title',        'like', "%{$search}%")
+                  ->orWhere('description',  'like',"%{$search}%");
+        }
+
+### PRODUCTS SORTING 
+    Open the backend of ProductController
+         $sortField     = request('sort_field', 'updated_at');
+         $sortDirection = request('sort_direction', 'desc');
+
+        $query = Product::query();
+        $query->orderBy($sortField, $sortDir
+    One the backend is ready , we should go to frontend productss.vue
+        add the event listener on the every  <th>show arrow up and down ->svg icon
+        Create codee reusablity folder called tablee
+    Define all three fileds
+    Define clieck emit
+    If you go in the product we need to change few things
+                <th class="border-b-2 p-2 text-left">ID</th> 
+                TO
+                <TableHeaderCell class="border-b-2 p-2 text-left">ID</TableHeaderCell>
+        define the current field  on th
+            <TableHeaderCell class="border-b-2 p-2 text-left" field="id">ID</TableHeaderCell>
+        define the field in script 
+                const    sortField = ref('updated_at');
+                const    sortDirection = ref('desc');
+        We need to pass to TableHeaderCell
+            :sort-field="sortField" :sort-direction="sortDirection"
+        Add the click listener 
+            @click="sortProduct"
+        Write a logic iinto into the sortProducts method
+        Pass into getProducts 
+        After that add into actions.js
+            sort_field,
+            sort_direction
+        add margin on the sspinner
 
 
 

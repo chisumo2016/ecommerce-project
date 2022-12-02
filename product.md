@@ -156,7 +156,33 @@
         After that add into actions.js
             sort_field,
             sort_direction
-        add margin on the sspinner
+        add margin on the sspinner 
+        You can put iin the middle of the  teble and remove template.
+
+
+### REFACTOR PRODUCT COMPONENT
+    Make few mofications in products.vue file,
+    Create a new folder called Products and move product.vue file
+        Product.vue
+        ProductsTable.vue
+        ProductModal.vue
+    Move the table into thee ProductsTable.vue with white background
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

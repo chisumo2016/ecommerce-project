@@ -1,14 +1,4 @@
 <template>
-
-        <!-- Header   -->
-    <div class="flex items-center justify-between mb-3">
-        <h1 class="text-3xl font-semibold">Products</h1>
-        <button type="submit"
-                class=" flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600
-                 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Add New Product
-        </button>
-    </div>
     <!-- Card   -->
     <div class="bg-white p-4 rounded-lg shadow">
         <div class="flex justify-between border-b-2 pb-3">
@@ -106,11 +96,11 @@
 </template>
 
 <script setup>
-import Spinner from "../components/core/Spinner.vue";
+import Spinner from "../../components/core/Spinner.vue";
 import {computed, onMounted, ref} from "vue";
-import store from "../store";
-import {PRODUCTS_PER_PAGE} from "../constants.js";
-import TableHeaderCell from "../components/core/Table/TableHeaderCell.vue";
+import store from "../../store";
+import {PRODUCTS_PER_PAGE} from "../../constants.js";
+import TableHeaderCell from "../../components/core/Table/TableHeaderCell.vue";
 
 /**Define properties*/
 const    perPage   = ref(PRODUCTS_PER_PAGE );

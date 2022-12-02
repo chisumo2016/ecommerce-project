@@ -1,102 +1,93 @@
 <template>
-    <div class="bg-white p-4 rounded-lg shadow">
-        <div class="flex justify-between border-b-2 pb-3">
-            <div class="flex items-center">
-                <span class="whitespace-nowrap mr-3">Per Page</span>
-                <select @change="getProducts(null)" v-model="perPage"
-                        class="appearance-none relative block w-24 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
+    <TransitionRoot appear :show="show" as="template">
+        <Dialog as="div" @close="closeModal" class="relative z-10">
+            <TransitionChild
+                as="template"
+                enter="duration-300 ease-out"
+                enter-from="opacity-0"
+                enter-to="opacity-100"
+                leave="duration-200 ease-in"
+                leave-from="opacity-100"
+                leave-to="opacity-0"
+            >
+                <div class="fixed inset-0 bg-black bg-opacity-25" />
+            </TransitionChild>
+
+            <div class="fixed inset-0 overflow-y-auto">
+                <div
+                    class="flex min-h-full items-center justify-center p-4 text-center"
+                >
+                    <TransitionChild
+                        as="template"
+                        enter="duration-300 ease-out"
+                        enter-from="opacity-0 scale-95"
+                        enter-to="opacity-100 scale-100"
+                        leave="duration-200 ease-in"
+                        leave-from="opacity-100 scale-100"
+                        leave-to="opacity-0 scale-95"
+                    >
+                        <DialogPanel
+                            class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                        >
+                            <DialogTitle
+                                as="h3"
+                                class="text-lg font-medium leading-6 text-gray-900"
+                            >
+                                Payment successful
+                            </DialogTitle>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">
+                                    Your payment has been successfully submitted. We’ve sent you
+                                    an email with all of the details of your order.
+                                </p>
+                            </div>
+
+                            <div class="mt-4">
+                                <button
+                                    type="button"
+                                    class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                    @click="closeModal"
+                                >
+                                    Got it, thanks!
+                                </button>
+                            </div>
+                        </DialogPanel>
+                    </TransitionChild>
+                </div>
             </div>
-            <div>
-                <input v-model="search"
-                       @change="getProducts(null)"
-                       class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                       placeholder="Type to Search products">
-            </div>
-        </div>
-
-        <!--        <spinner v-if="products.loading" class="my-4"></spinner>-->
-
-        <table class="table-auto w-full">
-            <thead>
-            <tr>
-                <TableHeaderCell @click="sortProduct"  class="border-b-2 p-2 text-left" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
-                <TableHeaderCell   class="border-b-2 p-2 text-left" field="" :sort-field="sortField" :sort-direction="sortDirection">Image</TableHeaderCell>
-                <TableHeaderCell @click="sortProduct"  class="border-b-2 p-2 text-left" field="title" :sort-field="sortField" :sort-direction="sortDirection">Title</TableHeaderCell>
-                <TableHeaderCell @click="sortProduct"  class="border-b-2 p-2 text-left" field="price" :sort-field="sortField" :sort-direction="sortDirection">Price</TableHeaderCell>
-                <TableHeaderCell @click="sortProduct"  class="border-b-2 p-2 text-left" field="updated_at" :sort-field="sortField" :sort-direction="sortDirection">Last Updated At</TableHeaderCell>
-
-            </tr>
-            </thead>
-            <tbody v-if="products.loading">
-            <tr>
-                <td colspan="5">
-                    <spinner v-if="products.loading" class="my-4"></spinner>
-                </td>
-            </tr>
-            </tbody>
-
-            <tbody v-else>
-            <tr v-for="product of products.data">
-                <td class="border-b p-2">{{ product.id }}</td>
-                <td class="border-b p-2">
-                    <img
-                        class="w-16 h-16"
-                        :src="product.image"
-                        :alt="product.title">
-                </td>
-                <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden  text-ellipsis">
-                    {{ product.title }}
-                </td>
-                <td class="border-b p-2">{{ product.price }}</td>
-                <td class="border-b p-2">{{ product.updated_at }}</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <!--  Pagination  -->
-        <div
-            v-if="!products.loading"
-            class="flex justify-between items-center mt-5">
-            <span>
-                 Showing from {{ products.from }} to {{ products.to }}
-            </span>
-            <nav v-if="products.total > products.limit"
-                 class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                <!-- from backend -->
-                <a
-
-                    v-for="(link, i) of products.links"
-                    :key="i"
-                    :disabled="!link.url"
-                    @click.prevent="getForPage($event, link)"
-                    aria-current="page"
-                    class="relative inline-flex items-center px-4 py-2 border text-sm font-medium whitespace-nowrap"
-                    :class="[
-                        link.active
-                        ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
-                       : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50',
-                        i === 0 ? 'rounded-l-md' : '',
-                        i === products.links.length - 1 ? 'rounded-r-md' : '',
-                       !link.url ? ' bg-gray-100 text-gray-700': ''
-                    ]"
-                    v-html="link.label"
-                    href="#">
-
-                </a>
-            </nav>
-        </div>
-    </div>
+        </Dialog>
+    </TransitionRoot>
 </template>
 
 <script setup>
+import {computed, ref} from 'vue'
+import {
+    TransitionRoot,
+    TransitionChild,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+} from '@headlessui/vue'
+
+// const isOpen = ref(false)
+
+const props = defineProps({
+   modelValue: Boolean
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const  show = computed({
+    get: () => props.modelValue,
+    set: (value) => emit('update:modelValue', value)
+})
+
+function closeModal() {
+    show.value = false
+}
 
 </script>
+
 
 <style scoped>
 

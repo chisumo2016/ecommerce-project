@@ -168,6 +168,15 @@
         ProductModal.vue
     Move the table into thee ProductsTable.vue with white background
 
+### CREATE EMPTY PRODUCT MODAL
+    https://headlessui.com/vue/dialog
+    Copy and past inn ProductModal.vue
+    Add  the ProductMModal in product.vue
+    Once you click the add new product , the modal will open   
+    Add the event click event on product.Vue showProductModal
+    Add logic in the scripts
+    Defiine the props iin ProductModal
+
 
 
 

@@ -11,7 +11,7 @@
     </button>
 </div>
     <pre>{{showModal}}</pre>
-    <ProductModal v-model="showModal"></ProductModal>
+    <ProductModal v-model="showModal" :product="productModel"></ProductModal>
     <!-- Card   -->
     <ProductsTable/>
 </template>
@@ -23,6 +23,14 @@ import {ref} from "vue";
 
 /**Define the property*/
 const  showModal = ref(false);
+
+const  productModel = ref({
+    id: '' ,
+    title: '' ,
+    image: '' ,
+    description: '' ,
+    price: '' ,
+})
 
 /**Define the methods*/
 const showProductModal = () => {

@@ -175,7 +175,31 @@
     Once you click the add new product , the modal will open   
     Add the event click event on product.Vue showProductModal
     Add logic in the scripts
-    Defiine the props iin ProductModal
+    Define the props iin ProductModal
+       THIS IS  TWO WAY BINDINNG , child (ProductModal) and parent(product)
+
+### IMPLEMENT PRODUCT CREATION MODAL COMPONENT
+    We want the ProductModal to be for product creation and product update
+    We need to define the props , current product if we want to update or create
+             product:{
+                required: true,
+                type:Object
+            }
+    Loading value 
+        const loading = ref(false)
+        Write all logic into the ProductModal
+    Create a customs 
+    
+
+
+
+
+
+
+
+
+
+
 
 
 

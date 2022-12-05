@@ -85,6 +85,11 @@ const inputClasses = computed(() =>{
 })
 
 const emit = defineEmits(['update:modelValue', 'change'])
+
+function onChange(value) {
+    emit('update:modelValue', value)
+    emit('change', value)
+}
 </script>
 
 <style scoped>

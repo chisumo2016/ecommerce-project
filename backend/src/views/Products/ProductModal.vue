@@ -61,10 +61,25 @@
                         </header>
                         <form @submit.prevent="onSubmit">
                             <div class="bg-white px-4 pt-5 pb-4">
-                                <CustomInput class="mb-2"  v-model="product.title"  label="Product Title"/>
-                                <CustomInput type="file"  @change="file => product.image = file" class="mb-2"  v-model="product.title" label="Product Image"/>
-                                <CustomInput type="textarea"  v-model="product.description" class="mb-2"  label="Product Description"/>
-                                <CustomInput type="number"  v-model="product.price" class="mb-2"  label="Product Price" prepend="$"/>
+                                <CustomInput
+                                    class="mb-2"
+                                    v-model="product.title"
+                                    label="Product Title"/>
+                                <CustomInput
+                                    type="file"
+                                    @change="file => product.image = file"
+                                    class="mb-2"
+                                    label="Product Image"/>
+                                <CustomInput
+                                    type="textarea"
+                                    v-model="product.description"
+                                    class="mb-2"
+                                    label="Product Description"/>
+                                <CustomInput
+                                    type="number"
+                                    v-model="product.price"
+                                    class="mb-2"
+                                    label="Product Price" prepend="$"/>
 
                             </div>
                             <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -107,6 +122,7 @@ import store from "../../store/index.js";
 
 /** Define local property */
 const loading = ref(false)
+
 const product = ref({
     id    : props. product.id,
     title : props. product.title,

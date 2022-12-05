@@ -188,10 +188,23 @@
     Loading value 
         const loading = ref(false)
         Write all logic into the ProductModal
-    Create a customs 
+    Create a customInput UI and LOGIC
     
+###  CONNECT PRODUCT CREATE MODAL TO LARAVEL API
+    - Go to action.js, create a funnction to createProduct() implemeent the logic
+            createProduct({ commit} , product) will destruct the commmit and call the mutations
+            updateProduct({ commit} , product) will destruct the commmit and call the mutations
+    - Open the ProductController  
+             return  new ProductResource(Product::create($request->validated())); 
+            TO
+              check the logic how to updload the file
+    - Liink the strorage->app->images->public need to be link to the public folder
+        SOLN: SYMBOLIK LINK
+            php artisan storage:link
+            The [public/storage] link has been connected to [storage/app/public]. 
+        
 
-
+    
 
 
 

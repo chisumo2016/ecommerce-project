@@ -34,7 +34,7 @@ export  function getUser({ commit}, data)
         })
 }
 
-export  function  getProducts({commit} , { url = null, search = '', perPage = 10 , sort_field, sort_direction})
+export  function  getProducts({commit} , { url = null, search = '', perPage = 10 , sort_field, sort_direction} ={})
 {
     /**Commit Mutations*/
     commit('setProducts',[true])
@@ -92,4 +92,8 @@ export  function  updateProduct({ commit} , product)
     }
 
     return axiosClient.post('/products/${id}', product)
+}
+
+export  function  deleteProduct({ commit}, id) {
+    return axiosClient.delete(`/products/${id}`)
 }

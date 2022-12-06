@@ -203,7 +203,20 @@
             php artisan storage:link
             The [public/storage] link has been connected to [storage/app/public]. 
         
-
+###  CONNECT PRODUCT UPDATE  MODAL TO LARAVEL API
+    Open the product Table  
+        add two button , edit and delete
+    Write a logic function to delete in Productstable.vue
+             deleteProduct(){}
+    Open the actions.js, 
+    Impmente the delee in backend of productController
+    The getProducts funnction in actions , accept payload
+            Uncaught (in promise) TypeError: (destructured parameter) is undefined
+            getProducts({commit} , { url = null, search = '', perPage = 10 , sort_field, sort_direction})
+            getProducts({commit} , { url = null, search = '', perPage = 10 , sort_field, sort_direction} ={})
+            or u can pass empty object  in the ProductTable ->deleteProduct
+                  store.dispatch('getProducts',{})
+    
     
 
 

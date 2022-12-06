@@ -29,6 +29,6 @@
 </template>
 
 <script setup>
-import { LockClosedIcon } from '@heroicons/vue/20/solid'
+import {LockClosedIcon} from '@heroicons/vue/solid'
 import GuestLayout from "../components/GuestLayout.vue";
 </script>

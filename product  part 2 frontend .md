@@ -17,5 +17,25 @@
     Laravel Breeze comes with two layers,  
                     Authorizeed users and 
                     Non authorized users
+
+### INTEGRATE E-COMMERCE THEME INTO LARAVEL
+    We have two layouts 
+                app.blade.php   - for authorized user
+                guest.blade.php - for non authorized user
+    I am going to use the app blade and moddify it
+        Take some code from app and paste into scratch file
+        Install via npm
+                alpinejs/persist@3.10.2
+                alpinejs/collapse@3.10.2
+                aalpinejs@3.10.2/
+         npm install -D @alpinejs/persist @alpinejs/collapse 
+        Install these packages
+                npm install @tailwindcss/forms @tailwindcss/aspect-ratio 
+        Open the tailwindcss.config.js 
+                plugins: [
+                    require('@tailwindcss/forms'),
+                    require('@tailwindcss/aspect-ratio')
+                ],
+    
     
 

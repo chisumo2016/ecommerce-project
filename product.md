@@ -264,6 +264,14 @@
     Create a folder called Api
                 app/Http/Controllers/Api/AuthController.php
                 app/Http/Controllers/Api/ProductController.php
+    Please check on routes/api files ,  namespace has been impoted
+
+### TESTING PRODUCTS CRUD
+    - bug on edit and delete button , remove the animation
+            <tr v-for="(product, index) of products.data"  class="animate-fade-in-down" :style="{'animation-delay': `${index*0.05}s`}">
+            <tr v-for="(product, index) of products.data"  class="animate-fade-in-down">
+    Loader on the table appeared on the center
+         <td colspan="5"> colspan was in 5 ,we need to change to 6  <td colspan="6"> in ProductsTable.vue
                 
     
 

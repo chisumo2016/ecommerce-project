@@ -217,6 +217,35 @@
             or u can pass empty object  in the ProductTable ->deleteProduct
                   store.dispatch('getProducts',{})
     
+### UPDATE THE PRODUCT
+    Add the click event listener on edit @click="editProduct(product)"
+    Create a function editProduct onn  ProductTableVue
+        User click edit we need to show thee modal , product table we dont have access with the modal
+        We need to emit event to the parent  ,parent  is products.vue
+        Pass the emit on the child  
+            const emit = defineEmits(['clickEdit'])
+            const editProduct = (product) => {
+                    emit('clickEdit', product)
+            }
+
+        Listen to a parent product.vue
+                <ProductsTable @clickEdit="editProduct"/>
+            Create a function editProduct in products.Vue
+            implemennt the getProduct in actions.js
+            In the ProductResource 
+                    'image'         => $this->image , change into 
+                    'image_url'         => $this->image ,
+        Implement the logic in backend of productController - update () method
+            $product->update($request->validated());
+            return  new ProductResource($product);
+                TO 
+            Check the code 
+
+        When you create a new Product, the information will shown oon the field instead of being empy
+            SOLN:Clear up in the productModel.vue
+                 Add the @close="onModalClose" inn Products.vue
+                     <ProductModal v-model="showModal" :product="productModel" @close="onModalClose"></ProductModal>
+
     
 
 

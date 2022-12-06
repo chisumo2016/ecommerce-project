@@ -61,6 +61,12 @@ export  function  getProducts({commit} , { url = null, search = '', perPage = 10
     })
 }
 
+export  function  getProduct({} , id)
+{
+    return axiosClient.get(`/products/${id}`)
+
+}
+
 export  function  createProduct({ commit} , product)
 {
     if (product.image instanceof File){
@@ -88,10 +94,10 @@ export  function  updateProduct({ commit} , product)
         product = form;
 
     }else {
-        product._methood = 'PUT'
+        product._method = 'PUT'
     }
 
-    return axiosClient.post('/products/${id}', product)
+    return axiosClient.post(`/products/${id}`, product)
 }
 
 export  function  deleteProduct({ commit}, id) {

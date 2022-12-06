@@ -258,6 +258,13 @@
     After defining the keyframe we can use in productTable.vue
         <div class="bg-white p-4 rounded-lg shadow animate-fade-in-down"></div>
         <tr v-for="product of products.data"  class="animate-fade-in-down"></tr>
+
+### MOVE API CONTROLLERS INTO API FOLDER
+    I could have done ealier duurinng the project creation
+    Create a folder called Api
+                app/Http/Controllers/Api/AuthController.php
+                app/Http/Controllers/Api/ProductController.php
+                
     
 
     

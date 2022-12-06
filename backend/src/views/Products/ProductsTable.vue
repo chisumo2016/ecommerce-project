@@ -1,6 +1,6 @@
 <template>
     <!-- Card   -->
-    <div class="bg-white p-4 rounded-lg shadow">
+    <div class="bg-white p-4 rounded-lg shadow animate-fade-in-down">
         <div class="flex justify-between border-b-2 pb-3">
             <div class="flex items-center">
                 <span class="whitespace-nowrap mr-3">Per Page</span>
@@ -45,7 +45,7 @@
                 </tbody>
 
                 <tbody v-else>
-                <tr v-for="product of products.data">
+                <tr v-for="(product, index) of products.data"  class="animate-fade-in-down" :style="{'animation-delay': `${index*0.05}s`}">
                     <td class="border-b p-2">{{ product.id }}</td>
                     <td class="border-b p-2">
                         <img

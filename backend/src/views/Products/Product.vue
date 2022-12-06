@@ -53,6 +53,7 @@ const editProduct = (product) => {
     })
 }
 
+/**clear*/
 const onModalClose = () => {
     productModel.value = {...DEFAULT_EMPTY_OBJECT}
 }

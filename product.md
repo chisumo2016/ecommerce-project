@@ -245,6 +245,20 @@
             SOLN:Clear up in the productModel.vue
                  Add the @close="onModalClose" inn Products.vue
                      <ProductModal v-model="showModal" :product="productModel" @close="onModalClose"></ProductModal>
+                 Add the function to clear onModalClose
+                 Make a default empty object 
+
+
+### ADD ANIMATION TO PRODUCTS TABLE
+    Add animation to table and its rows
+    Open backend/tailwind.config.js
+             keyframes:{
+            
+        }
+    After defining the keyframe we can use in productTable.vue
+        <div class="bg-white p-4 rounded-lg shadow animate-fade-in-down"></div>
+        <tr v-for="product of products.data"  class="animate-fade-in-down"></tr>
+    
 
     
 

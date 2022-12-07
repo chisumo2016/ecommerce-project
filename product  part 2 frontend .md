@@ -56,9 +56,40 @@
      comppare with register.blade.php with new one  signup.html
     Problem is showinng the validation errors
 
-###  RENDER PRODUCTS ON WEBSITE
+###  RENDER PRODUCTS ON WEBSITE 1
     Create a ProductController  
          php artisan make:controller ProductController 
+    Write the function index () on ProductController
+    Loop over on index.blade
+
+###  RENDER PRODUCTS ON WEBSITE 2
+    Add the aspect ratio in index.blade.php on the image 
+    Add the pagination at the bottom
+
+### SEND EMAIL ON CUSTOM REGISTRATION
+    Send an email when the user is registered /create an account  0843 178 5555
+    Use Mailtrap
+        add the crediantial on the env file
+    Open User Model 
+        implement the interface MustVerifyEmail
+    Open the web route 
+        add the middleware(['auth', 'verified'])
+    try to send
+    Modifify our template
+        <x-guest-layout> TO
+        <x-app-layout>
+
+
+
+
+
+
+
+
+
+
+
+
     
 
     

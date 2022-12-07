@@ -50,6 +50,12 @@
 
 ### CREATE PASSWORD RESET FORM
     comppare with forgot-password.blade.php with new one  password-reset.html
+    Problem is showinng the validation errors
+
+###  CREATE SIGNUP FORM
+     comppare with register.blade.php with new one  signup.html
+    Problem is showinng the validation errors
+    
 
     
     

@@ -45,8 +45,12 @@
     Two way to show the alert on the form
         At the top 
         Below input field
-    The nnew laravel 9 , the x-inpuut na d x-autho-validation doesn't exist
+    The nnew laravel 9 , the x-inpuut <x-auth-vvalidation-error  doesn't exist
     Also unable to write those classes , where should i write?
+
+### CREATE PASSWORD RESET FORM
+    comppare with forgot-password.blade.php with new one  password-reset.html
+
     
     
 

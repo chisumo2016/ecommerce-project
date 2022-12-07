@@ -22,6 +22,7 @@
                 name="email"
                 :value="old('email')"
                 placeholder="Your email address"
+                required
                 class="border-gray-300 focus:border-purple-500 focus:outline-none focus:ring-purple-500 rounded-md w-full"
 
             />

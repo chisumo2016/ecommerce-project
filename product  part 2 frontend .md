@@ -108,6 +108,12 @@
     OR 
 
     Open the action.js, loook for getProduct method
+
+### DISPLAY PRODUCT DETAILS PAGE
+    Open the product theme 
+    Out the value on the page 
+    Output an image 
+    
             
     
 

@@ -18,8 +18,9 @@ axiosClient.interceptors.response.use(response => {  // fullied or reject - prom
     return response
 }, error => {
     if (error.response.status == 401){
+        store.commit('setToken',null)
         /**remove the token from session*/
-        sessionStorage.removeItem('TOKEN') //create thee  sessionStorage
+        //sessionStorage.removeItem('TOKEN') //create thee  sessionStorage
         router.push({name : 'login'})
     }
     throw error

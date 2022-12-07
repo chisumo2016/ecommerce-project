@@ -55,6 +55,10 @@
 ###  CREATE SIGNUP FORM
      comppare with register.blade.php with new one  signup.html
     Problem is showinng the validation errors
+
+###  RENDER PRODUCTS ON WEBSITE
+    Create a ProductController  
+         php artisan make:controller ProductController 
     
 
     

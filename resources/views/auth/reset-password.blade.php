@@ -1,11 +1,9 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<x-app-layout>
+    <div class="w-[400px] mx-auto my-16">
 
+        <h2 class="text-2xl font-semibold text-center mb-5">
+           Please Enter Your New Password
+        </h2>
         <form method="POST" action="{{ route('password.store') }}">
             @csrf
 
@@ -43,5 +41,5 @@
                 </x-primary-button>
             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+</x-app-layout>

@@ -80,7 +80,11 @@
         <x-app-layout>
 
 
-
+### CUSTOMIZE EMAIL TEMPLATES
+    php artisan vendor:publish --tag=laravel-mail  
+        views->vendor->mail
+                resources/views/vendor/mail/html/themes/default.css
+    
 
 
 

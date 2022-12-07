@@ -49,3 +49,27 @@
                                             2           1
                                             3           1
                                             4           1
+            All the five resusable method has been implemented .Time to work on Cart Coontroller
+
+### CREATE CART CONTROLLER
+    We will need four methods in CartConttroller
+         1: index ()
+            Not matters are inn the cookies or database
+         2: add ()
+         3: remove ()
+         4: updateQuantity
+
+    Let us starts implementinng these steps by steps
+         1: index ()  - done
+            Two ways to show the totals
+                Alpine.js
+        
+
+
+
+
+
+
+
+
+

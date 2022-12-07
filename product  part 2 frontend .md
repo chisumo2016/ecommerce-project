@@ -84,6 +84,31 @@
     php artisan vendor:publish --tag=laravel-mail  
         views->vendor->mail
                 resources/views/vendor/mail/html/themes/default.css
+    MAKE auth to adapt the app layer from guest 
+
+### CREATE EMPTY PRODUCT PAGE
+    To show the single product
+    Create a function show in productcontroller
+    Add the route in web file, gonna usse slug, we need to change some few things in Produc model
+    Opeen the product/index file addd on the link to display single items
+            index.blade.php
+             href="{{ route('product.show', $product->slug) }}"
+                echo '<pre>';
+            var_dump($product);
+        echo '</pre>';
+    Slight we nneed to update the backend of the view ,innstead of id to use slug
+        Two ways 
+            To be done on vue side
+            To have two product models
+                Model for backend api
+                Model for front end
+    We need to use the Model on Api ProductController
+        use App\Models\Product; to use App\Models\Api/Product;
+
+    OR 
+
+    Open the action.js, loook for getProduct method
+            
     
 
 

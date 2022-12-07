@@ -36,8 +36,8 @@ class Product extends Model
             ->saveSlugsTo('slug');
     }
 
-//    public function getUpdatedAtAttribute(): string
-//    {
-//        return date('d M, Y H:i:s', strtotime($this->attributes['updated_at']));
-//    }
+    public  function  getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

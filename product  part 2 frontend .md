@@ -36,6 +36,17 @@
                     require('@tailwindcss/forms'),
                     require('@tailwindcss/aspect-ratio')
                 ],
+
+### CREATE LOGIN FORM WITH THEME DESIGN
+    Edit our login from laravel breeze , use ours
+    Open the login.blade.php , uses the guest layout, gona change to use <x-app-layout><x-app-layout>
+    Open our theme project, copy the form
+    Change the <input> to x-input
+    Two way to show the alert on the form
+        At the top 
+        Below input field
+    The nnew laravel 9 , the x-inpuut na d x-autho-validation doesn't exist
+    Also unable to write those classes , where should i write?
     
     
 

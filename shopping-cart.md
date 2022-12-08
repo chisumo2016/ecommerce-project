@@ -94,7 +94,50 @@
             post()
     Get and Post will call the request
     Implement the logic in the http.jss file 
-    Return to app.jss
+    Return to app.jss and implement all the methods
+    
+
+### IMPLEMENT ADDING ITEMS INTO CART 
+    Let open the product index file resources/views/product/index.blade.php
+            x-data="productItem({{ json_encode([
+                        'id'     => $product->id,
+                        'slug'   => $product->slug,
+                        'image'  => $product->image,
+                        'title'  => $product->title,
+                        'price'   => $product->price,
+                        'addToCartUrl' => route('cart.add', $product) will take $product slug
+                    ]) }})"
+    We don't need the to passs the id , as it available product itself
+    Add the route in navigation
+    aadd the addition helper
+                 x-data="{
+                    mobileMenuOpen: false,
+                    cartItemsCount: {{ \App\Http\Helpers\Cart::getCartItemsCount()}}
+                    }"
+
+                    <small
+                        x-show="$store.header.cartItems"
+                        x-transition
+                        x-text="$store.header.cartItems"
+                        class="py-[2px] px-[8px] rounded-full bg-red-500"
+                    ></small>
+                     <small
+                        x-show="cartItemsCount"
+                        x-transition
+                        x-text="cartItemsCount"
+                        class="py-[2px] px-[8px] rounded-full bg-red-500"
+                    ></small>
+    We need to listen on cart_change' ->navigation blade
+             @cart_change.window ="cartItemsCount = $event.detail.count"
+            PROBLEM:
+                FLUSTH MESSAGE DOESN'T SHOW UP
+                WHEN I ADD THE CART, ITEM ADDED WILL BE SEEN AFTER REFRESHING THE PAGE
+
+### CREATE CART PAGE PART 1 
+    Copy the code from the theme 
+### CREATE CART PAGE PART 2 
+### SHOW CART SUBTOTAL AND CHECKOUT BUTTON  
+### IMPLEMENT ADD TO CART FROM PRODUCT INNER PAGE 
 
 
 

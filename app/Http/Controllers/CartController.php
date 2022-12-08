@@ -39,7 +39,7 @@ class CartController extends Controller
                 'product_id'    => $product->id
             ])->first();
 
-            if ($cartItem){
+            if ($cartItem) {
                 $cartItem->quantity += $quantity;
                 $cartItem->update();
 
@@ -56,7 +56,7 @@ class CartController extends Controller
                 'count' => Cart::getCartItemsCount()
             ]);
         }else {
-            $cartItems = json_decode($request->cookie('cart_items', []), true);
+            $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
             $productFound = false;
             foreach ($cartItems as &$item) {
                 if ($item['product_id'] === $product->id) {
@@ -98,7 +98,7 @@ class CartController extends Controller
                 'count' => Cart::getCartItemsCount()
             ]);
         }else{
-            $cartItems = json_decode($request->cookie('cart_items', []), true);
+            $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
             foreach ($cartItems as $i => &$item){
                 if ($item['product_id'] === $product->id ){
                     array_splice($cartItems , $i , 1);
@@ -128,7 +128,7 @@ class CartController extends Controller
                 'count' => Cart::getCartItemsCount()
             ]);
         }else{
-            $cartItems = json_decode($request->cookie('cart_items', []), true);
+            $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
             foreach ($cartItems as &$item){
                 if ($item['product_id']  === $product->id){
                     $item['quantity'] = $quantity;

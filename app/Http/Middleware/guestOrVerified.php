@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class guestOrVerified  extends  EnsureEmailIsVerified
+class guestOrVerified  extends \Illuminate\Auth\Middleware\EnsureEmailIsVerified
 {
     /**
      * Handle an incoming request.

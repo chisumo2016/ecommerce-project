@@ -61,9 +61,10 @@ document.addEventListener("alpine:init", () => {
             addToCart(quantity = 1) {
                 post(this.product.addToCartUrl, {quantity})
                     .then(result => {
-                        /**Pass the alpine js , header will listern*/
-                        this.$dispatch('cart_change', {count: result.count})
-                        this.$dispatch("notify",{
+                        /**Pass the alpine js , header will listen*/
+
+                        this.$dispatch('cart_change', {count: result.count}) //the all object is detail ({count: result.count})
+                        this.$dispatch("notify", {
                             message: "The item was added into the cart"
                         });
                     })

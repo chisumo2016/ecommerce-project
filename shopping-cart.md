@@ -59,13 +59,22 @@
          3: remove ()
          4: updateQuantity
 
-    Let us starts implementinng these steps by steps
+    Let us starts implementinng these steps by steps from top to down
          1: index ()  - done
             Two ways to show the totals
                 Alpine.js
         
 
+    Read the logic carefully and understand the flow
 
+### PREPARE API ROUTES FOR CART MANAGEMENT 
+    Create a middleware in web route
+            Route::middleware(['guestOrVerified'])->group(function (){
+
+            });
+    Create all four web routes inside the cart
+
+### CREATE A MIDDLEWARE guestOrVerified
 
 
 

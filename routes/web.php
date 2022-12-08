@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,13 +15,24 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware(['guestOrVerified'])->group(function (){
+    /**Product*/
+    Route::get('/', [ProductController::class, 'index'])->name('home');
+    Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
 
-Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
+    /**Cart*/
+    Route::prefix('/cart')->name('cart.')->group(function (){
+        Route::get('/', [CartController::class, 'index'])->name('index');
+        Route::get('/add/{product:slug}',               [CartController::class, 'add'])->name('add');
+        Route::get('/remove/{product:slug}',            [CartController::class, 'remove'])->name('remove');
+        Route::get('/update-quantity/{product:slug}',   [CartController::class, 'updateQuantity'])->name('updated-quantity');
+    });
+});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

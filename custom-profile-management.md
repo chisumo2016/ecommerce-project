@@ -45,7 +45,27 @@
         Schema::table('countries', function (Blueprint $table) {
             $table->json('states')->nullable();
         });
+    php artisan migrate
 
+### SETUP ELOQUENT MODEL RELATIONS FROM CUSTOMER TO ADDRESS AND TO USE
+    Create a Country Seeder in cli
+        php artisan make:seeder CountrySeeder  
+    Add the logic into seeder
+     php artisan db:seed --class=CountrySeeder 
+    Define an enum address Type by creating folder called Enum
+        app/Enum/AddressType.php
+        enum  AddressType : string
+            {
+            const Shipping  = 'shipping';
+            const Billing   = 'billing';
+            }
+    To use enum , let us open the customer model and add relationship
+         protected  $primaryKey = 'user_id';
+    Add the mass asssigment to customer model and define relationship
+    Add the mass asssigment to AddressType model model and define relationship
+    Add the mass asssigment to CustomerAddress model model and define relationship
+    Add the mass asssigment to User model model and define relationship
+  
     
     
 

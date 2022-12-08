@@ -19,4 +19,34 @@
                         $table->removeColumn('user_id', 'id');
                     });
                 }
-        
+    php artisan migrate
+
+### INSERT CUSTOMER IN DB ON REGISTRATION
+    Let save the customer in the customer table
+    Open the RegisteredUserController.php
+        create new customer
+        explode the user name
+        $customer = new Customer();
+        $names = explode(" ", $user->name); //zuru fares
+        $customer->user_id    = $user->id;
+        $customer->first_name = $names[0];
+        $customer->last_name  = $names[1] ?? '';
+        $customer->save();
+    TTry to register and see in cusstomer table.
+
+### CHANGE COUNTRIES STATE COLUMN INTO JSON
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+

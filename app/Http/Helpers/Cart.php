@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 namespace App\Http\Helpers;
 
 use App\Models\CartItem;
@@ -66,7 +64,7 @@ class Cart
             0
         );
     }
-    public  static  function moveCartItemsIntoDb($cartItems)
+    public  static  function moveCartItemsIntoDb()
     {
         /**get the request*/
         $request  = \request();

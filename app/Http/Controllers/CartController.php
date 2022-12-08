@@ -18,6 +18,7 @@ class CartController extends Controller
 
         $ids = Arr::pluck($cartItems, 'product_id');
         $products = Product::query()->whereIn('id',$ids)->get();
+
         /**cartItems will associative array*/
         $cartItems = Arr::keyBy($cartItems, 'product_id');
         $total = 0 ;
@@ -34,6 +35,7 @@ class CartController extends Controller
         $quantity = $request->post('quantity', 1);
         $user = $request->user();
         if ($user){
+
             $cartItem = CartItem::where([
                 'user_id'       => $user->id,
                 'product_id'    => $product->id
@@ -55,6 +57,7 @@ class CartController extends Controller
             return response([
                 'count' => Cart::getCartItemsCount()
             ]);
+
         }else {
             $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
             $productFound = false;
@@ -70,7 +73,7 @@ class CartController extends Controller
                     'user_id' => null,
                     'product_id' => $product->id,
                     'quantity' => $quantity,
-                    'price' => $product->pricee
+                    'price' => $product->price
                 ];
             }
             /**Save in the cookie with expired month*/

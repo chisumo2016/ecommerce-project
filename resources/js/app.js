@@ -62,16 +62,16 @@ document.addEventListener("alpine:init", () => {
                 post(this.product.addToCartUrl, {quantity})
                     .then(result => {
                         /**Pass the alpine js , header will listen*/
-
-                        this.$dispatch('cart_change', {count: result.count}) //the all object is detail ({count: result.count})
+                        this.$dispatch('cart-change', {count: result.count}) //the all object is detail ({count: result.count})
                         this.$dispatch("notify", {
-                            message: "The item was added into the cart"
+                            message: "The item was added into the cart",
                         });
                     })
-                    .catch(response =>{
-                        console.log(response)
+                    .catch(response => {
+                        console.log(response);
                     })
             },
+
             removeItemFromCart() {
                 post(this.product.removeUrl)
                     .then(result =>{

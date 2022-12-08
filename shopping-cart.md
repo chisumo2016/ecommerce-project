@@ -162,8 +162,21 @@
     Add :key="product.id" in the x-for loop
 
 
-
 ### SHOW CART SUBTOTAL AND CHECKOUT BUTTON  
+    Adding the items into the cart when the user is authorized
+    When the user is register or logged in
+    Move the cookies from cart into database.
+    Once you login it redirect to dashboad which doesnt exisst.RouteServiceprovider
+                public const HOME = '/dashboard';
+                public const HOME = '/';
+    After refresh , the nuumber of cart is 0  , Open AuthenticatedSessionController
+        app/Http/Controllers/Auth/AuthenticatedSessionController.php
+         Gonnna call Cart::moveCartItemsIntoDb();
+    Repeat the same ins app/Http/Controllers/Auth/RegisteredUserController.php
+            Cart::moveCartItemsIntoDb();
+    Advantage of Cart , it save all the items inn the database under cart_items table
+
+
 ### IMPLEMENT ADD TO CART FROM PRODUCT INNER PAGE 
 
 

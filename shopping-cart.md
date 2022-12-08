@@ -140,6 +140,8 @@
                 if (response.status >= 200 && response.status < 300){
                             return response.json() //return promise
                         }
+             php artisan  cache:clear   
+             php artisan view:clear  
 
 ### CREATE CART PAGE PART 1 
     Copy the code from the theme 
@@ -149,9 +151,18 @@
         Checking if there's one cartitemm x-if="cartItems.length"
     Let us the alpine to display the information
     All logic in the cart/index.blade.php
-
+        updating the quantity
+        Removing the items into the ca
+        
 
 ### CREATE CART PAGE PART 2 
+    We need to implemented the total quantity into  the cart
+    Uer the function creeted to get tthe total and use alpine to display
+            x-text="`$${cartTotal}`">
+    Add :key="product.id" in the x-for loop
+
+
+
 ### SHOW CART SUBTOTAL AND CHECKOUT BUTTON  
 ### IMPLEMENT ADD TO CART FROM PRODUCT INNER PAGE 
 

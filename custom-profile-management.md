@@ -35,6 +35,18 @@
     TTry to register and see in cusstomer table.
 
 ### CHANGE COUNTRIES STATE COLUMN INTO JSON
+    To change the county states column into json
+    php artisan make:migration change_countries_states_column_into_json
+
+        Schema::table('countries', function (Blueprint $table) {
+            $table->dropColumn('states');
+        });
+
+        Schema::table('countries', function (Blueprint $table) {
+            $table->json('states')->nullable();
+        });
+
+    
     
 
 

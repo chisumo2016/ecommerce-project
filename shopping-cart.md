@@ -178,6 +178,13 @@
 
 
 ### IMPLEMENT ADD TO CART FROM PRODUCT INNER PAGE 
+    If the use open the innner page , will be able to add into cart
+        resources/views/product/show.blade.php
+    Remove the id in addToCart()
+                @click="addToCart(id, $refs.quantityEl.value)" TO
+                @click="addToCart($refs.quantityEl.value)" 
+    Create x-data ="product" inproduct/show.blade.php
+    
 
 
 

@@ -75,6 +75,30 @@
     Create all four web routes inside the cart
 
 ### CREATE A MIDDLEWARE guestOrVerified
+    create a middleware via terminal
+        php artisan make:middleware guestOrVerified 
+    
+    Extends to EnsureEmailIsVerified
+    Write a logic inside the middlware
+    Register the middlware in kernel file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

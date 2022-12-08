@@ -82,8 +82,19 @@
     Write a logic inside the middlware
     Register the middlware in kernel file
 
-
-
+### PREPARE JAVASCRIPT FOR ADD TO CART
+    Let us open the app.js file
+    We dont need id , gonna use slug in app.js
+    Implemennt some methods
+    Create anothe file called http.js   resources/js/http.js,
+    No third package will be used , 
+    Inside the http.js file will axcept three methods
+            request()
+            get()
+            post()
+    Get and Post will call the request
+    Implement the logic in the http.jss file 
+    Return to app.jss
 
 
 

@@ -133,8 +133,24 @@
                 FLUSTH MESSAGE DOESN'T SHOW UP
                 WHEN I ADD THE CART, ITEM ADDED WILL BE SEEN AFTER REFRESHING THE PAGE
 
+                if (response.status > 200 && response.status < 300){
+                    return response.json() //return promise
+                }
+            SOLUTION:
+                if (response.status >= 200 && response.status < 300){
+                            return response.json() //return promise
+                        }
+
 ### CREATE CART PAGE PART 1 
     Copy the code from the theme 
+    Write the code on template  from x-data of alpine
+    Run tthe aalpine for loop on the template
+            <template x-if="cartItems.length"></template>
+        Checking if there's one cartitemm x-if="cartItems.length"
+    Let us the alpine to display the information
+    All logic in the cart/index.blade.php
+
+
 ### CREATE CART PAGE PART 2 
 ### SHOW CART SUBTOTAL AND CHECKOUT BUTTON  
 ### IMPLEMENT ADD TO CART FROM PRODUCT INNER PAGE 

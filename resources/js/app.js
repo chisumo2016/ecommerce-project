@@ -75,7 +75,7 @@ document.addEventListener("alpine:init", () => {
             removeItemFromCart() {
                 post(this.product.removeUrl)
                     .then(result =>{
-                        this.$dispatch("notify",{
+                        this.$dispatch("notify", {
                             message: "The item was removed into the cart"
                         });
                         this.$dispatch('cart_change', {count: result.count})

@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Http\Helpers;
 
-
-
 use App\Models\CartItem;
 
 class Cart
@@ -19,13 +17,13 @@ class Cart
         if ($user){
             /**making query in the database*/
             return  CartItem::where('user_id', $user->id)->sum('quantity');
-        }else{
+        }else {
             /**if the user isn't authorized*/
             $cartItems = self::getCookieCartItems();  // $cartItems associative array
 
             return  array_reduce(
                 $cartItems,
-                fn($carry ,$item ) => $carry + $item['quantity'],
+                fn($carry, $item) => $carry + $item['quantity'],
                 0
             );
         }
@@ -55,7 +53,7 @@ class Cart
         $request  = \request();
 
         /**call cookie*/
-        return json_decode($request->cookie('cart_items', []), true);
+        return json_decode($request->cookie('cart_items',' []'), true);
 
 
     }

@@ -67,8 +67,13 @@
     Add the mass asssigment to User model model and define relationship
   
     
-    
-
+### CREATE PROFILE CONTROLLER
+    - Wee have a template for our profile
+    - Create a ProfileController
+        php artisann make:controller ProfileController 
+    Create a web php routes
+    Create a profile.view.blade.php
+    Link on nagigation 
 
 
 

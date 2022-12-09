@@ -75,6 +75,16 @@
     Create a profile.view.blade.php
     Link on nagigation 
 
+### CREATE PROFILE REQUEST
+    Make the profile request 
+        php artisan make:request ProfileRequest
+    Define the name of customer attributes  on rules and atrributes()
+    Write logic inn the profile Controller
+        import classes 
+                AddressType
+                Country
+                CuustomerAddress
+
 
 
 

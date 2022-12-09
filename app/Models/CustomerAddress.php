@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CustomerAddress extends Model
@@ -21,12 +22,18 @@ class CustomerAddress extends Model
         'customer_id',
     ];
 
-    public  function  customer() : HasOne
+    public  function  customer() : BelongsTo
     {
-        return  $this->hasOne(
-            related:Customer::class,
-            foreignKey: 'user_id',
-            localKey: 'customer_id'
+        return $this->belongsTo(Customer::class);;
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Country::class,
+            foreignKey: 'country_code',
+            ownerKey: 'code'
         );
     }
+
 }

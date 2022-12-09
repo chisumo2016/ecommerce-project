@@ -17,32 +17,30 @@ class Customer extends Model
         'first_name',
         'last_name',
         'phone',
-        'statuss',
+        'status',
     ];
 
-    public  function  user(): HasOne
+    public function user()
     {
-        return $this->hasOne(
-             related:   User::class,
-             foreignKey: 'id',
-             localKey: 'user_id'
-        );
+        return $this->belongsTo(User::class);
     }
 
-    private  function  _getAddresses(): HasOne
+    private function _getAddresses(): HasOne
     {
         return $this->hasOne(
             related: CustomerAddress::class,
-            foreignKey: 'customer_id');
+            foreignKey: 'customer_id',
+            localKey: 'user_id'
+        );
     }
 
-    public  function  shippingAddress():HasOne
+    public function shippingAddress(): HasOne
     {
-        return  $this->_getAddresses()->where('type','=' , AddressType::Shipping->value);
+        return $this->_getAddresses()->where('type', '=', AddressType::Shipping->value);
     }
 
-    public  function  billingAddress():HasOne
+    public function billingAddress(): HasOne
     {
-        return  $this->_getAddresses()->where('type','=' , AddressType::Billing->value);
+        return $this->_getAddresses()->where('type', '=', AddressType::Billing->value);
     }
 }

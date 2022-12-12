@@ -29,13 +29,16 @@ class ProfileController extends Controller
         $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
         $billingAddress  = $customer->billingAddress  ?:    new CustomerAddress(['type' => AddressType::Billing]);
 
-        dd($customer, $shippingAddress->attributesToArray(), $billingAddress, $billingAddress->customer);
+        //dd($customer, $shippingAddress->attributesToArray(), $billingAddress, $billingAddress->customer);
 
         $countries = Country::query()->orderBy('name')->get();
 
-        return view('profile.edit', compact('customer', 'user',
-            'shippingAddress',
-            'billingAddress', 'countries'));
+        return view('profile.edit', compact(
+            'customer',
+                    'user',
+                    'shippingAddress',
+                    'billingAddress',
+                    'countries'));
 
 
 

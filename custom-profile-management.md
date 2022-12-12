@@ -53,6 +53,7 @@
     Add the logic into seeder
      php artisan db:seed --class=CountrySeeder 
     Define an enum address Type by creating folder called Enum
+    
         app/Enum/AddressType.php
         enum  AddressType : string
             {
@@ -84,6 +85,24 @@
                 AddressType
                 Country
                 CuustomerAddress
+    Build the UI in edit/view blade , using alpine and laravel
+
+
+ ### CREATE  CUSTOMER DETAILS FORM
+    Create a UI for Customer Details
+    X-model is alpine two way binding
+    X-for is alpine iteration 
+    X-if  is alpine check 
+    Alpine doesnt have if else , but u can use x-if= "!billingaddress"
+    {...billinngAddress}   and create a new object
+    check in input components
+        Example : name="shipping[state]" convert into shipping.state.
+            $attributeName = preg_replace('/(\w+)\[(\w+)]/', '$1.$2', $attributes['name']);
+                        (ALPHA NUMERIC WORD , ALPHA NUMERIC SYMMBOL)
+                            shipping.state
+
+        
+    
 
 
 

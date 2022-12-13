@@ -107,6 +107,20 @@
     Create a post method on profileController and add the logic
         ERROR: Call to a member function update() or null
                 Updatting the same which have been inserted to the data base
+
+### IMPLEMENT PASSWORD UPDATE
+    Create a web route file for an update password
+    Write a logic in passwordUpdate
+        1: Current authorized user
+        2: Get password data from request
+        3: Generate the new password 
+        4: Call save on the user
+        5: Set the flash message inside session
+        6: rediirect user on page
+    Create the user UI   edit
+    Create a passwordRequestUpdate
+        php artisan make:request PasswordUpdateRequest  
+
     
     
 

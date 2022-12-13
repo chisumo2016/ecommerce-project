@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AddressType;
+use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\ProfileRequest;
 
 use App\Models\Country;
 use App\Models\CustomerAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
@@ -89,6 +91,23 @@ class ProfileController extends Controller
         return  redirect()->route('profile.edit');
     }
 
+    public function passwordUpdate(PasswordUpdateRequest $request)
+    {
+        /** @var \App\Models\User $user*/
+        $user = $request->user();
+
+        $passwordData = $request->validated();
+
+        $user->password = Hash::make($passwordData['new_password']);
+        $user->save();
+
+        $request->session()->flash('flash_message','Your Password successfully updated');
+
+        return  redirect()->route('profile.edit');
+
+
+    }
+
     /**
      * Delete the user's account.
      *
@@ -112,4 +131,6 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+
 }

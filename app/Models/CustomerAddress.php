@@ -24,7 +24,7 @@ class CustomerAddress extends Model
 
     public  function  customer() : BelongsTo
     {
-        return $this->belongsTo(Customer::class);;
+        return $this->belongsTo(Customer::class);
     }
 
     public function country(): BelongsTo

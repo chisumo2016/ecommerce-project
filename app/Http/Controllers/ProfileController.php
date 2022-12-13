@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AddressType;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\ProfileRequest;
+
 use App\Models\Country;
 use App\Models\CustomerAddress;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class ProfileController extends Controller
         /** @var \App\Models\Customer $customer */
         $customer = $user->customer;
 
-        $shippingAddress = $customer->shippingAddress ?: new CustomerAddress(['type' => AddressType::Shipping]);
+        $shippingAddress = $customer->shippingAddress ?:    new CustomerAddress(['type' => AddressType::Shipping]);
         $billingAddress  = $customer->billingAddress  ?:    new CustomerAddress(['type' => AddressType::Billing]);
 
         //dd($customer, $shippingAddress->attributesToArray(), $billingAddress, $billingAddress->customer);
@@ -39,9 +40,6 @@ class ProfileController extends Controller
                     'shippingAddress',
                     'billingAddress',
                     'countries'));
-
-
-
     }
 
     /**
@@ -50,17 +48,45 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\ProfileUpdateRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ProfileUpdateRequest $request)
+    public function post(ProfileRequest $request)
     {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+       $CustomerData = $request->validated();
+       $shippingData = $CustomerData['shipping'];
+       $billingData  = $CustomerData['billing'];
+
+       /** @var \App\Models\User $user*/
+        $user = $request->user();
+
+        /** @var \App\Models\Customer $customer*/
+        $customer = $user->customer;
+
+        $customer->update($CustomerData);
+
+        if ($customer->shippingAddress){
+            $customer->shippingAddress->update($shippingData);
+
+        }else{
+            $shippingData['customer_id'] = $customer->user_id;
+            $shippingData['type'] = AddressType::Shipping->value;
+            /**Create*/
+            CustomerAddress::create($shippingData);
+
+        }
+        if ($customer->billingAddress ){
+            $customer->billingAddres->update($billingData);
+
+        }else{
+
+            $billingData['customer_id'] = $customer->user_id;
+            $billingData['type'] = AddressType::Billing->value;
+            /**Create*/
+            CustomerAddress::create($billingData);
         }
 
-        $request->user()->save();
+        $request->session()->flash('flash_message','Profile was successfully updated');
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return  redirect()->route('profile.edit');
     }
 
     /**

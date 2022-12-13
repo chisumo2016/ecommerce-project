@@ -89,6 +89,7 @@
 
 
  ### CREATE  CUSTOMER DETAILS FORM
+    Create a input and button componnent via CLI
     Create a UI for Customer Details
     X-model is alpine two way binding
     X-for is alpine iteration 
@@ -100,6 +101,14 @@
             $attributeName = preg_replace('/(\w+)\[(\w+)]/', '$1.$2', $attributes['name']);
                         (ALPHA NUMERIC WORD , ALPHA NUMERIC SYMMBOL)
                             shipping.state
+
+ ### IMPLEMENT CUSTOMER DETAIILS UPDATE
+    Create a web route file for an update profile
+    Create a post method on profileController and add the logic
+        ERROR: Call to a member function update() or null
+                Updatting the same which have been inserted to the data base
+    
+    
 
         
     

@@ -13,6 +13,7 @@ class Customer extends Model
     use HasFactory;
 
     protected  $primaryKey = 'user_id';
+
     protected $fillable =[
         'first_name',
         'last_name',
@@ -28,9 +29,9 @@ class Customer extends Model
     private function _getAddresses(): HasOne
     {
         return $this->hasOne(
-            related: CustomerAddress::class,
-            foreignKey: 'customer_id',
-            localKey: 'user_id'
+            CustomerAddress::class,
+             'customer_id',
+            'user_id'
         );
     }
 

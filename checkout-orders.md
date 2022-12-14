@@ -94,3 +94,34 @@
             resources/views/checkout/success.blade.php
             resources/views/checkout/failure.blade.php
     Clear / remove cart 
+        logic innside the seccess(){}
+
+### ### STRIPE ONLINE PAYMENTS CHECKOUT PARTS 3 (Integration of third party API on checkout)
+    We need to make a request once the payment has been done .
+        orders   table
+        payments table
+        We need to save the session_id inside the payments table
+        Payment is transaction which happened within stripe .
+        Create migration to add session_id into payment
+            php artisan make:migration add_session_id_to_payments_table
+    Add the variable
+            $totalPrice = 0;
+    FInd the total 
+            $totalPrice += $product->price;
+    Pass the order inn the checkoutController
+    Status - create an enum
+                app/Enums/OrderStatus.php
+                app/Enums/PaymentStatus.php
+    Add mass assigment on order model
+                echo '<pre>';
+                 var_dump($order);
+                echo '</pre>';
+
+                
+                echo '<pre>';
+                var_dump($payment);
+                echo '</pre>';
+        
+                exit;
+
+    Set the relationship btn Payment and Order

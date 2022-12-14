@@ -41,7 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/profile/password-update', [ProfileController::class, 'passwordUpdate'])->name('profile_password.update');
 
     Route::post('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
-    Route::get('checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('checkout/success/', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
 });
 

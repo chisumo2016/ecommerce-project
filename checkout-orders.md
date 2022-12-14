@@ -1,6 +1,6 @@
 #### STRIPE CHECKOUT AND ORDERS
 
-### STRIPE ONLINE PAYMENTS CHECKOUT PARTS (Integration of third party API on checkout)
+### STRIPE ONLINE PAYMENTS CHECKOUT PARTS 1 (Integration of third party API on checkout)
     We gonna  use payments using stripes
     Make sure you have an account with stripes first
     Look for php stripe github package
@@ -73,3 +73,24 @@
         https://stripe.com/docs/testing
     Passed but redirected on [] .
     We need to figure out how tto fix
+
+### ### STRIPE ONLINE PAYMENTS CHECKOUT PARTS 2 (Integration of third party API on checkout)
+    READ : https://stripe.com/docs/payments/accept-a-payment
+    READ : https://stripe.com/docs/payments/checkout/custom-success-page
+    
+    Print the session id in checkoutController(){}
+    Pass the sessionId in success_url   
+        'success_url'   => route('checkout.success', ['sessionId' => '{CHECKOUT_SESSION_ID}'],true) ,
+        Route::get('checkout/success/:sessionId', [CheckoutController::class, 'success'])->name('checkout.success');
+
+            OR
+        'success_url'   => route('checkout.success', [],true) . '?session_id={CHECKOUT_SESSION_ID}' ,
+        Route::get('checkout/success/', [CheckoutController::class, 'success'])->name('checkout.success');
+    Write some logic in the success(){}
+        We can display the sucess message, Your paymment has been succcessfull made
+        We need to remove the item from the cart.
+
+    Create folder calleed checkout
+            resources/views/checkout/success.blade.php
+            resources/views/checkout/failure.blade.php
+    Clear / remove cart 

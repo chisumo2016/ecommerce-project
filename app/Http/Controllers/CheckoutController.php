@@ -34,17 +34,37 @@ class CheckoutController extends Controller
             'line_items' => $line_items,
 
             'mode' => 'payment',
-            'success_url'   => route('checkout.success', [],true) ,
+            'success_url'   => route('checkout.success', [],true) . '?session_id={CHECKOUT_SESSION_ID}' ,
             'cancel_url'    => route('checkout.failure', [],true),
         ]);
+        //dd($checkout_session->id);
 
         return redirect($checkout_session->url);
 
     }
     public  function  success(Request $request)
     {
+        $stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
+        try {
+            $session  = $stripe->checkout->sessions->retrieve($_GET['session_id']);
+             if (!$session){
 
-        dd($request->all());
+                 return view('checkout.failure');
+             }
+
+            $customer = $stripe->customers->retrieve($session->customer);
+
+            return view('checkout.success', compact('customer'));
+
+        }catch (\Exception $e){
+
+            return view('checkout.failure');
+        }
+
+
+
+        //dd($session,$customer);
+
     }
 
     public  function  failure(Request $request)

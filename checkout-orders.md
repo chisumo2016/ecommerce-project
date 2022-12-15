@@ -137,4 +137,26 @@
     This part shows how to clear the tthe CartItems (checkoutController)
          CartItem::where(['user_id' =>$user->id])->delete();
 
+### CREATE ORDER LIST PAGE FOR CUSTOMERS
+    Display all order for customerss
+    Create a new route for orders in web file
+    Create a new orderControoller
+        php artisan make:controller OrderControllerphp artisan make:controller OrderController
+    Write a logic on OrderController index(){}
+    Create the orders/index UI ,use the theme. copy tthe container
+    Link to navigation page
+    Logic to dispay is paid 
+        {{ $order->status === \App\Enums\OrderStatus::Paid->value ? 'bg-emerald-500' : 'bg-gray-500'}}">
+            TO 
+        $order->isPaid()
+    The above method is written in Order Model
+
+    Create a checkoutOrder function within checkoutController(){}
+        Gonna get session id from uurl
+        Add the new route  with the name checkout-order
+        Gonnna get the session  from the order
+        Has the relationship in the Order Model called payment(){}
+        The session might expired , generate a new session when u click pay.
+    Implemment the logic checkoutOrder(){}
+ 
 

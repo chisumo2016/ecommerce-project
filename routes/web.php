@@ -36,13 +36,20 @@ Route::middleware(['guestOrVerified'])->group(function (){
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    /**Profile*/
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'post'])->name('profile.update');
     Route::post('/profile/password-update', [ProfileController::class, 'passwordUpdate'])->name('profile_password.update');
 
+    /**Checkout*/
     Route::post('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
+    Route::post('/checkout/{order}', [CheckoutController::class,'checkoutOrder'])->name('checkout-order');
     Route::get('checkout/success/', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
+
+    /***/
+    Route::get('/orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('order.index');
+    Route::get('/orders/view/:order', [\App\Http\Controllers\OrderController::class, 'index'])->name('order.view');
 });
 
 require __DIR__.'/auth.php';

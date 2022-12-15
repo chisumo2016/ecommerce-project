@@ -125,14 +125,18 @@ class CheckoutController extends Controller
             return view('checkout.failure',['message' => $e->getMessage()]);
         }
 
-
-
-        //dd($session,$customer);
-
     }
 
     public  function  failure(Request $request)
     {
-        dd($request->all());
+        return view('checkout.failure',['message' => ""]);
+    }
+
+    public function checkoutOrder(Order $order, Request $request)
+    {
+        /** @var \App\Models\User $user*/
+        $user = $request->user();
+
+        $stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
     }
 }

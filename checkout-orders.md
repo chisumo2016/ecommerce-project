@@ -96,7 +96,7 @@
     Clear / remove cart 
         logic innside the seccess(){}
 
-### ### STRIPE ONLINE PAYMENTS CHECKOUT PARTS 3 (Integration of third party API on checkout)
+#### STRIPE ONLINE PAYMENTS CHECKOUT PARTS 3 (Integration of third party API on checkout)
     We need to make a request once the payment has been done .
         orders   table
         payments table
@@ -123,5 +123,18 @@
                 echo '</pre>';
         
                 exit;
-
     Set the relationship btn Payment and Order
+    
+
+### STRIPE ONLINE PAYMENTS CHECKOUT PARTS 4 (Integration of third party API on checkout) : REMOVE/CLEAR CARTITEMS
+    Payment hass one order
+    Single payment can't have multiple order.
+    If we dont have a payment , we should make the status Pending.
+    We can pass the message in the exception 
+        return view('checkout.failure',['message' => $e->getMessage()]);
+    We can pass message variable in a failure blade 
+    Final process is to remove/delete the items from the cart : Bulk delete eloquent laravel
+    This part shows how to clear the tthe CartItems (checkoutController)
+         CartItem::where(['user_id' =>$user->id])->delete();
+
+

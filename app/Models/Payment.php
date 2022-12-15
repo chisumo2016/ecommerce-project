@@ -22,6 +22,10 @@ class Payment extends Model
 
     public  function  order():HasOne
     {
-        return  $this->hasOne(Order::class);
+        return  $this->hasOne(
+             related: Order::class,
+             foreignKey: 'id',
+             localKey: 'order_id'
+        );
     }
 }

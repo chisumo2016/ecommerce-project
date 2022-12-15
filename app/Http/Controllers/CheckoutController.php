@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Http\Helpers\Cart;
+use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -82,20 +83,24 @@ class CheckoutController extends Controller
     }
     public  function  success(Request $request)
     {
+        /** @var \App\Models\User $user*/
+        $user = $request->user();
+
         $stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
         try {
-            $session_id = $request->$_GET['session_id'];
+            $session_id = $request->get('session_id');
 
             $session  = $stripe->checkout->sessions->retrieve($session_id);
+
              if (!$session){
 
-                 return view('checkout.failure');
+                 return view('checkout.failure', ['message' => 'Invalid Session ID']);
              }
 
             /** Query payment from DB**/
-            $payment = Payment::query()->where(['session_id'=> $session->id, 'status' => PaymentStatus::Pending ])->get();
+            $payment = Payment::query()->where(['session_id'=> $session->id, 'status' => PaymentStatus::Pending ])->first();
             if (!$payment){
-                return view('checkout.failure');
+                return view('checkout.failure',['message' => 'Payment Does not exist']);
             }
 
             /**Payment exist*/
@@ -104,21 +109,20 @@ class CheckoutController extends Controller
 
             /**Take the Order of this payment */
             $order = $payment->order;
-            echo '<pre>';
-            var_dump($order);
-            echo '</pre>';
 
             $order->status = OrderStatus::Paid;
             $order->update();
 
+            /**Empty the cart*/
+            CartItem::where(['user_id' =>$user->id])->delete();
 
             $customer = $stripe->customers->retrieve($session->customer);
 
             return view('checkout.success', compact('customer'));
 
         }catch (\Exception $e){
-
-            return view('checkout.failure');
+            //throw $e;
+            return view('checkout.failure',['message' => $e->getMessage()]);
         }
 
 

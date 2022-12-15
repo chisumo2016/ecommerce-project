@@ -197,6 +197,7 @@
 
         TESTING WEBHOOOK TERMINAL 1
         stripe login
+        stripe listen --forward-to http://ecommerce-project.test/webhook/stripe
             Sending Three Event
                  charge.succeeded
                  payment_intent.succeeded
@@ -212,6 +213,9 @@
                     '/webhook/stripe'
                 ];
     Your branch is ahead of 'origin/main' by 1 commit.
+
+### STRIPE WEBHOOKS PART 2
+    - Webhook trigger earlier before redirect
 
 
                     

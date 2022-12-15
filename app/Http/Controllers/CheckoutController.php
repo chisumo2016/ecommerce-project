@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CheckoutController extends Controller
 {
@@ -109,32 +110,29 @@ class CheckoutController extends Controller
             $session  = $stripe->checkout->sessions->retrieve($session_id);
 
              if (!$session){
-
                  return view('checkout.failure', ['message' => 'Invalid Session ID']);
              }
-
             /** Query payment from DB**/
-            $payment = Payment::query()->where(['session_id'=> $session->id, 'status' => PaymentStatus::Pending ])->first();
+            $payment = Payment::query()
+                ->where(['session_id'=> $session_id])->whereIn('status',[PaymentStatus::Pending, PaymentStatus::Paid] )->first();
             if (!$payment){
-                return view('checkout.failure',['message' => 'Payment Does not exist']);
+                throw  new NotFoundHttpException();
+                //return view('checkout.failure',['message' => 'Payment Does not exist']);
             }
 
-            /**Payment exist*/
-            $payment->status  = PaymentStatus::Paid;
-            $payment->update();
+            if ($payment->status === PaymentStatus::Pending){
 
-            /**Take the Order of this payment */
-            $order = $payment->order;
-
-            $order->status = OrderStatus::Paid;
-            $order->update();
+                $this->updateOrderAndSession($payment);
+            }
 
             $customer = $stripe->customers->retrieve($session->customer);
-
             return view('checkout.success', compact('customer'));
 
-        }catch (\Exception $e){
-            //throw $e;
+        }catch (NotFoundHttpException $e){
+            throw $e;
+        }
+        catch (\Exception $e){
+
             return view('checkout.failure',['message' => $e->getMessage()]);
         }
 
@@ -147,13 +145,13 @@ class CheckoutController extends Controller
 
     public function checkoutOrder(Order $order, Request $request)
     {
-        /** @var \App\Models\User $user*/
+//        /** @var \App\Models\User $user*/
         //$user = $request->user();
 
         $stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
 
         $lineItems = [];
-        foreach ($order->items() as $item ){
+        foreach ($order->items as $item ){
             $lineItems[] =[
                 /**Push*/
                 'price_data' => [
@@ -162,7 +160,7 @@ class CheckoutController extends Controller
                         'name' =>$item->product->title,
                         //'images' => [$product->image], /accessible local server
                     ],
-                    'unit_amount' => $item->product->unit_price * 100,
+                    'unit_amount' => $item->unit_price * 100,
                 ],
                 'quantity' =>$item->quantity,
             ];
@@ -206,15 +204,38 @@ class CheckoutController extends Controller
             exit();
         }
 
-// Handle the event
+            // Handle the event
         switch ($event->type) {
-            case 'payment_intent.succeeded':
+            case 'checkout.session.completed': //payment_intent.succeeded
                 $paymentIntent = $event->data->object;
+                $sessionId  = $paymentIntent['id'];
+
+                $payment = Payment::query()
+                    ->where(['session_id'=> $sessionId, 'status' =>PaymentStatus::Pending ])->first();
+                if ($payment){
+                    $this->updateOrderAndSession($payment);
+                }
+
             // ... handle other event types
             default:
                 echo 'Received unknown event type ' . $event->type;
         }
 
         return response('', 200);
+    }
+
+    private  function  updateOrderAndSession(Payment $payment)
+    {
+
+
+        /**Payment exist*/
+        $payment->status  = PaymentStatus::Paid;
+        $payment->update();
+
+        /**Take the Order of this payment */
+        $order = $payment->order;
+
+        $order->status = OrderStatus::Paid;
+        $order->update();
     }
 }

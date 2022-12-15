@@ -172,6 +172,50 @@
     Create a relationship Order Model call items():HasMany{}
     Create a relationship OrderItem Model call product():HasOne{}
     Update the session Id in the checkoutOrder(){}
+
+        ERROR
+            Stripe\Exception\nvalidRequestException
+            The `line_items` parameter is required in payment mode.
+
+### STRIPE WEBHOOKS PART 1
+    When the User add the Item into the cart and procede with checkout , User click on Pay ,as sooner I get
+     the button green and close the tab or electriicty cut off . The payment was completed but the redirect didnt work .If you reload
+        the payments page in the database, pending
+     But when user looks in the my ordeer , will see the unpaid ----Pay Button although the money has been taken
+        to my account.
+
+     For this ,Stripe has webhooks,  webhooks will trigger time to time. Stripe Dashboard search webhooks
+          https://dashboard.stripe.com/test/webhooks
+                    Add an endpoint - staging or production environment 
+                    Test in a local envirnmoment - local development
+     For our project we gonna use Test in a local envirnmoment, download CLI
+            https://stripe.com/docs/stripe-cli
+     Webhooks are triggered by stripes
+    Create a route for webhooks
+         Route::post('webhook/stripe', [CheckoutController::class, 'webhook'])->name('webhook.stripe');
+    Create a webhook(){}  innside checkoutController
+
+        TESTING WEBHOOOK TERMINAL 1
+        stripe login
+            Sending Three Event
+                 charge.succeeded
+                 payment_intent.succeeded
+                 payment_intent.created
+                    Also will show 419 
+        
+        TESTING WEBHOOOK TERMINAL 2 TRIGGER
+        stripe listen --forward-to http://ecommerce-project.test/webhook/stripe Will send event to Terminal 1
+
+    Open app/Http/Middleware/VerifyCsrfToken.php disable the csrf token for webhook
+                 protected $except = [
+                    //
+                    '/webhook/stripe'
+                ];
+    Your branch is ahead of 'origin/main' by 1 commit.
+
+
+                    
+    
   
  
 

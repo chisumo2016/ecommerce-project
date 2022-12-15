@@ -44,13 +44,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**Checkout*/
     Route::post('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
     Route::post('/checkout/{order}', [CheckoutController::class,'checkoutOrder'])->name('checkout-order');
-    Route::get('checkout/success/', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
 
-    /***/
+    /**Order*/
     Route::get('/orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('order.index');
     Route::get('/orders/view/:order', [\App\Http\Controllers\OrderController::class, 'index'])->name('order.view');
+
 });
+
+/**WebHook*/
+Route::post('webhook/stripe', [CheckoutController::class, 'webhook'])->name('webhook.stripe');
 
 require __DIR__.'/auth.php';
 

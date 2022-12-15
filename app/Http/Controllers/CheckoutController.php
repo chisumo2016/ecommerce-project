@@ -91,6 +91,9 @@ class CheckoutController extends Controller
 
         $payment = Payment::create($paymentData);
 
+        /**Empty the cart*/
+        CartItem::where(['user_id' =>$user->id])->delete();
+
         return redirect($checkout_session->url);
 
     }
@@ -126,9 +129,6 @@ class CheckoutController extends Controller
             $order->status = OrderStatus::Paid;
             $order->update();
 
-            /**Empty the cart*/
-            CartItem::where(['user_id' =>$user->id])->delete();
-
             $customer = $stripe->customers->retrieve($session->customer);
 
             return view('checkout.success', compact('customer'));
@@ -148,7 +148,7 @@ class CheckoutController extends Controller
     public function checkoutOrder(Order $order, Request $request)
     {
         /** @var \App\Models\User $user*/
-        $user = $request->user();
+        //$user = $request->user();
 
         $stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
 
@@ -165,11 +165,10 @@ class CheckoutController extends Controller
                     'unit_amount' => $item->product->unit_price * 100,
                 ],
                 'quantity' =>$item->quantity,
-                //'quantity' => $cartItems[$product->id]['quantity'],
             ];
         }
 
-        $checkout_session = $stripe->checkout->sessions->create([
+        $session = $stripe->checkout->sessions->create([
             'line_items' => $lineItems,
             'mode' => 'payment',
             'success_url'   => route('checkout.success', [],true) . '?session_id={CHECKOUT_SESSION_ID}' ,
@@ -177,9 +176,45 @@ class CheckoutController extends Controller
         ]);
 
         /**Update the session Id*/
-        $order->payment->session_id = $checkout_session->id;
+        $order->payment->session_id = $session->id;
         $order->payment->save();
 
-        return redirect($checkout_session->url);
+        return redirect($session->url);
+    }
+
+    public function webhook()
+    {
+
+        $stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
+        $endpoint_secret ='whsec_5be37274777ad83d80ded5988005e3b44bf7fa3dbbf54670f1bdf315ef3b7fdc';
+
+        $payload = @file_get_contents('php://input');
+        $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        $event = null;
+
+        try {
+            $event = \Stripe\Webhook::constructEvent(
+                $payload, $sig_header, $endpoint_secret
+            );
+        } catch (\UnexpectedValueException $e) {
+            // Invalid payload
+            return response('', 401);
+            exit();
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
+            // Invalid signature
+            return response('', 402);
+            exit();
+        }
+
+// Handle the event
+        switch ($event->type) {
+            case 'payment_intent.succeeded':
+                $paymentIntent = $event->data->object;
+            // ... handle other event types
+            default:
+                echo 'Received unknown event type ' . $event->type;
+        }
+
+        return response('', 200);
     }
 }

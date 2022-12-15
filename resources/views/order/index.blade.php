@@ -35,7 +35,7 @@
                             </small>
                         </td>
                         <td>${{ $order->total_price }}</td>
-                     <td class="py-1 px-2 whitespace-nowrap">######</td>
+                     <td class="py-1 px-2 whitespace-nowrap">777</td>
                      <td class="py-1 px-2 flex gap-2 w-[100px]">
                          @if (!$order->isPaid())
                              <form action="{{ route('checkout-order', $order) }}"  method="POST">

@@ -214,8 +214,15 @@
                 ];
     Your branch is ahead of 'origin/main' by 1 commit.
 
-### STRIPE WEBHOOKS PART 2
+### STRIPE WEBHOOKS PART 2 REPEAT TO WATCH
     - Webhook trigger earlier before redirect
+
+### CREATE ORDER DETAILS PAGE
+    Add the function view() in orderController
+    Make sure the order belongs to user
+    Open Theme for Order Details
+    Sort in orderController
+    
 
 
                     

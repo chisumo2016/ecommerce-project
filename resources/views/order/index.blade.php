@@ -4,7 +4,6 @@
 <x-app-layout>
     <div class="container lg:w-2/3 xl:w-2/3 mx-auto">
         <h1 class="text-3xl font-bold mb-6">My Orders</h1>
-
         <div class="bg-white p-3 rounded-md shadow-md">
             <table class="table table-auto w-full">
                 <thead class="border-b-2">
@@ -13,6 +12,7 @@
                     <th>Date</th>
                     <th>Status</th>
                     <th>Sub Total</th>
+                    <th>Items</th>
                     <th class="w-64">Actions</th>
                 </tr>
                 </thead>
@@ -21,7 +21,7 @@
                  <tr class="border-b">
                         <td>
                             <a
-                                href="{{ route('order.view', $order) }}"
+                                href="{{ route('order.show', $order) }}"
                                 class="text-purple-600 hover:text-purple-500"
                             >
                                 #{{ $order->id }}
@@ -35,8 +35,9 @@
                             </small>
                         </td>
                         <td>${{ $order->total_price }}</td>
-                     <td class="py-1 px-2 whitespace-nowrap">777</td>
+                     <td class="py-1 px-2 whitespace-nowrap">{{ $order->items()->count() }} item(s)</td>
                      <td class="py-1 px-2 flex gap-2 w-[100px]">
+
                          @if (!$order->isPaid())
                              <form action="{{ route('checkout-order', $order) }}"  method="POST">
                                  @csrf
@@ -66,6 +67,9 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="mt-3">
+            {{ $orders->links() }}
         </div>
     </div>
 </x-app-layout>

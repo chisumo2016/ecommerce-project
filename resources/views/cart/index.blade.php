@@ -95,7 +95,7 @@
                     You don't have any items in cart
                 </div>
             </template>
-
         </div>
+
     </div>
 </x-app-layout>

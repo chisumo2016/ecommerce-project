@@ -49,7 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     /**Order*/
     Route::get('/orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('order.index');
-    Route::get('/orders/view/:order', [\App\Http\Controllers\OrderController::class, 'index'])->name('order.view');
+    Route::get('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'show'])->name('order.show');
 
 });
 

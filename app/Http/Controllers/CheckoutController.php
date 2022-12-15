@@ -120,7 +120,7 @@ class CheckoutController extends Controller
                 //return view('checkout.failure',['message' => 'Payment Does not exist']);
             }
 
-            if ($payment->status === PaymentStatus::Pending){
+            if ($payment->status === PaymentStatus::Pending->value){
 
                 $this->updateOrderAndSession($payment);
             }

@@ -158,5 +158,20 @@
         Has the relationship in the Order Model called payment(){}
         The session might expired , generate a new session when u click pay.
     Implemment the logic checkoutOrder(){}
+        to create an OrderItems.
+
+### IMPLEMENT PAYMENT FOR UNPAID ORDERS
+    OrderItems needs to be created after order is created,
+    To create an orderItems arrays $orderItems =[];
+    Gonna push inside orderItems array
+             $orderItems[] = [
+                
+            ];
+    Add Mass Assigment to OrderItem
+    Create a relationship on OrderItem Model  call order():BelongsTo{}
+    Create a relationship Order Model call items():HasMany{}
+    Create a relationship OrderItem Model call product():HasOne{}
+    Update the session Id in the checkoutOrder(){}
+  
  
 

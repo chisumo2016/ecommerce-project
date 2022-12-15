@@ -7,6 +7,7 @@ use App\Enums\PaymentStatus;
 use App\Http\Helpers\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,7 @@ class CheckoutController extends Controller
 
         $line_items = [];
         $totalPrice = 0;
+        $orderItems = [];
         foreach ($products as $product){
             $quantity = $cartItems[$product->id]['quantity'];
             $totalPrice += $product->price * $quantity;
@@ -31,12 +33,20 @@ class CheckoutController extends Controller
                     'currency' => 'usd',
                     'product_data' => [
                         'name' => $product->title,
-                        //'images' => [$product->image],
+                        //'images' => [$product->image], /accessible local server
                     ],
                     'unit_amount' => $product->price * 100,
                 ],
                 'quantity' => $quantity,
                 //'quantity' => $cartItems[$product->id]['quantity'],
+            ];
+
+            /**Push */
+            $orderItems[] = [
+                /**DB Field*/
+                'product_id' => $product->id,
+                'quantity'   => $quantity,
+                'unit_price' => $product->price,
             ];
         }
         //dd($line_items);
@@ -51,7 +61,7 @@ class CheckoutController extends Controller
         ]);
         //dd($checkout_session->id);
 
-        /**Orders*/
+        /**Create Order*/
         $orderData = [
             'total_price' => $totalPrice ,
             'status'      => OrderStatus::Unpaid,
@@ -63,8 +73,11 @@ class CheckoutController extends Controller
         /**Create ana Order*/
         $order = Order::create($orderData);
 
-
-
+        /**Create Order Items*/
+        foreach ($orderItems as $orderItem){
+            $orderItem['order_id'] = $order->id;
+            OrderItem::create($orderItem);
+        }
         /***create PaymentData*/
         $paymentData = [
             'order_id' => $order->id,
@@ -138,5 +151,35 @@ class CheckoutController extends Controller
         $user = $request->user();
 
         $stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
+
+        $lineItems = [];
+        foreach ($order->items() as $item ){
+            $lineItems[] =[
+                /**Push*/
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' =>$item->product->title,
+                        //'images' => [$product->image], /accessible local server
+                    ],
+                    'unit_amount' => $item->product->unit_price * 100,
+                ],
+                'quantity' =>$item->quantity,
+                //'quantity' => $cartItems[$product->id]['quantity'],
+            ];
+        }
+
+        $checkout_session = $stripe->checkout->sessions->create([
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url'   => route('checkout.success', [],true) . '?session_id={CHECKOUT_SESSION_ID}' ,
+            'cancel_url'    => route('checkout.failure', [],true),
+        ]);
+
+        /**Update the session Id*/
+        $order->payment->session_id = $checkout_session->id;
+        $order->payment->save();
+
+        return redirect($checkout_session->url);
     }
 }

@@ -12,7 +12,7 @@
                     <th>Order</th>
                     <th>Date</th>
                     <th>Status</th>
-                    <th>Total</th>
+                    <th>Sub Total</th>
                     <th class="w-64">Actions</th>
                 </tr>
                 </thead>

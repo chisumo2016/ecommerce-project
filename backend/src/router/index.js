@@ -6,8 +6,10 @@ import Login from "../views/Login.vue";
 import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import Product from "../views/Products/Product.vue";
+
 import NotFound from "../views/NotFound.vue";
 import store from "../store";
+import Orders from "../views/Orders/Orders.vue";
 
 /**Define an array of routes*/
 const  routes = [
@@ -29,6 +31,11 @@ const  routes = [
                 path: 'products',
                 name:'app.products',
                 component:Product
+            },
+            {
+                path: 'orders',
+                name:'app.orders',
+                component:Orders
             },
         ]
     },

@@ -32,3 +32,24 @@ export  function  setProducts(state , [loading , response = null])  //data or re
     state.products.loading = loading;
 
 }
+
+export  function  setOrders(state , [loading , response = null])  //data or response  response ={}
+{
+    //debugger;
+    /**Response eexist */
+    if (response){
+
+        state.orders = {
+            /**Define the property */
+            data    :   response.data ,
+            links   :   response.meta.links ,
+            total   :   response.meta.total ,
+            limit   :   response.meta.per_page ,
+            from    :   response.meta.from ,
+            to      :   response.meta.to ,
+            page    :   response.meta.current_page ,
+        }
+    }
+    state.orders.loading = loading;
+
+}

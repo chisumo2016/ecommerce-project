@@ -4,7 +4,7 @@
         <div class="flex justify-between border-b-2 pb-3">
             <div class="flex items-center">
                 <span class="whitespace-nowrap mr-3">Per Page</span>
-                <select @change="getorders(null)" v-model="perPage"
+                <select @change="getOrders(null)" v-model="perPage"
                         class="appearance-none relative block w-24 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -16,7 +16,7 @@
             </div>
             <div>
                 <input v-model="search"
-                       @change="getorders(null)"
+                       @change="getOrders(null)"
                        class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                        placeholder="Type to Search orders">
             </div>
@@ -27,11 +27,12 @@
             <table class="table-auto w-full">
                 <thead>
                 <tr>
-                    <TableHeaderCell @click="sortorder"  class="border-b-2 p-2 text-left" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
-                    <TableHeaderCell @click="sortorder('status')"   class="border-b-2 p-2 text-left" field="status" :sort-field="sortField" :sort-direction="sortDirection">Status</TableHeaderCell>
-                    <TableHeaderCell @click="sortorder('created_at')"  class="border-b-2 p-2 text-left" field="created_at" :sort-field="sortField" :sort-direction="sortDirection">Date</TableHeaderCell>
-                    <TableHeaderCell @click="sortorder('total_price')"  class="border-b-2 p-2 text-left" field="total_price" :sort-field="sortField" :sort-direction="sortDirection">Price</TableHeaderCell>
-                    <TableHeaderCell @click="sortorder('number_of_items')"  class="border-b-2 p-2 text-left" field="number_of_items" :sort-field="sortField" :sort-direction="sortDirection">Items</TableHeaderCell>
+                    <TableHeaderCell @click="sortOrder('id')"  class="border-b-2 p-2 text-left" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
+                    <TableHeaderCell @click="sortOrder('number_of_items')"  class="border-b-2 p-2 text-left" :sort-field="sortField" :sort-direction="sortDirection">Customer</TableHeaderCell>
+                    <TableHeaderCell @click="sortOrder('status')"   class="border-b-2 p-2 text-left" field="status" :sort-field="sortField" :sort-direction="sortDirection">Status</TableHeaderCell>
+                    <TableHeaderCell @click="sortOrder('total_price')"  class="border-b-2 p-2 text-left" field="total_price" :sort-field="sortField" :sort-direction="sortDirection">Price</TableHeaderCell>
+                    <TableHeaderCell @click="sortOrder('created_at')"  class="border-b-2 p-2 text-left" field="created_at" :sort-field="sortField" :sort-direction="sortDirection">Date</TableHeaderCell>
+
                     <TableHeaderCell field="actions">
                         Actions
                     </TableHeaderCell>
@@ -50,14 +51,15 @@
                 <tbody v-else>
                 <tr v-for="(order, index) of orders.data" >
                     <td class="border-b p-2">{{ order.id }}</td>
+                    <td class="border-b p-2">{{ order.customer.first_name }} {{ order.customer.last_name }}</td>
                     <td class="border-b p-2">
                         <span>{{ order.status}}</span>
                     </td>
+                    <td class="border-b p-2">{{ order.total_price }}</td>
                     <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden  text-ellipsis">
                         {{ order.created_at }}
                     </td>
-                    <td class="border-b p-2">{{ order.total_price }}</td>
-                    <td class="border-b p-2">{{ order.number_of_items }}</td>
+
                     <td class="border-b p-2">
                         <Menu as="div" class="relative inline-block text-left">
                             <div>
@@ -159,29 +161,29 @@
 import Spinner from "../../components/core/Spinner.vue";
 import {computed, onMounted, ref} from "vue";
 import store from "../../store";
-//import {ORDERS_PER_PAGE} from "../../constants.js";
+import {ORDERS_PER_PAGE} from "../../constants.js";
 import TableHeaderCell from "../../components/core/Table/TableHeaderCell.vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import {DotsVerticalIcon, PencilIcon, TrashIcon} from '@heroicons/vue/outline'
 
 /**Define properties*/
-//const    perPage   = ref(ORDERS_PER_PAGE);
+const    perPage   = ref(ORDERS_PER_PAGE);
 const    search    = ref('');
 const    orders  = computed(() => store.state.orders);
 const    sortField = ref('updated_at');
 const    sortDirection = ref('desc');
 
-const emit = defineEmits(['clickEdit'])
+const emit = defineEmits(['clickShow'])
 
 
 
 /**Methods*/
 onMounted(() =>{
-    getorders();
+    getOrders();
 })
 
-function getorders(url = null) {
-    store.dispatch('getorders', { //getorders executed and get the orders
+function getOrders(url = null) {
+    store.dispatch('getOrders', { //getorders executed and get the orders
         url ,
         search          : search.value,
         perPage         : perPage.value,
@@ -195,10 +197,10 @@ const  getForPage = (event , link ) => {
     if (!link.url || link.active){
         return
     }
-    getorders(link.url)
+    getOrders(link.url)
 }
 
-const sortorder = (field) => {
+const sortOrders = (field) => {
     if (sortField.value === field){
         if (sortDirection.value === 'asc') {
             sortDirection.value = 'desc'
@@ -209,21 +211,21 @@ const sortorder = (field) => {
         sortField.value = field;
         sortDirection.value = 'asc'
     }
-    getorders();
+    getOrders();
 }
 
 const showOrder = (order) => {
     emit('clickShow', order)
 }
 
-const deleteorder = (order) => {
+const deleteOrder = (order) => {
   if (!confirm(`Are you sure you want to delete the order ?`)){
       return
   }
-  store.dispatch('deleteorder', order.id)
+  store.dispatch('deleteOrder', order.id)
     .then(response =>{
         /**Show Notification*/
-        store.dispatch('getorders')
+        store.dispatch('getOrders')
     })
 }
 </script>

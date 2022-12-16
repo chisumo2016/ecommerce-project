@@ -34,6 +34,7 @@ export  function getUser({ commit}, data)
         })
 }
 
+/**PRODUCTS SECTION***/
 export  function  getProducts({commit} , { url = null, search = '', perPage = 10 , sort_field, sort_direction} ={})
 {
     /**Commit Mutations*/
@@ -103,3 +104,34 @@ export  function  updateProduct({ commit} , product)
 export  function  deleteProduct({ commit}, id) {
     return axiosClient.delete(`/products/${id}`)
 }
+
+/** ORDERS SECTION ***/
+export  function  getOrders({commit,state} , { url = null, search = '', per_page = 10 , sort_field, sort_direction} ={})
+{
+    /**Commit Mutations*/
+    commit('setOrders',[true])
+
+    url = url || '/orders';
+
+    const params = {
+         per_page :  state.orders.limit,
+    }
+
+    return  axiosClient.get(url, {
+        /**Object*/
+        params: {
+            ...params,
+            search, per_page, sort_field,sort_direction
+        }
+    })
+        .then(response => {
+            //debugger;
+            /**Commit Mutations*/
+            commit('setOrders',[false, response.data])
+        })
+        .catch(() =>{
+            /**Commit Mutations*/
+            commit('setOrders',[false])
+        })
+}
+

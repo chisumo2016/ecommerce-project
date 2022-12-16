@@ -109,16 +109,41 @@
     Display customer information
     Return id, first_name, last_name inn UserCustomerListResource
             
-    
-            
-
-    
 
 #### PREPARE API FOR ORDERS DETAILS PAGE
-    Create a OrderListResource 
-        php artisan make:resource OrderListResource
+    Create a OrderResource 
+        php artisan make:resource OrderResource
     Implement the vue 
-            - Remove the menu
+            - Remove all the menu in OrdersTable.vue
+            -Add the button with eye icon from heroiicons
+                    <router-link :to="{{ }}"></router-linkrouter-link>
+            - add tthe router link in router.js
+                    {
+                        path: 'orders/:id',
+                        name:'app.orders.show',
+                        component:OrderShow
+                    },
+            - Create a OrderShow component, make a reequest to get a cuurrent order
+            -create an actions getOrder for single order
+            - Use the dispatch in OrderShow in OrderShow.vue file, to take an id  vue-router()
+                            const route = useRouter();
+                                    onMounted(() =>{
+                                        //debugger;
+                                        store.dispatch('getOrder', route.params.id)
+                                    })
+            - Link <router-link :to="{name: 'app.orders.show', params:{id: order.id} }"
+    Open the backend of OrderController and add show(){}
+    Disable OrderResource with $wrap
+            public static $wrap = false;
+    We need much mmore information than this ,information out the address,when admmin click on 
+        hhe order will see all the information .
+            - Create a UserCustomerResource
+                    php artisan make:resource UserCustomerResource
+            - In order for this to work 'addresses'  => $this->customer->addresses
+                    'shippingAddress'  => $this->customer->shippingAddress,
+                    'BillingAddress'  => $this->customer->billingAddress
+            - In the OrderResource ,we're using UserCustomerResource, return everything
+    
 
     
 

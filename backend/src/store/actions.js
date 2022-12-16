@@ -65,7 +65,6 @@ export  function  getProducts({commit} , { url = null, search = '', perPage = 10
 export  function  getProduct({} , id)
 {
     return axiosClient.get(`/products/${id}`)
-
 }
 
 export  function  createProduct({ commit} , product)
@@ -133,5 +132,11 @@ export  function  getOrders({commit,state} , { url = null, search = '', per_page
             /**Commit Mutations*/
             commit('setOrders',[false])
         })
+}
+
+export  function  getOrder({} , id)
+{
+    //debugger;
+    return axiosClient.get(`/orders/${id}`)
 }
 

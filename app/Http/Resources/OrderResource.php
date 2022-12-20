@@ -40,11 +40,11 @@ class OrderResource extends JsonResource
             ]),
 
             'customer' => [
-                'id'    => $this->user->id,
-                'email'    => $this->user->email,
-                'first_name'  => $customer->first_name,
-                'last_name'   => $customer->last_name,
-                'phone'      =>  $customer->phone, //Informationn on the list
+                'id'          =>  $this->user->id,
+                'email'       =>  $this->user->email,
+                'first_name'  =>  $customer->first_name,
+                'last_name'   =>  $customer->last_name,
+                'phone'       =>  $customer->phone, //Informationn on the list
                     'shippingAddress'  => [
                         'id'            => $shipping->id,
                         'address1'      => $shipping->address1,

@@ -167,8 +167,35 @@
         view the full code in OrderResource , will help us to display single page in vueee
 
 
+### CREATE ORDER DETAILS PAGE OR INNER PAGE 
+    Create an UI iin show page vue in backend.
+    We need to dispay the order Details
+    Add the const order = ref({});
+    Add this on Mountented
+            .then(({data}) =>{
+                //debugger;
+                order.value = data
+            })
+    We need to display Order Item
+    We need to display Customer Details
 
-
+   Error:
+   {message: "Attempt to read property "first_name" on null", exception: "ErrorException",…}
+   exception
+   :
+   "ErrorException"
+   file
+   :
+   "/Users/developer/Documents/code/ecommerce-project/app/Http/Resources/OrderListResource.php"
+   line
+   :
+   24
+   message
+   :
+   "Attempt to read property \"first_name\" on null"
+            
+    
+    
 
 
 

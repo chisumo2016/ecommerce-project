@@ -145,7 +145,26 @@
             - In the OrderResource ,we're using UserCustomerResource, return everything
     
 
-    
+### CREATE FINAL VERSION OF ORDER RESOURCE
+        Here we're going to modify some few things.
+        Create a new resourcee for CustomerAddressRessource app/Http/Resources/CustomerAddressResource.php
+        Relationship to be defined in CustomerAddress and County Models
+        Add the relationship in the CustomerAddressResourcee
+        Adjust some few changes in UserCutsomerResource 
+             'shippingAddress'  => $this->customer->shippingAddress,
+             'shippingAddress'  => new CustomerAddressResource($this->customer->shippingAddress),
+             'BillingAddress'  => $this->customer->billingAddress
+             'BillingAddress'  =>  new CustomerAddressResource($this->customer->billingAddress),
+        We need to return the order Items, open OrderResource , create an OrderItemResource
+        Delete UserCustomerListResource.php
+        Some few modification
+            'BillingAddress'  =>  new CustomerAddressResource($this->customer->billingAddress),
+        Delete the app/Http/Resources/CustomerAddressResource.php
+        Delete the app/Http/Resources/OrderItemResource.php
+        Delete the app/Http/Resources/UserCustomerResource.php
+        Change the 'number_of_items'   => $this->items()->count(), into 'items'   => $this->items()->count(),
+              This item will an arrays or [] inn OrderResource
+        view the full code in OrderResource , will help us to display single page in vueee
 
 
 

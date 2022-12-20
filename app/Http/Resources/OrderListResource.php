@@ -19,7 +19,11 @@ class OrderListResource extends JsonResource
             'status'            => $this->status ,
             'total_price'       => $this->total_price,
             'number_of_items'   => $this->items()->count(),
-            'customer'          => new UserCustomerListResource( $this->user),
+            'customer' => [
+                'id' => $this->user->id,
+                'first_name' => $this->user->customer->first_name,
+                'last_name' => $this->user->customer->last_name,
+            ],
             'created_at'        => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at'        => $this->updated_at->format('Y-m-d H:i:s'),
             //'updated_at'    => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),

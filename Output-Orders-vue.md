@@ -176,23 +176,26 @@
                 //debugger;
                 order.value = data
             })
-    We need to display Order Item
+    To implement the logic in  Actions and Mutation.js
+    To implement the logic in Order Controller in show method
+    Add the route in api .
+    We need to display Order Details
     We need to display Customer Details
+    We need to display Billing  and Shipping Address Details UI
+    We need to display Order Item
+    Put a lodder 
+        <template>
+            <div v-if="order">
+            </div>
+        </template>
+    
 
-   Error:
-   {message: "Attempt to read property "first_name" on null", exception: "ErrorException",…}
-   exception
-   :
-   "ErrorException"
-   file
-   :
-   "/Users/developer/Documents/code/ecommerce-project/app/Http/Resources/OrderListResource.php"
-   line
-   :
-   24
-   message
-   :
-   "Attempt to read property \"first_name\" on null"
+       Error:
+       {message: "Attempt to read property "first_name" on null", exception: "ErrorException",…}
+       exception
+        
+        Problem: Data information was missing in the database .Was not caused with  code.
+
             
     
     

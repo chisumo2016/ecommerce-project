@@ -1,4 +1,5 @@
 <template>
+<!--    <pre>{{ order }}</pre>-->
     <div v-if="order">
 
         <!--  Order Details-->
@@ -11,6 +12,7 @@
                 <tr>
                     <td class="font-bold py-1 px-2">Order #</td>
                     <td>{{ order.id }}</td>
+
                 </tr>
                 <tr>
                     <td class="font-bold py-1 px-2">Order Date</td>
@@ -20,6 +22,19 @@
                 <tr>
                     <td class="font-bold py-1 px-2">SubTotal</td>
                     <td>{{order.total_price }}</td>
+
+                </tr>
+                <tr>
+                    <td class="font-bold py-1 px-2">Order Status</td>
+                    <td>
+                        <span class="text-white py-1 px-2"
+                        :class="{
+                            'bg-emerald-500' : order.status === 'paid',
+                            'bg-gray-400'    : order.status !== 'paid'
+                        }">
+                            {{ order.status}}
+                        </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -54,9 +69,9 @@
                 <h2 class="text-xl font-semibold mt-6 pb-2 border-b border-gray-300">Billing Address</h2>
                 <!--  Billing Address Details-->
                 <div>
-                    {{ order.customer.billingAddress.address1 }}, {{ order.customer.billingAddress.address2 }} <br>
-                    {{ order.customer.billingAddress.city }}, {{ order.customer.billingAddress.zipcode }} <br>
-                    {{ order.customer.billingAddress.state }}, {{ order.customer.billingAddress.country }} <br>
+                    {{ order.customer.shippingAddress.address1 }},{{ order.customer.shippingAddress.address2 }} <br>
+                    {{ order.customer.shippingAddress.city }}, {{ order.customer.shippingAddress.zipcode }} <br>
+                    {{ order.customer.shippingAddress.state }}, {{ order.customer.shippingAddress.country }} <br>
                 </div>
                 <!--End of Billing Address Details-->
             </div>

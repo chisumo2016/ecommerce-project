@@ -30,7 +30,7 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::apiResource('products', ProductController::class);
 
     /**Order Route Resource**/
-        Route::get('orders', [OrderController::class ,'index']);
+        Route::get('orders',         [OrderController::class ,'index']);
         Route::get('orders/{order}', [OrderController::class, 'show']);
 });
 

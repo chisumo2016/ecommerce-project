@@ -148,7 +148,8 @@ onMounted(() => {
 const onStatusChange = () => {
     axiosClient.post(`/orders/change-status/${order.value.id}/${order.value.status}`)
         .then(({ data }) =>{
-            console.log("Success");
+            store.commit('showToast', `Order status was successfully changed into  "${order.value.status}"`)
+            //console.log("Success");
             //orderStatuses.value = data
         })
   //console.log(order.value.status)

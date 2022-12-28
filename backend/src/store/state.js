@@ -27,6 +27,12 @@ const state = {
         page:1,
         limit: null,
         total: null
+    },
+
+    toast: {
+        show: false,
+        message: '',
+        delay: 5000
     }
 };
 

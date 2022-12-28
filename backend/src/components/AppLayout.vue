@@ -18,6 +18,7 @@
     <div v-else class="min-h-full bg-gray-200 flex items-center justify-center">
       <Spinner></Spinner>
     </div>
+    <Toast/>
 </template>
 
 <script setup>
@@ -26,6 +27,7 @@ import {computed, onMounted, onUnmounted, ref} from "vue";
 import NavBar from "./NavBar.vue";
 import store from "../store";
 import Spinner from "./core/Spinner.vue";
+import Toast from "./core/Toast.vue";
 
 /**Build In defineProps*/
 const { title }= defineProps({

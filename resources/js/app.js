@@ -12,7 +12,7 @@ window.Alpine = Alpine;
 
 
 
-document.addEventListener("alpine:init", () => {
+document.addEventListener("alpine:init", async () => {
 
     Alpine.data("toast", () => ({
         visible: false,

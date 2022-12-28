@@ -3,7 +3,7 @@
 :class="{
     'bg-emerald-500' : ['paid' , 'completed'] . includes(order.status),
     'bg-red-500'     :  order.status === 'cancelled',
-    'bg-orange-600'  :  order.status === 'shipped',
+    'bg-orange-400'  :  order.status === 'shipped',
     'bg-gray-400'    :  order.status === 'unpaid',
 
       }">

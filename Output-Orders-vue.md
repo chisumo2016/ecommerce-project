@@ -286,6 +286,26 @@
     Remember to import
 
 
+### DISPLAY NOTIFICATION ON ORDER STATUS UPDATE
+    - We gonna use the same component we implemented in the front end.
+        resources/views/layouts/app.blade.php
+    Create a new component in backend/src/components/core/Toast.vue
+    Paste the all div
+    Implement thee close function in Toast.vue.
+    Create a toast state in state.js
+    Alway we should innclude in AppLayouts file
+    Create a function in mutation called showToast(state, message){} and hideToast(){}
+    See how the progressbar is implemented  in app.js with alpine.js
+    Go in orderShow.vue, whenever the status iss changed 
+    watch() to watch the interval
+    Add the let on Toast.vue
+        let interval = null;
+        let timeout = null;
+        const  percent = ref(0)
+    Add delay in the state
+    
+
+
 
 
 

@@ -53,7 +53,7 @@
                     <td class="border-b p-2">{{ order.id }}</td>
                     <td class="border-b p-2">{{ order.customer.first_name }} {{ order.customer.last_name }}</td>
                     <td class="border-b p-2">
-                        <span>{{ order.status}}</span>
+                        <OrderStatus :order="order"></OrderStatus>
                     </td>
                     <td class="border-b p-2">{{ order.total_price }}</td>
                     <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden  text-ellipsis">
@@ -126,6 +126,7 @@ import {ORDERS_PER_PAGE} from "../../constants.js";
 import TableHeaderCell from "../../components/core/Table/TableHeaderCell.vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import {DotsVerticalIcon, PencilIcon, TrashIcon} from '@heroicons/vue/outline'
+import OrderStatus from "./OrderStatus.vue"
 
 /**Define properties*/
 const    perPage   = ref(ORDERS_PER_PAGE);

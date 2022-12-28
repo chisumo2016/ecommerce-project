@@ -194,7 +194,122 @@
        {message: "Attempt to read property "first_name" on null", exception: "ErrorException",…}
        exception
         
-        Problem: Data information was missing in the database .Was not caused with  code.
+        Problem: Data information was missing in the database .Was not caused with  code. Wipe out the database and migrate again.
+                    php artisan migrate:fresh --seed
+                Register a new Customer
+                Verify a new cusstomer via mailtrap
+                Select the item and add to basket
+                Press the checkput payment
+                Fill all the necessary field
+
+###  IMPLEMENT ORDER STATUS UPDATE  FROM ADMIN
+    Let us put a dropdown on the status on OrderShow.vue
+                <span class="text-white py-1 px-2"
+                        :class="{
+                            'bg-emerald-500' : order.status === 'paid',
+                            'bg-gray-400'    : order.status !== 'paid'
+                        }">
+                            {{ order.status}}
+                </span>
+
+            TO 
+                
+            <select @change="onStatusChange">
+                <option value="">Upaid</option>
+                <option value="">Paid</option>
+                <option value="">Cancelled</option>
+                <option value="">Shipped</option>
+                <option value="">Completed</option>
+            </select>
+    Add the method onStatusChange
+    We dont have order status in the backend  Enums folder 
+            enum  OrderStatus : string
+                {
+                case Unpaid         = 'unpaid'; //draft
+                case Paid           = 'paid';
+                case Cancelled      = 'cancelled';
+                case Shipped        = 'shipped';
+                case Completed      = 'complete'; //admin
+                }
+    We need to make a requuest to get all the status in Api/OrderController
+    Get ad getStatuses , add in enums of status getStatuses(){}
+    Implement the route in api web file 
+          Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
+    Open the OrderShow.vue file and make a request, we can do without a store
+            axiosClient.get(`/orders/statuses`)
+                .then(({ data }) =>{
+                    orderStatuses.value = data
+                })
+    Add the v-for on option
+        <option v-for="status of orderStatuses" :value="status">{{ status }}</option>
+    Add the function onStatusChange in orderShow.vue file
+    Add v-model v-model="order.status"
+    
+     ERROR:
+        No query  results for model in Model
+     Soln:
+        Show route  cover the get statuses,, swith the ordering in api routes
+    
+     Non-static method App\Enums\OrderStatus::getStatuses() cannot be called statically
+        Soln: The error shows that, the method should be static in enum file
+     We can implement the status change in the OrderCController in api folder changeStatus(){}
+            This about security, can anyone mmaking a request changeStatus,we have a middleware admin
+            Add the route url 
+                        Route::get('orders/change-status/{order}/{status}', [OrderController::class, 'changeStatus']);
+     Open Ordershow and make post request
+            const onStatusChange = () => {
+    axiosClient.post(`/orders/change-status/${order.value.id}/${order.value.status}`)
+        .then(({ data }) =>{
+            console.log("Success");
+            //orderStatuses.value = data
+        })
+            //console.log(order.value.status)
+            }
+    When the order iis created , the admin user should get an email
+    If its shipped , the user who bought an items should notified, order hass been shipped
+    User will be able tto track his/her order
+    Make a label with different colors in OrdersTable.vue
+            <span class="text-white py-1 px-2 rounded"
+              :class="{
+            'bg-emerald-500' : ['paid' , 'completed'] . includes(order.status),
+            'bg-red-500'     :  order.status === 'cancelled',
+            'bg-orange-600'  :  order.status === 'shipped',
+            'bg-gray-400'    :  order.status === 'unpaid',
+
+              }">
+            {{ order.status}}
+            </span>
+    Convert into components backend/src/views/Orders/OrderStatus.vue
+            <OrderStatus :order="order"></OrderStatus>
+    Pass this into OrderShow Page as well
+            <OrderStatus :order="order"></OrderStatus>
+    Remember to import
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+            
+
+
+
+
+
+
+
+    
+    
+    
+    
+        
 
             
     

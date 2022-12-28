@@ -33,6 +33,7 @@ class OrderController extends Controller
 
         return view('order.show', compact('order'));
     }
+
 }
 
 

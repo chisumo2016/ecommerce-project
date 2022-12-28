@@ -138,7 +138,7 @@ class CheckoutController extends Controller
             throw $e;
         }
         catch (\Exception $e){
-
+            //throw $e;
             return view('checkout.failure',['message' => $e->getMessage()]);
         }
 
@@ -233,18 +233,23 @@ class CheckoutController extends Controller
     private  function  updateOrderAndSession(Payment $payment)
     {
         /**Payment exist*/
-        $payment->status  = PaymentStatus::Paid;
+        $payment->status  = PaymentStatus::Paid->value;
         $payment->update();
 
         /**Take the Order of this payment */
         $order = $payment->order;
 
-        $order->status = OrderStatus::Paid;
+        $order->status = OrderStatus::Paid->value;
         $order->update();
 
         /**Sending Email*/
         $adminUsers = User::where('is_admin', 1)->get();
+        /**Push */
+       // $adminUsers[] =$order->user;
 
-        Mail::to($adminUsers)->send(new NewOrderMail($order));
+        foreach([...$adminUsers,$order->user] as $user){
+            Mail::to($user)->send(new NewOrderMail($order, (bool)$user->is_admin));
+        }
+
     }
 }

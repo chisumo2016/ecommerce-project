@@ -322,7 +322,17 @@
 
     We have in two places , when the order is created (checkoutController) , all admin user will receive email
     Second in the OrderController when changestatus(){}, the owner/use will receive the email
-    
+
+#### FINAL TEST OF SENDING EMAILS
+    - Create a UI for new-order.blade.php
+    - add the backen url in env file
+    -add Mail::to([...$adminUsers,$order->user ])->send(new NewOrderMail($order)); in CheckpoutController
+    - To have url for admin and user ,
+         Check on app/Mail/NewOrderMail.php and app/Mail/OrderUpdateMail.php
+    - Pass in the CheckoutController 
+        Mail::to($user)->send(new NewOrderMail($order));
+            TO
+            
     
     
 

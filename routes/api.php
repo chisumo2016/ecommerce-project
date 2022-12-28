@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,9 @@ Route::middleware(['auth:sanctum', 'admin'])
     /**Product Route Resource**/
         Route::apiResource('products', ProductController::class);
 
+    /**User Route Resource**/
+       // Route::apiResource('users', UserController::class);
+
     /**Order Route Resource**/
         Route::get('orders',         [OrderController::class ,'index']);
         Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
@@ -36,6 +40,6 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::get('orders/{order}', [OrderController::class, 'show']);
 
 });
-
+Route::apiResource('users', UserController::class);
 Route::post('/login',     [AuthController::class, 'login']);
 

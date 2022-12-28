@@ -302,7 +302,28 @@
         let interval = null;
         let timeout = null;
         const  percent = ref(0)
-    Add delay in the state
+    Add delay in the state.js
+
+#### CREATE MAIL CLASSES FOR NEW ORDER AND ORDER STATUS UPDATE.
+    Whenever the order is created , status of the order is cchanged,Email should be send
+    Email will be sent to the admin of the website
+    Wheneever the status of thee order is changed ,email will be send to the customer.Hey Your order status has been changed.
+    We should bee create Mailable for sending email
+    
+    1: Admin
+            php artisan make:mail NewOrderMail
+            pass the Order inn constructor
+            generate new view  mail/new-order.blade.php
+            create a mailable instance and call the envolope. In checkoutController
+            Few changes , take the $endpoint_secret and put env()
+            Implement the logic in the updateOrderAndSession(Payment $payment){} to send mail
+            Implement the logic on OrderController in API.
+                php artisan make:mail OrderUpdateMail  
+
+    We have in two places , when the order is created (checkoutController) , all admin user will receive email
+    Second in the OrderController when changestatus(){}, the owner/use will receive the email
+    
+    
     
 
 

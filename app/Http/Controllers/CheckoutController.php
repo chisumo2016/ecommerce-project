@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Http\Helpers\Cart;
+use App\Mail\NewOrderMail;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CheckoutController extends Controller
@@ -79,6 +82,8 @@ class CheckoutController extends Controller
             $orderItem['order_id'] = $order->id;
             OrderItem::create($orderItem);
         }
+
+
         /***create PaymentData*/
         $paymentData = [
             'order_id' => $order->id,
@@ -114,7 +119,8 @@ class CheckoutController extends Controller
              }
             /** Query payment from DB**/
             $payment = Payment::query()
-                ->where(['session_id'=> $session_id])->whereIn('status',[PaymentStatus::Pending, PaymentStatus::Paid] )->first();
+                ->where(['session_id'=> $session_id])
+                ->whereIn('status',[PaymentStatus::Pending, PaymentStatus::Paid] )->first();
             if (!$payment){
                 throw  new NotFoundHttpException();
                 //return view('checkout.failure',['message' => 'Payment Does not exist']);
@@ -184,7 +190,7 @@ class CheckoutController extends Controller
     {
 
         $stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
-        $endpoint_secret ='whsec_5be37274777ad83d80ded5988005e3b44bf7fa3dbbf54670f1bdf315ef3b7fdc';
+        $endpoint_secret = env('WEBHOOK_SECRET_KEY');
 
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
@@ -226,8 +232,6 @@ class CheckoutController extends Controller
 
     private  function  updateOrderAndSession(Payment $payment)
     {
-
-
         /**Payment exist*/
         $payment->status  = PaymentStatus::Paid;
         $payment->update();
@@ -237,5 +241,10 @@ class CheckoutController extends Controller
 
         $order->status = OrderStatus::Paid;
         $order->update();
+
+        /**Sending Email*/
+        $adminUsers = User::where('is_admin', 1)->get();
+
+        Mail::to($adminUsers)->send(new NewOrderMail($order));
     }
 }

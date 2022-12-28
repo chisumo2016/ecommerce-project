@@ -6,8 +6,10 @@ use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderListResource;
 use App\Http\Resources\OrderResource;
+use App\Mail\OrderUpdateMail;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -46,6 +48,9 @@ class OrderController extends Controller
     {
         $order->status = $status;
         $order->save();
+
+        /**Sending Email*/
+        Mail::to($order->user)->send(new OrderUpdateMail($order));
 
         return response('' , 200);
     }

@@ -35,9 +35,17 @@ class AuthController extends Controller
            Auth::logout();
 
            return response([
-               'message' => 'You don\'t have permission to authenticated as asmin'
+               'message' => 'You don\'t have permission to authenticated as admin'
            ], 403);
        }
+
+       /**Additional Check for Email Verified*/
+        if (!$user->email_verified_at){
+            Auth::logout();
+            return response([
+                'message' => 'Your email address is not verified .'
+            ], 403);
+        }
 
        /**Create a token*/
        $token = $user->createToken('main')->plainTextToken;

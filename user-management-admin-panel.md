@@ -97,5 +97,44 @@
         add new method getUsers(){}
             moddification perPage = 10  to per_page
     - Change on Sidebar  and the users link onn the dashboard
-    - To change the field in the UserssTables.
+    - To change the field in the UserssTables to respond with database on column.
+
+### IMPLEMENT USER UPDATE AND DELETE
+    - Click the edit button on , return response wasn't successfull due to bad method 
+         Flow : 
+                1: clickEdit(UsersTable) 
+                2: Users.vue (listen for click event) on <UsersTable @clickEdit="editUser" />
+                3: Call the EditUser  function on Users.vue file
+                4: On EditUser() we call getUser
+
+    - Open user modal  and change tthe fiedl bassed on database.
+    - Testt the update to see if its working. NO
+            ERRORS: Cannot read properties of undefined (reading 'then')
+            SOLUTTIOMN:
+                To create the updateUser() , createUser() actions.js
+    - Test again the application
+                ERROR: Uncaught ReferenceError: id is not defined
+                        {
+                            return axiosClient.put(`/users/${id}`, user)
+                            }
+                SOLUTION
+                    problemm happened in updateUser actions.js
+                        export  function  updateUser({ commit} , user)
+                            {
+                            return axiosClient.put(`/users/${user.id}`, user)
+                            }
+
+              ERROR: "Attempt to read property "id" on null :
+                    The route was not middleware.
+
+    - Let us try to create a new user via UI
+    - PASSED
+    - However the  new user will be required to verify the account.The system will send a email to click.But at the moment
+        will simplify by adding 'email_verified'
+            $data['email_verified_at'] = date('Y-m-d H:i:s');
+
+    - Try againn to log as 	Mary@example.com  ,FAIL
+    - Open the app/Http/Controllers/Api/AuthController.php and add addition check on login
+
+       
                             

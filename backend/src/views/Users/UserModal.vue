@@ -34,7 +34,7 @@
                             class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center"/>
                         <header class="py-3 px-4 flex justify-between items-center">
                             <DialogTitle as="h3"  class="text-lg leading-6 font-medium text-gray-900">
-                                {{ user.id ? `Update user: "${props.user.title}"` : 'Create new user'}}
+                                {{ user.id ? `Update user: "${props.user.name}"` : 'Create new user'}}
                             </DialogTitle>
                             <button
                                 @click="closeModal"
@@ -63,23 +63,19 @@
                             <div class="bg-white px-4 pt-5 pb-4">
                                 <CustomInput
                                     class="mb-2"
-                                    v-model="user.title"
-                                    label="user Title"/>
+                                    v-model="user.name"
+                                    label="Name"/>
+
                                 <CustomInput
-                                    type="file"
-                                    @change="file => user.image = file"
                                     class="mb-2"
-                                    label="user Image"/>
+                                    v-model="user.email"
+                                    label="Email"/>
+
                                 <CustomInput
-                                    type="textarea"
-                                    v-model="user.description"
+                                    type="password"
                                     class="mb-2"
-                                    label="user Description"/>
-                                <CustomInput
-                                    type="number"
-                                    v-model="user.price"
-                                    class="mb-2"
-                                    label="user Price" prepend="$"/>
+                                    v-model="user.password"
+                                    label="Password"/>
 
                             </div>
                             <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -125,10 +121,10 @@ const loading = ref(false)
 
 const user = ref({
     id    : props. user.id,
-    title : props. user.title,
-    image : props. user.image,
-    description: props. user.description,
-    price : props. user.price,
+    name  : props. user.name,
+    email : props. user.email,
+
+
 })
 
 const props = defineProps({
@@ -151,10 +147,8 @@ const  show = computed({
 onUpdated(() =>{
     user.value = {
         id    : props. user.id,
-        title : props. user.title,
-        image : props. user.image,
-        description: props. user.description,
-        price : props. user.price,
+        name :  props. user.name,
+        email : props. user.email,
     }
 })
 
@@ -165,6 +159,7 @@ function closeModal() {
 
 const onSubmit = () => {
   loading.value = true
+
     if (user.value.id){
         store.dispatch('updateUser', user.value)
         .then(response => {
@@ -184,6 +179,10 @@ const onSubmit = () => {
                 store.dispatch('getUsers')
                 closeModal()
             }
+        })
+        .catch(error =>{
+            loading.value = false;
+            //debugger;
         })
     }
 }

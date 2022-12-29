@@ -176,8 +176,22 @@ export  function  getOrder({} , id)
             })
     }
 
-export  function  getUser({commit} , id)
+// export  function  getUser({commit} , id)
+// {
+//     return axiosClient.get(`/users/${id}`)
+// }
+
+export  function  createUser({ commit} , user)
 {
-    return axiosClient.get(`/users/${id}`)
+    return axiosClient.post('/users', user)
 }
 
+export  function  updateUser({ commit} , user)
+{
+
+    return axiosClient.put(`/users/${user.id}`, user)
+}
+
+export  function  deleteUser({ commit}, id) {
+    return axiosClient.delete(`/users/${id}`)
+}

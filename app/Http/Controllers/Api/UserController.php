@@ -59,7 +59,9 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $data['is_admin'] = true;
+        $data['email_verified_at'] = date('Y-m-d H:i:s');
         $data['password']  = Hash::make($data['password']);
+
         $data['created_by'] = $request->user()->id;
         $data['updated_by'] = $request->user()->id;
 
@@ -77,17 +79,17 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\user  $user
-     * @return \Illuminate\Http\Response
+     * @return UserResource
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+
         $data = $request->validated();
 
         if (!empty($data['password'])){
             $data['password']  = Hash::make($data['password']);
         }
-        $data['updated_by'] = $request->user()->id;
-
+       $data['updated_by'] = $request->user()->id;
 
 
         $user->update($data);

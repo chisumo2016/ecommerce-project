@@ -48,11 +48,8 @@ const showUserModal = () => {
 }
 
 const editUser = (user) => {
-    store.dispatch('getUser', user.id)
-    .then(({ data }) => {
-         userModel.value = data  //take response and assign to the model
-        showUserModal() //showAddNewModal()
-    })
+   userModel.value = user  //take response and assign to the model
+   showUserModal() //showAddNewModal()
 }
 
 /**clear*/

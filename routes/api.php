@@ -39,7 +39,9 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::post('orders/change-status/{order}/{status}', [OrderController::class, 'changeStatus']);
         Route::get('orders/{order}', [OrderController::class, 'show']);
 
+        Route::apiResource('users', UserController::class);
+
 });
-Route::apiResource('users', UserController::class);
+
 Route::post('/login',     [AuthController::class, 'login']);
 

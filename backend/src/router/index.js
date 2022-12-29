@@ -12,6 +12,8 @@ import store from "../store";
 import Orders from "../views/Orders/Orders.vue";
 import OrderShow from "../views/Orders/OrderShow.vue";
 
+import Users from "../views/Users/Users.vue";
+
 /**Define an array of routes*/
 const  routes = [
     /**Define parent root**/
@@ -42,6 +44,11 @@ const  routes = [
                 path: 'orders/:id',
                 name:'app.orders.show',
                 component:OrderShow
+            },
+            {
+                path: 'users',
+                name:'app.users',
+                component:Users
             },
         ]
     },

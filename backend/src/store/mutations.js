@@ -66,3 +66,26 @@ export function hideToast(state)
     state.toast.message  = '';
 }
 
+/**Users*/
+export  function  setUsers(state , [loading , data = null])  //data or response  response ={}
+{
+    //debugger;
+    /**Response eexist */
+    if (data){
+
+        state.users = {
+            ...state.users,
+            /**Define the property */
+            data    :   data.data ,
+            links   :   data.meta?.links ,
+            total   :   data.meta.total ,
+            limit   :   data.meta.per_page ,
+            from    :   data.meta.from ,
+            to      :   data.meta.to ,
+            page    :   data.meta.current_page ,
+        }
+    }
+    state.users.loading = loading;
+
+}
+

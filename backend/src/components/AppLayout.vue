@@ -57,11 +57,12 @@ const handleSidebarOpened  = () => {
 
 /**onMounted*/
 onMounted( () =>{
-    store.dispatch('getUser')
+    store.dispatch('getCurrentUser')
     handleSidebarOpened();
     window.addEventListener('resize', handleSidebarOpened)
 });
-1
+
+
 /**onUnmounted*/
 onUnmounted(() =>{
 

@@ -24,7 +24,8 @@ export  function logout({commit}) { //data - user data
             return response;
         });
 }
-export  function getUser({ commit}, data)
+/**Authorized user*/
+export  function getCurrentUser({ commit}, data)
 {
     return axiosClient.get('/user', data)
         .then(({data}) =>{ //object user
@@ -138,5 +139,45 @@ export  function  getOrder({} , id)
 {
     //debugger;
     return axiosClient.get(`/orders/${id}`)
+}
+
+    /**Users **/
+    export  function  getUsers({commit, state} , { url = null, search = '', per_page, sort_field, sort_direction} ={})
+    {
+        /**Commit Mutations*/
+        commit('setUsers',[true])
+
+        url = url || '/users';
+
+        const params = {
+            per_page: state.users.limit,
+        }
+
+        return  axiosClient.get(url, {
+            /**Object*/
+            params: {
+                ...params,
+                search, per_page, sort_field, sort_direction
+
+                // search ,
+                // per_page: perPage,
+                // sort_field,
+                // sort_direction
+            }
+        })
+            .then(response => {
+                //debugger;
+                /**Commit Mutations*/
+                commit('setUsers',[false, response.data])
+            })
+            .catch(() =>{
+                /**Commit Mutations*/
+                commit('setUsers',[false])
+            })
+    }
+
+export  function  getUser({commit} , id)
+{
+    return axiosClient.get(`/users/${id}`)
 }
 

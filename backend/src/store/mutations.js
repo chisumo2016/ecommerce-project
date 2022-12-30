@@ -89,3 +89,26 @@ export  function  setUsers(state , [loading , data = null])  //data or response 
 
 }
 
+/**Customers*/
+/**Users*/
+export  function  setCustomers(state , [loading , data = null])  //data or response  response ={}
+{
+    //debugger;
+    /**Response eexist */
+    if (data){
+
+        state.customers = {
+            ...state.customers,
+            /**Define the property */
+            data    :   data.data ,
+            links   :   data.meta?.links ,
+            total   :   data.meta.total ,
+            limit   :   data.meta.per_page ,
+            from    :   data.meta.from ,
+            to      :   data.meta.to ,
+            page    :   data.meta.current_page ,
+        }
+    }
+    state.customers.loading = loading;
+
+}

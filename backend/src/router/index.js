@@ -13,6 +13,7 @@ import Orders from "../views/Orders/Orders.vue";
 import OrderShow from "../views/Orders/OrderShow.vue";
 
 import Users from "../views/Users/Users.vue";
+import Customers from "../views/Customers/Customers.vue";
 
 /**Define an array of routes*/
 const  routes = [
@@ -49,6 +50,11 @@ const  routes = [
                 path: 'users',
                 name:'app.users',
                 component:Users
+            },
+            {
+                path: 'customers',
+                name:'app.customers',
+                component:Customers
             },
         ]
     },

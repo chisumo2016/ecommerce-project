@@ -40,6 +40,7 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::get('orders/{order}', [OrderController::class, 'show']);
 
         Route::apiResource('users', UserController::class);
+        Route::apiResource('customers', UserController::class);
 
 });
 

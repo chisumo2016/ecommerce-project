@@ -142,7 +142,7 @@ export  function  getOrder({} , id)
 }
 
     /**Users **/
-    export  function  getUsers({commit, state} , { url = null, search = '', per_page, sort_field, sort_direction} ={})
+ export  function  getUsers({commit, state} , { url = null, search = '', per_page, sort_field, sort_direction} ={})
     {
         /**Commit Mutations*/
         commit('setUsers',[true])
@@ -188,10 +188,59 @@ export  function  createUser({ commit} , user)
 
 export  function  updateUser({ commit} , user)
 {
-
     return axiosClient.put(`/users/${user.id}`, user)
 }
 
 export  function  deleteUser({ commit}, id) {
     return axiosClient.delete(`/users/${id}`)
+}
+
+
+/**Customers Actions**/
+export  function  getCustomers({commit, state} , { url = null, search = '', per_page, sort_field, sort_direction} ={})
+{
+    /**Commit Mutations*/
+    commit('setCustomers',[true])
+
+    url = url || '/customers';
+
+    const params = {
+        per_page: state.users.limit,
+    }
+
+    return  axiosClient.get(url, {
+        /**Object*/
+        params: {
+            ...params,
+            search, per_page, sort_field, sort_direction
+
+            // search ,
+            // per_page: perPage,
+            // sort_field,
+            // sort_direction
+        }
+    })
+        .then(response => {
+            //debugger;
+            /**Commit Mutations*/
+            commit('setCustomers',[false, response.data])
+        })
+        .catch(() =>{
+            /**Commit Mutations*/
+            commit('setCustomers',[false])
+        })
+}
+
+export  function  createCustomer({ commit} , customer)
+{
+    return axiosClient.post('/customers', customer)
+}
+
+export  function  updateCustomer({ commit} , customer)
+{
+    return axiosClient.put(`/customers/${user.id}`, customer)
+}
+
+export  function  deleteCustomer({ commit}, id) {
+    return axiosClient.delete(`/customers/${id}`)
 }

@@ -88,6 +88,35 @@
                                     v-model="customer.status"
                                     label="Status"/>
 
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                    <div>
+                                        <h2 class="text-xl font-semibold mt-6 pb-2 border-b border-gray-300">Billing Address</h2>
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <CustomInput    v-model="customer.billingAddress.address1" label="Address 1"/>
+                                            <CustomInput    v-model="customer.billingAddress.address2" label="Address 2"/>
+                                            <CustomInput    v-model="customer.billingAddress.city" label="City"/>
+                                            <CustomInput    v-model="customer.billingAddress.zipcode" label="Zip Code"/>
+                                            <CustomInput    v-model="customer.billingAddress.country" label="Country"/>
+                                            <CustomInput    v-model="customer.billingAddress.state" label="State"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h2 class="text-xl font-semibold mt-6 pb-2 border-b border-gray-300">Shipping Address</h2>
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <CustomInput    v-model="customer.shippingAddress.addres1" label="Address 1"/>
+                                            <CustomInput    v-model="customer.shippingAddress.address2" label="Address 2"/>
+                                            <CustomInput    v-model="customer.shippingAddress.city" label="City"/>
+                                            <CustomInput    v-model="customer.shippingAddress.zipcode" label="Zip Code"/>
+                                            <CustomInput    v-model="customer.shippingAddress.country" label="Country"/>
+                                            <CustomInput    v-model="customer.shippingAddress.state" label="State"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button type="submit"
@@ -130,14 +159,8 @@ import store from "../../store/index.js";
 /** Define local property */
 const loading = ref(false)
 
-const Customer = ref({
-    id    : props. customer.id,
-    first_name  : props. customer.first_name,
-    name  : props. customer.last_name,
-    email : props. customer.email,
-
-
-})
+//console.log(props.customer);
+const customer = ref({})
 
 const props = defineProps({
    modelValue: Boolean,
@@ -157,10 +180,20 @@ const  show = computed({
 })
 
 onUpdated(() =>{
-    Customer.value = {
-        id    : props. customer.id,
-        name :  props. customer.name,
-        email : props. customer.email,
+    customer.value = {
+        id: props.customer.id,
+        first_name: props.customer.first_name,
+        last_name: props.customer.last_name,
+        email: props.customer.email,
+        phone: props.customer.phone,
+        status: props.customer.status,
+        /**Billing*/
+        billingAddress:{
+            ...props.customer.billingAddress
+        },
+        shippingAddress:{
+            ...props.customer.shippingAddress
+        }
     }
 })
 
@@ -172,7 +205,7 @@ function closeModal() {
 const onSubmit = () => {
   loading.value = true
 
-    if (Customer.value.id){
+    if (customer.value.id){
         store.dispatch('updateCustomer', customer.value)
         .then(response => {
             loading.value = false;

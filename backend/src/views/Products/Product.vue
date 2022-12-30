@@ -48,6 +48,7 @@ const showProductModal = () => {
 const editProduct = (product) => {
     store.dispatch('getProduct', product.id)
     .then(({ data }) => {
+        /**Assign to product model*/
          productModel.value = data  //take response and assign to the model
          showProductModal()
     })

@@ -31,7 +31,7 @@
                     <TableHeaderCell @click="sortCustomers('email')"  class="border-b-2 p-2 text-left" field="email" :sort-field="sortField" :sort-direction="sortDirection">Email</TableHeaderCell>
                     <TableHeaderCell @click="sortCustomers('phone')"  class="border-b-2 p-2 text-left" field="phone" :sort-field="sortField" :sort-direction="sortDirection">Phone</TableHeaderCell>
                     <TableHeaderCell @click="sortCustomers('status')"  class="border-b-2 p-2 text-left" field="status" :sort-field="sortField" :sort-direction="sortDirection">Status</TableHeaderCell>
-                    <TableHeaderCell @click="sortCustomers('created_at')"  class="border-b-2 p-2 text-left" field="created_at" :sort-field="sortField" :sort-direction="sortDirection">Reggister At</TableHeaderCell>
+                    <TableHeaderCell @click="sortCustomers('created_at')"  class="border-b-2 p-2 text-left" field="created_at" :sort-field="sortField" :sort-direction="sortDirection">Register At</TableHeaderCell>
                     <TableHeaderCell field="actions">
                         Actions
                     </TableHeaderCell>
@@ -49,11 +49,13 @@
                 <tr v-for="(customer, index) of customers.data" >
                     <td class="border-b p-2">{{ customer.id }}</td>
                     <td class="border-b p-2">
-                        {{ customer.name }}
+                        {{ customer.first_name }}   {{ customer.last_name }}
                     </td>
                     <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden  text-ellipsis">
                         {{ customer.email }}
                     </td>
+                    <td class="border-b p-2">{{ customer.phone }}</td>
+                    <td class="border-b p-2">{{ customer.status }}</td>
                     <td class="border-b p-2">{{ customer.created_at }}</td>
                     <td class="border-b p-2">
                         <Menu as="div" class="relative inline-block text-left">
@@ -81,7 +83,7 @@
                                                     active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                                     'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                                   ]"
-                                               @click="editCustomer(Customer)"
+                                               @click="editCustomer(customer)"
                                                     >
 
                                             <PencilIcon
@@ -98,7 +100,7 @@
                                                 active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                                 'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                               ]"
-                                            @click="deleteCustomer(Customer)"
+                                            @click="deleteCustomer(customer)"
                                         >
                                             <TrashIcon
                                                 :active="active"
@@ -119,7 +121,7 @@
 
     <!--  Pagination  -->
         <div
-            v-if="!Customers.loading"
+            v-if="!customers.loading"
             class="flex justify-between items-center mt-5">
             <span>
                  Showing from {{ customers.from }} to {{ customers.to }}

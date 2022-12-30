@@ -49,7 +49,16 @@
     - Add tthe route customers in route file api
 
     - TEST OUR APPLICATION: NOT PASSED
+    - TEST OUR APPLICATION: PASSED
 
 
-        
+###  CREATE CUSTOMER EDIT FORM WITH ADDRESS
+    - Open the customerTable view and adjust some fields
+    - Status is empty by the way.
+    - CLICK edit button , the request was nt made to the saver .So openn users.vue file
+        ERROR: AxiosError AND  http://ecommerce-project.test/api/customers/undefined 404 (Not Found)
+            SOLUTION: We're return tthe user_id as ID IN CustomerResource
+    - Render the customer address in CustomerModal (billingAddress and shippingAddress)
+    - We need to pass both billingAddress and shippingAddress on the onUpdate(() =>{})
+     
         

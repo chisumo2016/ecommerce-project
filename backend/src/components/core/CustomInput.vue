@@ -23,8 +23,16 @@
                        @input="emit('change', $event.target.files[0])"
                        :class="inputClasses"
                        :placeholder="label"/>
-
-
+            </template>
+            <template v-else-if="type === 'checkbox'">
+                <input :id="id"
+                       :name="name"
+                       :type="type"
+                       :checked="props.modelValue"
+                       :required="required"
+                       @change="emit('update:modelValue', $event.target.checked)"
+                       class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"/>
+                <label :for="id" class="ml-2 block text-sm text-gray-900"> {{ label }} </label>
             </template>
             <template v-else>
                 <input :type="type"
@@ -38,6 +46,8 @@
 
                 />
             </template>
+
+
             <span v-if="append"
                     class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                 {{ append }}
@@ -48,7 +58,7 @@
 </template>
 
 <script setup>
-import { computed} from "vue";
+import {computed, ref} from "vue";
 
 const props = defineProps({
     modelValue : [String, Number, File],
@@ -84,7 +94,15 @@ const inputClasses = computed(() =>{
     return cls.join(' ')
 })
 
+
+
 const emit = defineEmits(['update:modelValue', 'change'])
+
+//const id = ref(`${name}-${Math.floor(1000000 + Math.random() * 1000000)}`);
+const id = computed(() => {
+    if (props.id) return props.id;
+    return `id-${Math.floor(1000000 + Math.random() * 1000000)}`;
+})
 
 function onChange(value) {
     emit('update:modelValue', value)

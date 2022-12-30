@@ -60,5 +60,12 @@
             SOLUTION: We're return tthe user_id as ID IN CustomerResource
     - Render the customer address in CustomerModal (billingAddress and shippingAddress)
     - We need to pass both billingAddress and shippingAddress on the onUpdate(() =>{})
+         - we need to destructure the billingAddress and shippingAddress
+
+### UPDATE CUSTOMER INPUT COMPONENT ADD CHECKBOX
+    - We need to change the status field into checkbox, for that we need to add the checkbox in the CustomInput.vue file
+            <template v-else-if></>
+    - Generate the id number on CustomInput file
+    
      
         

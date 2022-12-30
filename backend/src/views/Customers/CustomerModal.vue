@@ -83,7 +83,7 @@
                                     label="phone"/>
 
                                 <CustomInput
-                                    type="password"
+                                    type="checkbox"
                                     class="mb-2"
                                     v-model="customer.status"
                                     label="Status"/>

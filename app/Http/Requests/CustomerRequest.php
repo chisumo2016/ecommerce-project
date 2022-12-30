@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\CustomerStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
-class ProfileRequest extends FormRequest
+class CustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +26,18 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-             'first_name' => ['required'],
-             'last_name'  => ['required'],
-             'phone'      => ['required','min:7'],
-             'email'      => ['required','email'],
+            'first_name' => ['required'],
+            'last_name'  => ['required'],
+            'phone'      => ['required','min:7'],
+            'email'      => ['required','email'],
+            'status'     => ['required',new Enum(CustomerStatus::class)],
 
-             'shipping.address1'      => ['required'],
-             'shipping.address2'      => ['required'],
-             'shipping.city'          => ['required'],
-             'shipping.state'         => ['required'],
-             'shipping.zipcode'       => ['required'],
-             'shipping.country_code'  => ['required' ,'exists:countries,code'],
+            'shipping.address1'      => ['required'],
+            'shipping.address2'      => ['required'],
+            'shipping.city'          => ['required'],
+            'shipping.state'         => ['required'],
+            'shipping.zipcode'       => ['required'],
+            'shipping.country_code'  => ['required' ,'exists:countries,code'],
 
 
             'billing.address1'      => ['required'],

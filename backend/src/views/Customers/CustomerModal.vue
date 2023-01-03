@@ -34,7 +34,8 @@
                             class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center"/>
                         <header class="py-3 px-4 flex justify-between items-center">
                             <DialogTitle as="h3"  class="text-lg leading-6 font-medium text-gray-900">
-                                {{ customer.id ? `Update Customer: "${props.customer.first_name} ${props.customer.last_name}"` : 'Create new Customer'}}
+                                {{ customer.id ? `Update customer: "${props.customer.first_name} ${props.customer.last_name}"` : 'Create new Customer' }}
+<!--                                {{ customer.id ? `Update Customer: "${props.customer.first_name} ${props.customer.last_name}"` : 'Create new Customer'}}-->
                             </DialogTitle>
                             <button
                                 @click="closeModal"
@@ -163,7 +164,7 @@ import store from "../../store/index.js";
 /** Define local property */
 const loading = ref(false)
 
-console.log(props.customer);
+//console.log(props.customer);
 const customer = ref({
     billingAddress: {},
     shippingAddress: {}
@@ -215,7 +216,8 @@ onUpdated(() =>{
         email: props.customer.email,
         phone: props.customer.phone,
         status: props.customer.status,
-        /**Billing*/
+
+        /**Billing & shipping*/
         billingAddress:{
             ...props.customer.billingAddress
         },

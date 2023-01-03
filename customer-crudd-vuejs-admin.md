@@ -224,6 +224,8 @@
         SOLN:
               $user = $this->user();
 
+    ERROR:  Missing required prop: "customer" 
+
     
             
 

@@ -12,6 +12,7 @@
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
+                <span class="ml-3">Found {{ customers.total}} customers</span>
             </div>
             <div>
                 <input v-model="search"
@@ -26,7 +27,7 @@
             <table class="table-auto w-full">
                 <thead>
                 <tr>
-                    <TableHeaderCell @click="sortCustomers"  class="border-b-2 p-2 text-left" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
+                    <TableHeaderCell @click="sortCustomers('id')"  class="border-b-2 p-2 text-left" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
                     <TableHeaderCell @click="sortCustomers('name')"  class="border-b-2 p-2 text-left" field="name" :sort-field="sortField" :sort-direction="sortDirection">Name</TableHeaderCell>
                     <TableHeaderCell @click="sortCustomers('email')"  class="border-b-2 p-2 text-left" field="email" :sort-field="sortField" :sort-direction="sortDirection">Email</TableHeaderCell>
                     <TableHeaderCell @click="sortCustomers('phone')"  class="border-b-2 p-2 text-left" field="phone" :sort-field="sortField" :sort-direction="sortDirection">Phone</TableHeaderCell>
@@ -40,7 +41,8 @@
                 <tbody v-if="customers.loading.loading || !customers.data.length">
                     <tr>
                         <td colspan="7">
-                            <spinner v-if="customers.loading" class="my-4"></spinner>
+                            <Spinner v-if="customers.loading"></Spinner>
+                            <p class="text-center py-8 text-gray-700">There are no customers</p>
                         </td>
                     </tr>
                 </tbody>
@@ -126,8 +128,10 @@
             <span>
                  Showing from {{ customers.from }} to {{ customers.to }}
             </span>
-            <nav v-if="customers.total >customers.limit"
-                class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+            <nav
+                v-if="customers.total >customers.limit"
+                class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px"
+                aria-label="Pagination">
             <!-- from backend -->
                 <a
 
@@ -163,6 +167,7 @@ import TableHeaderCell from "../../components/core/Table/TableHeaderCell.vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import {DotsVerticalIcon, PencilIcon, TrashIcon} from '@heroicons/vue/outline'
 
+
 /**Define properties*/
 const    perPage   = ref(CUSTOMERS_PER_PAGE );
 const    search    = ref('');
@@ -187,7 +192,7 @@ function getCustomers(url = null) {
         sort_field      : sortField.value,
         sort_direction  : sortDirection.value
 
-    })
+    });
 }
 
 const  getForPage = (event , link ) => {
@@ -212,6 +217,7 @@ const sortCustomers = (field) => {
 }
 
 const editCustomer = (customer) => {
+    //debugger;
     emit('clickEdit', customer)
 }
 

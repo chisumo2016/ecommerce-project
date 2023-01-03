@@ -29,8 +29,8 @@ class CustomerController extends Controller
         $sortDirection  = request('sort_direction', 'desc');
 
         $query = Customer::query()
-            ->orderBy("customers.$sortField", $sortDirection)
-        ;
+            ->orderBy("customers.$sortField", $sortDirection);
+
         if ($search) {
             $query
                 ->where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'like', "%{$search}%")

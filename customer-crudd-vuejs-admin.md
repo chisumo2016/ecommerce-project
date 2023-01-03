@@ -214,7 +214,16 @@
                 ->orderBy($sortField, $sortDirection)
                 ->paginate($perPage);
 
-    
+### DEBUGGING LARAVEL ERROR
+### RESTRICT DISABLED CUSTOMER LOGIN
+    - Customer who is disabled , should not logged in .
+    - Go to app/Http/Controllers/Auth/AuthenticatedSessionController.php
+            open \App\Http\Requests\Auth\LoginRequest
+    - ERROR
+        Undefined property : Illuminate\Auth\AuthManager::$customer
+        SOLN:
+              $user = $this->user();
+
     
             
 

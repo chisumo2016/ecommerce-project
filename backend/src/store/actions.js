@@ -248,3 +248,10 @@ export  function  updateCustomer({ commit} , customer)
 export  function  deleteCustomer({ commit}, id) {
     return axiosClient.delete(`/customers/${id}`)
 }
+
+export  function  getCountries({commit}) {
+    return axiosClient.get('countries')
+        .then(({ data }) => {
+            commit('setCountries',data)
+        })
+}

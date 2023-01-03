@@ -66,6 +66,45 @@
     - We need to change the status field into checkbox, for that we need to add the checkbox in the CustomInput.vue file
             <template v-else-if></>
     - Generate the id number on CustomInput file
+    - ERROR: id: props.customer.id,
+
+### IMPLEMENT CUSTOMER UPDATE PART 1
+    - Testing the submiting the customer
+    - id is null , when u click edit , Problem comes fromm CustomerResource.php file
+            'id'=> $this->id  to 'id'=> $this->user_id ,
+    Inn the CustomerModal file name we need to update 
+         {{ customer.id ? `Update Customer: "${props.customer.first_name} ${props.customer.last_name}"
+    - Update the CustomerRequest file .
+            billing to billingAddress
+            shipping to shippingAddress
+    - Status is return null insteead of truee, we should return bool
+    - On the onSubmit() we should add customer.value.status = !!customer.value.status
+    - SSelect status  is invalid , remove the ,new Enum(CustomerStatus::class)
+    - We need to retun some country . Create a CountryController
+                 php artisan make:controller  Api/CountryController
+    - Add the route file
+    - We can search customer when the adminn open the application or load the country when we open the cusstomer page.
+    - Third approad ,when we click tthe edit modal , the coutntry will load.
+    - So open AppLayout.vue file
+            Add this  store.dispatch('getCountries') onMMounted
+            Add into actions.js  getCountries
+            Create a Mutation setCountries
+            Add into state.js to be an emty array
+    - Take countries in the customer modal add select 
+            <seleect></select>
+            Loop the countries
+            <select v-model="customer.billingAddress.country">  // comes from CustomerResource
+                <option v-for="country of countries" :value="country.code">{{ country.name }}</option>
+            </select>
+           The countries isn't in the template yet , we need to ccreate a computed property
+                const countries = computed(() => store.state.countries);
+           Test the application ,returninng an eempty array ,type error
+            ERROR:
+                 Missing required prop: "customer" 
+                  CustomerModal.vue:189 Uncaught (in promise) TypeError: Cannot read properties  of undefined (reading 'id') 
+                        
+ 
+
     
      
         

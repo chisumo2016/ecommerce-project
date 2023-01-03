@@ -58,6 +58,7 @@ const handleSidebarOpened  = () => {
 /**onMounted*/
 onMounted( () =>{
     store.dispatch('getCurrentUser')
+    store.dispatch('getCountries')
     handleSidebarOpened();
     window.addEventListener('resize', handleSidebarOpened)
 });

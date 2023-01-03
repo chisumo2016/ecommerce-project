@@ -58,6 +58,8 @@ const state = {
         limit: null,
         total: null
     },
+
+    countries: [],
 };
 
 export  default  state;

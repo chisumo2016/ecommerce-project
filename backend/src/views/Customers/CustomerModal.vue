@@ -34,7 +34,7 @@
                             class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center"/>
                         <header class="py-3 px-4 flex justify-between items-center">
                             <DialogTitle as="h3"  class="text-lg leading-6 font-medium text-gray-900">
-                                {{ customer.id ? `Update Customer: "${props.customer.name}"` : 'Create new Customer'}}
+                                {{ customer.id ? `Update Customer: "${props.customer.first_name} ${props.customer.last_name}"` : 'Create new Customer'}}
                             </DialogTitle>
                             <button
                                 @click="closeModal"
@@ -98,6 +98,9 @@
                                             <CustomInput    v-model="customer.billingAddress.address2" label="Address 2"/>
                                             <CustomInput    v-model="customer.billingAddress.city" label="City"/>
                                             <CustomInput    v-model="customer.billingAddress.zipcode" label="Zip Code"/>
+                                            <select v-model="customer.billingAddress.country">
+                                                <option v-for="country of countries" :value="country.code">{{ country.name }}</option>
+                                            </select>
                                             <CustomInput    v-model="customer.billingAddress.country" label="Country"/>
                                             <CustomInput    v-model="customer.billingAddress.state" label="State"/>
                                         </div>
@@ -159,7 +162,7 @@ import store from "../../store/index.js";
 /** Define local property */
 const loading = ref(false)
 
-//console.log(props.customer);
+console.log(props.customer);
 const customer = ref({})
 
 const props = defineProps({
@@ -178,6 +181,8 @@ const  show = computed({
     get: () => props.modelValue,
     set: (value) => emit('update:modelValue', value, 'close')
 })
+
+const countries = computed(() => store.state.countries);
 
 onUpdated(() =>{
     customer.value = {
@@ -206,6 +211,7 @@ const onSubmit = () => {
   loading.value = true
 
     if (customer.value.id){
+        customer.value.status = !!customer.value.status // !! will convert into boolean
         store.dispatch('updateCustomer', customer.value)
         .then(response => {
             loading.value = false;

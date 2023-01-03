@@ -68,8 +68,8 @@ class CustomerController extends Controller
         $CustomerData = $request->validated();
         $CustomerData['updated_by'] = $request->user()->id;
 
-        $shippingData = $CustomerData['shipping'];
-        $billingData  = $CustomerData['billing'];
+        $shippingData = $CustomerData['shippingAddress']; //billing/ to shippingAddress
+        $billingData  = $CustomerData['billingAddress'];  //billing/ to billingAddress
 
         $customer->update($CustomerData);
 

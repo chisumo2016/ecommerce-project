@@ -37,7 +37,7 @@ class CustomerRequest extends FormRequest
             'shippingAddress.city'          => ['required'],
             'shippingAddress.state'         => ['required'],
             'shippingAddress.zipcode'       => ['required'],
-            'shippingAddress.country_code'  => ['required' ,'exists:countries,code'],
+            'shippingAddress.country_code'       => ['required' ,'exists:countries,code'],
 
 
             'billingAddress.address1'      => ['required'],
@@ -45,7 +45,7 @@ class CustomerRequest extends FormRequest
             'billingAddress.city'          => ['required'],
             'billingAddress.state'         => ['required'],
             'billingAddress.zipcode'       => ['required'],
-            'billingAddress.country_code'  => ['required' ,'exists:countries,code'],
+            'billingAddress.country_code'       => ['required' ,'exists:countries,code'],
 
 
         ];

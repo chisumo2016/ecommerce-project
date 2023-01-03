@@ -113,6 +113,93 @@
                 Cannot read properties of nnull (reading.emitOptions)
         SOLUTION: We dont need v-modeel in CustomInput file in customerInput
     - iN THE CustomerResource file we need to return country->code not name
+
+### IMPLEMENT COUNTRY STATE CASCADING DROPDOWN
+    - Copy the selct from billing and put onn shpping
+        <CustomInput  type="select" :select-options="countries"  v-model="customer.shippingAddress.country" label="Country"/>
+    - Whenever we choose the the counntry we sshould dipslay the dropdown 
+    - We need thee country object , computed  const billingCountry
+    - Add pre tag on edit {{ billingCountry }}
+        ERROR: 
+            Cannot read properties of undefined (reading 'counntry') happend in CustomerModal : line 134:106
+        SOLN :
+            On the mount the customer billing address doent exist
+                const customer = ref({
+                         billingAddress: {}
+                         shippingAddress: {}
+                })
+
+    - const customer = ref({ }) we use for two way binding
+
+    - Showing the errors of EmitOptionss
+        ERROR:
+            const billingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.billingAddress.country));
+        SOLN:
+            Add the .value
+            const billingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.value.billingAddress.country));
+
+    - Create CountryResource
+            php artisan make:resource CountryResource      
+            Return the fields
+    - In the CountryController wee need to return the  resource
+    - Connvert sttriing into object by using json_decode
+    - Intterate these object
+    - Test edit 
+            store.state.countries.find is nnot a function
+        SOLUTTION:
+          Got into mutations.js in setContries()  pass .data
+    - Render  v-if inn state and write the computed stateOptions
+    -Test Application 
+        Cannt copnvert undefined or null to object
+        SOLUTIN
+            To put into if () on computed stateOptions -CustomerModal
+
+    - To update the CustomerRequest
+            'billingAddress.country_code'       => ['required' ,'exists:countries,code'], TO
+            'billingAddress.country'            => ['required' ,'exists:countries,code'],
+
+    - Test Application  ERROR
+        undefined array key \"shipping"
+        SOLN:
+        CustmerController ->update(){}
+                $shippingData = $CustomerData['shipping']; TO
+                $shippingData = $CustomerData['shippingAddress']; TO
+                $billingData  = $CustomerData['billing']; TO
+                $billingData  = $CustomerData['billingAddress'];
+
+    - To modify 
+        const billingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.value.billingAddress.country));
+        const shippingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.value.billingAddress.country));
+        const billingStateOptions = computed(() => {
+        if (!billingCountry.value || !billingCountry.value.states) return [];
+        
+            /**Obkect of an array of array*/
+            Object.entries(billingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
+        });
+        
+        const shippingStateOptions = computed(() => {
+        if (!shippingCountry.value || !shippingCountry.value.states) return [];
+        
+            /**Obkect of an array of array*/
+            Object.entries(shippingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
+        });
+
+    - Test : Error
+        Cannot read properties of undefined (reading 'states')
+        SOLN
+            Change country to country_code in CustomerModal
+            In the customer Request  change to  'billingAddress.country_code'  
+            In the CustomerResource file change 'country_code' 
+
+    
+        
+
+
+
+
+
+
+    
     
     
 

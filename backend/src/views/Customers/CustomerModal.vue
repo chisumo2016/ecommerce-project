@@ -99,8 +99,9 @@
                                             <CustomInput    v-model="customer.billingAddress.city" label="City"/>
                                             <CustomInput    v-model="customer.billingAddress.zipcode" label="Zip Code"/>
 
-                                            <CustomInput  type="select" :select-options="countries"  v-model="customer.billingAddress.country" label="Country"/>
-                                            <CustomInput    v-model="customer.billingAddress.state" label="State"/>
+                                            <CustomInput  type="select" :select-options="countries"  v-model="customer.billingAddress.country_code" label="country_code"/>
+                                            <CustomInput   v-if="!billingCountry.states" v-model="customer.billingAddress.state" label="State"/>
+                                            <CustomInput  v-else type="select" :select-options="billingStateOptions"  v-model="customer.billingAddress.state" label="States"/>
                                         </div>
                                     </div>
                                 </div>
@@ -113,8 +114,10 @@
                                             <CustomInput    v-model="customer.shippingAddress.address2" label="Address 2"/>
                                             <CustomInput    v-model="customer.shippingAddress.city" label="City"/>
                                             <CustomInput    v-model="customer.shippingAddress.zipcode" label="Zip Code"/>
-                                            <CustomInput    v-model="customer.shippingAddress.country" label="Country"/>
-                                            <CustomInput    v-model="customer.shippingAddress.state" label="State"/>
+
+                                            <CustomInput  type="select" :select-options="countries"  v-model="customer.shippingAddress.country_code" label="country_code"/>
+                                            <CustomInput   v-if="!shippingCountry.states" v-model="customer.shippingAddress.state" label="State"/>
+                                            <CustomInput  v-else type="select" :select-options="shippingStateOptions"  v-model="customer.shippingAddress.state" label="State"/>
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +164,10 @@ import store from "../../store/index.js";
 const loading = ref(false)
 
 console.log(props.customer);
-const customer = ref({})
+const customer = ref({
+    billingAddress: {},
+    shippingAddress: {}
+})
 
 const props = defineProps({
    modelValue: Boolean,
@@ -181,6 +187,24 @@ const  show = computed({
 })
 
 const countries = computed(() => store.state.countries.map(c =>({ key: c.code, text: c.name})));
+
+/**Billing country_code*/
+const billingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.value.billingAddress.country_code));
+const billingStateOptions = computed(() => {
+   if (!billingCountry.value || !billingCountry.value.states) return [];
+
+    /**Obkect of an array of array*/
+    Object.entries(billingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
+});
+
+/**Shipping country_code*/
+const shippingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.value.shippingAddress.country_code));
+const shippingStateOptions = computed(() => {
+    if (!shippingCountry.value || !shippingCountry.value.states) return [];
+
+    /**Obkect of an array of array*/
+    Object.entries(shippingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
+});
 
 onUpdated(() =>{
     customer.value = {

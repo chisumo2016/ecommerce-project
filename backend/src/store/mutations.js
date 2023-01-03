@@ -115,5 +115,5 @@ export  function  setCustomers(state , [loading , data = null])  //data or respo
 
 export  function setCountries(state, countries) {
     //debugger;
-    state.countries = countries;
+    state.countries = countries.data;
 }

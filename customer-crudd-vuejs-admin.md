@@ -102,8 +102,19 @@
             ERROR:
                  Missing required prop: "customer" 
                   CustomerModal.vue:189 Uncaught (in promise) TypeError: Cannot read properties  of undefined (reading 'id') 
-                        
- 
+
+### UPDATE CUSTOMER INPUT COMPONENT ADD SELECT SUPPORT
+    Add a new input type in CustomerInput.vue called 'select'
+        add the selectOptions on the scripts of Customsinput
+                selectOptions: Array
+        Render it into CustomerModal on select annd map the countries key and text 
+                const countries = computed(() => store.state.countries.map(c =>({ key: c.code, text: c.name})));
+        Click EEdit button :ERROR
+                Cannot read properties of nnull (reading.emitOptions)
+        SOLUTION: We dont need v-modeel in CustomInput file in customerInput
+    - iN THE CustomerResource file we need to return country->code not name
+    
+    
 
     
      

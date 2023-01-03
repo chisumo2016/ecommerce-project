@@ -98,10 +98,8 @@
                                             <CustomInput    v-model="customer.billingAddress.address2" label="Address 2"/>
                                             <CustomInput    v-model="customer.billingAddress.city" label="City"/>
                                             <CustomInput    v-model="customer.billingAddress.zipcode" label="Zip Code"/>
-                                            <select v-model="customer.billingAddress.country">
-                                                <option v-for="country of countries" :value="country.code">{{ country.name }}</option>
-                                            </select>
-                                            <CustomInput    v-model="customer.billingAddress.country" label="Country"/>
+
+                                            <CustomInput  type="select" :select-options="countries"  v-model="customer.billingAddress.country" label="Country"/>
                                             <CustomInput    v-model="customer.billingAddress.state" label="State"/>
                                         </div>
                                     </div>
@@ -182,10 +180,11 @@ const  show = computed({
     set: (value) => emit('update:modelValue', value, 'close')
 })
 
-const countries = computed(() => store.state.countries);
+const countries = computed(() => store.state.countries.map(c =>({ key: c.code, text: c.name})));
 
 onUpdated(() =>{
     customer.value = {
+
         id: props.customer.id,
         first_name: props.customer.first_name,
         last_name: props.customer.last_name,

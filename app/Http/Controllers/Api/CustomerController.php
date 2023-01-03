@@ -12,6 +12,7 @@ use App\Models\Country;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -28,10 +29,19 @@ class CustomerController extends Controller
         $sortDirection  = request('sort_direction', 'desc');
 
         $query = Customer::query()
-                ->orderBy($sortField, $sortDirection)
-                ->paginate($perPage);
+            ->orderBy("customers.$sortField", $sortDirection)
+        ;
+        if ($search) {
+            $query
+                ->where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'like', "%{$search}%")
+                ->join('users', 'customers.user_id', '=', 'users.id')
+                ->orWhere('users.email', 'like', "%{$search}%")
+                ->orWhere('customers.phone', 'like', "%{$search}%");
+        }
 
-        return  CustomerListResource::collection($query);
+        $paginator = $query->paginate($perPage);
+
+        return  CustomerListResource::collection($paginator);
 
     }
 

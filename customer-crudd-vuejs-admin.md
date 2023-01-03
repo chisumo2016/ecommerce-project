@@ -204,6 +204,18 @@
          @emit instead of @cchange
             @emit="emit('update:modelValue',   $event.target.value)"
             @change="emit('update:modelValue', $event.target.checked)"
+
+### IMPLEMENT CUSTOMER SEARCH , BY NAME , EMAIL , PHONE
+    - To implement search , CustomerController -> index()
+             Change
+            $query = Customer::query()
+                ->where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'like', "%{$search}%")
+                ->join('users', 'customers.user_id', '=', 'users.id')
+                ->orderBy($sortField, $sortDirection)
+                ->paginate($perPage);
+
+    
+    
             
 
         

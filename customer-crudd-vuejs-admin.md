@@ -191,9 +191,23 @@
             In the customer Request  change to  'billingAddress.country_code'  
             In the CustomerResource file change 'country_code' 
 
-    
-        
+### IMPLEMENT  CUSTOMER UPDATE PART 2
+    - Define the status of the customer in the dtabase.
+    - Let us go to the  api of CustomerController in update(){}
+             $CustomerData['status'] = $CustomerData['status'] ? CustomerStatus::Active->value : CustomerStatus::Disabled->value;
+    - Again let us look on CustomerModal.vue, look on onSubmit function
+        degguer
+        Let change on CustomerResource ,we need to change
+             'status'        => $this->status, TO
+             'status'        => $this->status === CustomerStatus::Active->value, 
+        Go CustomerInput file 
+         @emit instead of @cchange
+            @emit="emit('update:modelValue',   $event.target.value)"
+            @change="emit('update:modelValue', $event.target.checked)"
+            
 
+        
+        
 
 
 

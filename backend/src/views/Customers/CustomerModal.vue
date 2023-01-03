@@ -86,7 +86,7 @@
                                     type="checkbox"
                                     class="mb-2"
                                     v-model="customer.status"
-                                    label="Status"/>
+                                    label="Active"/>
 
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -234,6 +234,8 @@ const onSubmit = () => {
   loading.value = true
 
     if (customer.value.id){
+        debugger;
+        console.log(customer.value.status);
         customer.value.status = !!customer.value.status // !! will convert into boolean
         store.dispatch('updateCustomer', customer.value)
         .then(response => {

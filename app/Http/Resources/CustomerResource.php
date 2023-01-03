@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\CustomerStatus;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CustomerResource extends JsonResource
@@ -23,7 +24,7 @@ class CustomerResource extends JsonResource
             'last_name'     => $this->last_name ,
             'email'         => $this->user->email ,
             'phone'         => $this->phone,
-            'status'        => $this->status,
+            'status'        => $this->status === CustomerStatus::Active->value,
             'created_at'    => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at'    => $this->updated_at->format('Y-m-d H:i:s'),
 

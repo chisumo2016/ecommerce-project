@@ -52,6 +52,16 @@
         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
     - Put into totalIncome
 
+### GET ORDERS BY COUNTRY AND LOAD INTO DOUGHNUT CHART
+    - Add the ordersByCountry method in DashboardCController
+    - Write few join table in OrdersByCountry
+    - Add the api route
+    - Add the const ordersByCountry on Dashboard.vue file
+    - You have to make a request viao axiosClient   and apply the join
+    - Apply to Doughnut.vue , pass the data Object
+    - convert tthe data ,which contain name and country in axiosClient.get(`/dashboard/orders-by-country`).then(({ data: countries}) => {
+    
+
 
 
 

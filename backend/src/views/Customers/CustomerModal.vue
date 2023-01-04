@@ -164,7 +164,7 @@ import store from "../../store/index.js";
 /** Define local property */
 const loading = ref(false)
 
-//console.log(props.customer);
+console.log(props.customer);
 const customer = ref({
     billingAddress: {},
     shippingAddress: {}

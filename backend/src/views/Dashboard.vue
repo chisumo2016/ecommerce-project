@@ -16,6 +16,7 @@
            <template v-if="!loading.productsCount">
                <span class="text-3xl font-semibold">{{ productsCount }}</span>
            </template>
+           <Spinner v-else text="" class="py-2"/>
        </div>
        <!--/ Active Products-->
        <!-- Paid Orders-->
@@ -24,6 +25,7 @@
            <template v-if="!loading.paidOrders">
                <span class="text-3xl font-semibold">{{ paidOrders }}</span>
            </template>
+           <Spinner v-else text="" class="py-2"/>
        </div>
        <!--/ Paid Orders-->
        <!-- Total Income-->
@@ -32,6 +34,7 @@
            <template v-if="!loading.totalIncome">
                <span class="text-3xl font-semibold">$ {{ totalIncome}}</span>
            </template>
+           <Spinner v-else text="" class="py-2"/>
        </div>
        <!--/ Total Income-->
    </div>
@@ -40,7 +43,10 @@
             Products
         </div>
         <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
-            <DoughnutChart :width="140" :height="200"/>
+            <label>Orders by Country</label>
+            <template v-if="!loading.ordersByCountry">
+                <DoughnutChart :width="140" :height="200" :data="ordersByCountry"/>
+            </template>
         </div>
         <div class=" bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
             Customers
@@ -60,11 +66,14 @@ const  loading = ref({
     productsCount: true,
     paidOrders: true,
     totalIncome: true,
+    ordersByCountry: true,
 })
 const customersCount    = ref(0);
 const productsCount     = ref(0);
 const paidOrders        = ref(0);
 const totalIncome       = ref(0);
+
+const ordersByCountry = ref({});
 
 axiosClient.get(`/dashboard/customers-count`).then(({ data }) => {
     //debugger;
@@ -83,6 +92,24 @@ axiosClient.get(`/dashboard/income-amount`).then(({ data }) => {
     totalIncome.value = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
         .format(data);
     loading.value.totalIncome = false;
+})
+
+axiosClient.get(`/dashboard/orders-by-country`).then(({ data: countries}) => {
+    loading.value.ordersByCountry = false;
+    const chartData = {
+        labels: [],
+        datasets:[{
+            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+            data:[]
+        }]
+    }
+    /**Iterate*/
+    countries.forEach(c =>{
+        /**Push Single Set*/
+        chartData.labels.push(c.name);
+        chartData.datasets[0].data.push(c.count)
+    })
+    ordersByCountry.value = chartData;
 })
 
 

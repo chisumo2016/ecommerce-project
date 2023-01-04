@@ -1,5 +1,6 @@
 <script>
 import { defineComponent, h } from 'vue'
+
 import { Doughnut } from 'vue-chartjs'
 import {
     Chart as ChartJS,
@@ -9,7 +10,9 @@ import {
     ArcElement,
     CategoryScale
 } from 'chart.js'
+
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
+
 export default defineComponent({
     name: 'DoughnutChart',
     components: {
@@ -40,6 +43,8 @@ export default defineComponent({
             type: Array,
             default: () => []
         },
+
+        /** Object*/
         data: {
             type: Object,
             required: true
@@ -61,7 +66,9 @@ export default defineComponent({
         }
         return () =>
             h(Doughnut, {
+
                 chartData: props.data,
+
                 chartOptions,
                 chartId: props.chartId,
                 width: props.width,

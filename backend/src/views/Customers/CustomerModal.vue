@@ -164,7 +164,7 @@ import store from "../../store/index.js";
 /** Define local property */
 const loading = ref(false)
 
-console.log(props.customer);
+//console.log(props.customer);
 const customer = ref({
     billingAddress: {},
     shippingAddress: {}
@@ -180,11 +180,11 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'close'])
 
 const  show = computed({
     get: () => props.modelValue,
-    set: (value) => emit('update:modelValue', value, 'close')
+    set: (value) => emit('update:modelValue', value)
 })
 
 const countries = computed(() => store.state.countries.map(c =>({ key: c.code, text: c.name})));

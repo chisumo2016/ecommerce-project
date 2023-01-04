@@ -125,16 +125,15 @@
         <div
             v-if="!customers.loading"
             class="flex justify-between items-center mt-5">
-            <span>
+            <div v-if="customers.data.length">
                  Showing from {{ customers.from }} to {{ customers.to }}
-            </span>
+            </div>
             <nav
                 v-if="customers.total >customers.limit"
                 class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px"
                 aria-label="Pagination">
             <!-- from backend -->
                 <a
-
                     v-for="(link, i) of customers.links"
                     :key="i"
                     :disabled="!link.url"
@@ -175,6 +174,9 @@ const    customers  = computed(() => store.state.customers);
 const    sortField = ref('updated_at');
 const    sortDirection = ref('desc');
 
+const customer = ref({})
+const showCustomerModal = ref(false);
+
 const emit = defineEmits(['clickEdit'])
 
 
@@ -196,8 +198,9 @@ function getCustomers(url = null) {
 }
 
 const  getForPage = (event , link ) => {
+    event.preventDefault();
     if (!link.url || link.active){
-        return
+        return;
     }
     getCustomers(link.url)
 }
@@ -214,6 +217,11 @@ const sortCustomers = (field) => {
         sortDirection.value = 'asc'
     }
     getCustomers();
+}
+
+
+function showModal() {
+    showCustomerModal.value = true
 }
 
 const editCustomer = (customer) => {

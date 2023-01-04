@@ -60,8 +60,8 @@
     - You have to make a request viao axiosClient   and apply the join
     - Apply to Doughnut.vue , pass the data Object
     - convert tthe data ,which contain name and country in axiosClient.get(`/dashboard/orders-by-country`).then(({ data: countries}) => {
-    
 
+### 
 
 
 

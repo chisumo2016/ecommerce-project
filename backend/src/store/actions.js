@@ -242,6 +242,7 @@ export  function  createCustomer({ commit} , customer)
 
 export  function  updateCustomer({commit} , customer)
 {
+    //debugger;
     return axiosClient.put(`/customers/${customer.id}`, customer)
 }
 

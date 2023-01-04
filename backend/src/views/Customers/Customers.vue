@@ -1,5 +1,4 @@
 <template>
-
     <!-- Header   -->
 <div class="flex items-center justify-between mb-3">
     <h1 class="text-3xl font-semibold">Customers</h1>
@@ -9,7 +8,6 @@
         v-model="showModal"
         :Customer="customerModel"
         @close="onModalClose">
-
     </CustomerModal>
     <!-- Card   -->
     <CustomersTable @clickEdit="editCustomer" />

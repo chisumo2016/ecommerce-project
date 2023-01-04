@@ -33,4 +33,6 @@
             Go to backennd
                 npm i vue-chartjs chart.js
             Create a folder in backend/src/components/core/Charts/Doughnuts.vue
+
+### CREATE PRODUCTS AND CUSTOMERS EMPTY CARDS
         

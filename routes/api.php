@@ -54,7 +54,7 @@ Route::middleware(['auth:sanctum', 'admin'])
    /**Dashboard Route */
         Route::get('/dashboard/customers-count',[DashboardController::class,'activeCustomers']);
         Route::get('/dashboard/products-count', [DashboardController::class,'activeProducts']);
-        Route::get('/dashboard/order-count',    [DashboardController::class,'paidOrders']);
+        Route::get('/dashboard/orders-count',    [DashboardController::class,'paidOrders']);
         Route::get('/dashboard/income-amount',  [DashboardController::class,'totalIncome']);
 
 

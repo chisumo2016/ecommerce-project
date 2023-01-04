@@ -35,4 +35,26 @@
             Create a folder in backend/src/components/core/Charts/Doughnuts.vue
 
 ### CREATE PRODUCTS AND CUSTOMERS EMPTY CARDS
+    - Create an empty cards for products and customers.
+
+### LOAD DATA FROM BACKEND FOR DASHBOARD SUMMARY CARDS
+    - Declare all for const ref 
+    - Declare / make axiosCliennt request to the server
+        axiosClient.get(`/dashboard/customers-count`).then(({ data }) => customersCount.value = data)
+        axiosClient.get(`/dashboard/products-count`).then(({ data }) => productsCount.value = data)
+        axiosClient.get(`/dashboard/orders-count`).then(({ data }) => paidOrders.value = data)
+        axiosClient.get(`/dashboard/income-amount`).then(({ data }) => totalIncome.value = data)
+    - Loading indicator  loading and commennt the text in the spinner.vvue
+    - Apply loading to each service  and axiosClient
+
+### FORMAT NUMBER AS CURRENCY
+
+
+
+
+
+
+
+
+
         

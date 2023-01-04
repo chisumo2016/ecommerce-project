@@ -4,29 +4,34 @@
         <!-- Active Customers-->
        <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
            <label>Active Customers</label>
-           <span class="text-3xl font-semibold">15</span>
-
+           <template v-if="!loading.customersCount">
+               <span class="text-3xl font-semibold">{{ customersCount }}</span>
+           </template>
+            <Spinner v-else text="" class="py-2"/>
        </div>
        <!--/ Active Customers-->
        <!-- Active Products-->
        <div class="bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center justify-center">
            <label>Active Products</label>
-           <span class="text-3xl font-semibold">30</span>
-
+           <template v-if="!loading.productsCount">
+               <span class="text-3xl font-semibold">{{ productsCount }}</span>
+           </template>
        </div>
        <!--/ Active Products-->
        <!-- Paid Orders-->
        <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
            <label>Paid Orders</label>
-           <span class="text-3xl font-semibold">15</span>
-
+           <template v-if="!loading.paidOrders">
+               <span class="text-3xl font-semibold">{{ paidOrders }}</span>
+           </template>
        </div>
        <!--/ Paid Orders-->
        <!-- Total Income-->
        <div class="bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center">
            <label>Total Incomes</label>
-           <span class="text-3xl font-semibold">$15000</span>
-
+           <template v-if="!loading.totalIncome">
+               <span class="text-3xl font-semibold">$ {{ totalIncome}}</span>
+           </template>
        </div>
        <!--/ Total Income-->
    </div>
@@ -45,6 +50,40 @@
 
 <script setup>
 import DoughnutChart from '../components/core/Charts/Doughnut.vue'
+import axiosClient from "../axios/axios.js";
+import { ref} from  "vue";
+import Spinner from "../components/core/Spinner.vue";
+
+const  loading = ref({
+    /**Keys*/
+    customersCount: true,
+    productsCount: true,
+    paidOrders: true,
+    totalIncome: true,
+})
+const customersCount    = ref(0);
+const productsCount     = ref(0);
+const paidOrders        = ref(0);
+const totalIncome       = ref(0);
+
+axiosClient.get(`/dashboard/customers-count`).then(({ data }) => {
+    //debugger;
+    customersCount.value = data;
+    loading.value.customersCount = false;
+})
+axiosClient.get(`/dashboard/products-count`).then(({ data }) => {
+    productsCount.value = data;
+    loading.value.productsCount = false;
+})
+axiosClient.get(`/dashboard/orders-count`).then(({ data }) => {
+    paidOrders.value = data;
+    loading.value.paidOrders = false;
+})
+axiosClient.get(`/dashboard/income-amount`).then(({ data }) => {
+    totalIncome.value = data;
+    loading.value.totalIncome = false;
+})
+
 
 </script>
 

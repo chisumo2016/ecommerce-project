@@ -29,14 +29,15 @@
 
        </div>
        <!--/ Total Income-->
-
    </div>
+    <div>
+        <DoughnutChart />
+    </div>
 </template>
 
-<script>
-export default {
-    name: "Dashboard"
-}
+<script setup>
+import DoughnutChart from '../components/core/Charts/Doughnut.vue'
+
 </script>
 
 <style scoped>

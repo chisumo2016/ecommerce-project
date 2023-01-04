@@ -194,7 +194,7 @@ const billingCountry = computed(() => store.state.countries.find(c =>  c.code ==
 const billingStateOptions = computed(() => {
    if (!billingCountry.value || !billingCountry.value.states) return [];
 
-    /**Obkect of an array of array*/
+    /**Object of an array of array*/
     Object.entries(billingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
 });
 
@@ -203,7 +203,7 @@ const shippingCountry = computed(() => store.state.countries.find(c =>  c.code =
 const shippingStateOptions = computed(() => {
     if (!shippingCountry.value || !shippingCountry.value.states) return [];
 
-    /**Obkect of an array of array*/
+    /**Object of an array of array*/
     Object.entries(shippingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
 });
 
@@ -236,7 +236,7 @@ const onSubmit = () => {
   loading.value = true
 
     if (customer.value.id){
-        debugger;
+        //debugger;
         console.log(customer.value.status);
         customer.value.status = !!customer.value.status // !! will convert into boolean
         store.dispatch('updateCustomer', customer.value)

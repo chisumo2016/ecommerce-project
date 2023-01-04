@@ -240,13 +240,13 @@ export  function  createCustomer({ commit} , customer)
     return axiosClient.post('/customers', customer)
 }
 
-export  function  updateCustomer({ commit} , customer)
+export  function  updateCustomer({commit} , customer)
 {
-    return axiosClient.put(`/customers/${user.id}`, customer)
+    return axiosClient.put(`/customers/${customer.id}`, customer)
 }
 
-export  function  deleteCustomer({ commit}, id) {
-    return axiosClient.delete(`/customers/${id}`)
+export  function  deleteCustomer({ commit}, customer) {
+    return axiosClient.delete(`/customers/${customer.id}`)
 }
 
 export  function  getCountries({commit}) {

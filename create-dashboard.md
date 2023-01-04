@@ -48,6 +48,9 @@
     - Apply loading to each service  and axiosClient
 
 ### FORMAT NUMBER AS CURRENCY
+    - Number format javascript 
+        https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
+    - Put into totalIncome
 
 
 

@@ -61,7 +61,13 @@
     - Apply to Doughnut.vue , pass the data Object
     - convert tthe data ,which contain name and country in axiosClient.get(`/dashboard/orders-by-country`).then(({ data: countries}) => {
 
-### 
+### IMPLEMENT LOADING LATEST 5 CUSTOMERS 
+### DISPLAYING LATEST 10 ORDERS
+### CREATE CURRENCY FORMATTING FILTER
+### CHANGE CUSTOMER MODAL INTO PAGE AND LINK FROM DASHBOARD
+### ADD ANIMATION TO DASHBOARD  CARDS
+### IMPLEMENT DATE PERIOD CHANGE
+### UPDATE REPORT DATA BY CHOSEN DATE
 
 
 

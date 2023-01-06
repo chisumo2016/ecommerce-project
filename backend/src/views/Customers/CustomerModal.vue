@@ -35,7 +35,6 @@
                         <header class="py-3 px-4 flex justify-between items-center">
                             <DialogTitle as="h3"  class="text-lg leading-6 font-medium text-gray-900">
                                 {{ customer.id ? `Update customer: "${props.customer.first_name} ${props.customer.last_name}"` : 'Create new Customer' }}
-<!--                                {{ customer.id ? `Update Customer: "${props.customer.first_name} ${props.customer.last_name}"` : 'Create new Customer'}}-->
                             </DialogTitle>
                             <button
                                 @click="closeModal"
@@ -89,8 +88,8 @@
                                     v-model="customer.status"
                                     label="Active"/>
 
-
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                         <!--  Billing Address  -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <h2 class="text-xl font-semibold mt-6 pb-2 border-b border-gray-300">Billing Address</h2>
 
@@ -100,28 +99,34 @@
                                             <CustomInput    v-model="customer.billingAddress.city" label="City"/>
                                             <CustomInput    v-model="customer.billingAddress.zipcode" label="Zip Code"/>
 
+
                                             <CustomInput  type="select" :select-options="countries"  v-model="customer.billingAddress.country_code" label="country_code"/>
                                             <CustomInput   v-if="!billingCountry.states" v-model="customer.billingAddress.state" label="State"/>
-                                            <CustomInput  v-else type="select" :select-options="billingStateOptions"  v-model="customer.billingAddress.state" label="States"/>
+                                            <CustomInput  v-else type="select" :select-options="billingStateOptions"  v-model="customer.billingAddress.state" label="State"/>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+                                <!--  Shipping  Address  -->
                                     <div>
                                         <h2 class="text-xl font-semibold mt-6 pb-2 border-b border-gray-300">Shipping Address</h2>
 
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                            <CustomInput    v-model="customer.shippingAddress.addres1" label="Address 1"/>
+                                            <CustomInput    v-model="customer.shippingAddress.address1" label="Address 1"/>
                                             <CustomInput    v-model="customer.shippingAddress.address2" label="Address 2"/>
                                             <CustomInput    v-model="customer.shippingAddress.city" label="City"/>
                                             <CustomInput    v-model="customer.shippingAddress.zipcode" label="Zip Code"/>
 
+
                                             <CustomInput  type="select" :select-options="countries"  v-model="customer.shippingAddress.country_code" label="country_code"/>
                                             <CustomInput   v-if="!shippingCountry.states" v-model="customer.shippingAddress.state" label="State"/>
                                             <CustomInput  v-else type="select" :select-options="shippingStateOptions"  v-model="customer.shippingAddress.state" label="State"/>
+
                                         </div>
                                     </div>
-                                </div>
+
+                            </div>
+
                             </div>
                             <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button type="submit"
@@ -164,11 +169,12 @@ import store from "../../store/index.js";
 /** Define local property */
 const loading = ref(false)
 
-//console.log(props.customer);
-const customer = ref({
+const customer = ref({ //we don't pass field as we're updating a .Two way binding
     billingAddress: {},
     shippingAddress: {}
 })
+
+
 
 const props = defineProps({
    modelValue: Boolean,
@@ -180,22 +186,24 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:modelValue', 'close'])
+const emit = defineEmits(['update:modelValue'])
 
 const  show = computed({
     get: () => props.modelValue,
-    set: (value) => emit('update:modelValue', value)
+    set: (value) => emit('update:modelValue', value, 'close')
 })
 
 const countries = computed(() => store.state.countries.map(c =>({ key: c.code, text: c.name})));
 
 /**Billing country_code*/
 const billingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.value.billingAddress.country_code));
+
+/**State Billing Option */
 const billingStateOptions = computed(() => {
-   if (!billingCountry.value || !billingCountry.value.states) return [];
+    if (!billingCountry.value || !billingCountry.value.states) return [];
 
     /**Object of an array of array*/
-    Object.entries(billingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
+    return Object.entries(billingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
 });
 
 /**Shipping country_code*/
@@ -204,12 +212,12 @@ const shippingStateOptions = computed(() => {
     if (!shippingCountry.value || !shippingCountry.value.states) return [];
 
     /**Object of an array of array*/
-    Object.entries(shippingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
+    return Object.entries(shippingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
 });
+
 
 onUpdated(() =>{
     customer.value = {
-
         id: props.customer.id,
         first_name: props.customer.first_name,
         last_name: props.customer.last_name,
@@ -217,7 +225,7 @@ onUpdated(() =>{
         phone: props.customer.phone,
         status: props.customer.status,
 
-        /**Billing & shipping*/
+        /**Billing & shipping from CustomerResource*/
         billingAddress:{
             ...props.customer.billingAddress
         },
@@ -236,9 +244,8 @@ const onSubmit = () => {
   loading.value = true
 
     if (customer.value.id){
-        //debugger;
-        console.log(customer.value.status);
-        customer.value.status = !!customer.value.status // !! will convert into boolean
+        console.log(customer.value.status )
+        customer.value.status = !!customer.value.status //convert into boolean
         store.dispatch('updateCustomer', customer.value)
         .then(response => {
             loading.value = false;

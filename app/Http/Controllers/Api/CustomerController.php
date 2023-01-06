@@ -53,6 +53,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
+
         return  new  CustomerResource($customer);
     }
 
@@ -86,7 +87,7 @@ class CustomerController extends Controller
 
         $customer->update($CustomerData);
 
-        /**Checking if the Customer as shipping or billing address*/
+        /**Checking if the Customer as shipping or billing address  create*/
         if ($customer->shippingAddress){
             $customer->shippingAddress->update($shippingData);
 
@@ -99,7 +100,7 @@ class CustomerController extends Controller
 
         }
         if ($customer->billingAddress ){
-            $customer->billingAddres->update($billingData);
+            $customer->billingAddress->update($billingData);
 
         }else{
 

@@ -12,6 +12,7 @@
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
+                <span class="ml-3">Found {{ users.total}} users</span>
             </div>
             <div>
                 <input v-model="search"
@@ -37,8 +38,12 @@
                 </thead>
                 <tbody v-if="users.loading.loading || !users.data.length">
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             <spinner v-if="users.loading" class="my-4"></spinner>
+
+                            <p class="text-center py-8 text-gray-700">
+                                There are no users
+                            </p>
                         </td>
                     </tr>
                 </tbody>

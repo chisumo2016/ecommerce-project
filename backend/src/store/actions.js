@@ -205,7 +205,7 @@ export  function  getCustomers({commit, state} , { url = null, search = '', per_
     url = url || '/customers';
 
     const params = {
-        per_page: state.users.limit,
+        per_page: state.customers.limit,
     }
 
     return  axiosClient.get(url, {
@@ -253,6 +253,6 @@ export  function  deleteCustomer({ commit}, customer) {
 export  function  getCountries({commit}) {
     return axiosClient.get('countries')
         .then(({ data }) => {
-            commit('setCountries',data)
+            commit('setCountries', data)
         })
 }

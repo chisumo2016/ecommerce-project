@@ -1,14 +1,16 @@
 <template>
+
     <!-- Header   -->
 <div class="flex items-center justify-between mb-3">
-    <h1 class="text-3xl font-semibold">Customers</h1>
+    <h1 class="text-3xl font-semibold">customers</h1>
 </div>
 <!--    <pre>{{showModal}}</pre>-->
-    <CustomerModal
+    <customerModal
         v-model="showModal"
-        :Customer="customerModel"
+        :customer="customerModel"
         @close="onModalClose">
-    </CustomerModal>
+
+    </customerModal>
     <!-- Card   -->
     <CustomersTable @clickEdit="editCustomer" />
 </template>
@@ -34,17 +36,22 @@ const showCustomerModal = () => {
 }
 
 const editCustomer = (customer) => {
-    store.dispatch('getCustomer', customer.id)
+    store.dispatch('getCustomer', customer.id) //id is from CustomerResource
         .then(({ data }) => {
-   /**take data and assign to the customer value*/
-   customerModel.value = data
-   showCustomerModal() //showAddNewModal()
- })
+            /**take data and assign to the customer value*/
+            customerModel.value =  data  //take data and assign to the model
+            showCustomerModal() //showAddNewModal()
+        })
 }
+
+// const editCustomer = (customer) => {
+//    customerModel.value = customer  //take response and assign to the model
+//    showCustomerModal() //showAddNewModal()
+// }
 
 /**clear*/
 const onModalClose = () => {
-    customerModel.value = {...DEFAULT_CUSTOMER }
+    customerModel.value = {...DEFAULT_CUSTOMER}
 }
 </script>
 

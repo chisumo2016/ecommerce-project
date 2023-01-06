@@ -57,7 +57,7 @@ class LoginRequest extends FormRequest
         /**Disabled Customer*/
         $user = $this->user();
         $customer = $user->customer;
-        if ($customer->status === CustomerStatus::Active->value){
+        if ($customer->status != CustomerStatus::Active->value){
             Auth::guard('web')->logout();
 
             $this->session()->invalidate();

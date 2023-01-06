@@ -144,7 +144,14 @@
     - In the CountryController wee need to return the  resource
     - Connvert sttriing into object by using json_decode
     - Intterate these object
+
     - Test edit 
+            ERROR:
+                Uncaught (in promise) TypeError: Cannot read properties of null(reading 'emitsOptions')
+                at shouldUpddateComponent
+            SOLUTION:
+                We're emitting modelValue in CustomInput.vue (@change="emit('update:modelValue', $event.target.value)">)
+            ERROR:
             store.state.countries.find is nnot a function
         SOLUTTION:
           Got into mutations.js in setContries()  pass .data
@@ -200,10 +207,22 @@
         Let change on CustomerResource ,we need to change
              'status'        => $this->status, TO
              'status'        => $this->status === CustomerStatus::Active->value, 
-        Go CustomerInput file 
-         @emit instead of @cchange
+
+        Go CustomerInput file  , status isn't ticked on CustomerModal.vue 
+         @emit instead of @change
             @emit="emit('update:modelValue',   $event.target.value)"
             @change="emit('update:modelValue', $event.target.checked)"
+
+        Status checkbox maust be ticked also, but it doessnt,
+            We neeed to update the CustomInput.vue , :checked="props.modelValue" on checkbox
+
+        Change label 
+
+    - ERROR:  Cannot read properties of undefined  (reading 'states')
+      SOLUTION: Problem comes from database, we need to add CustomerActive::Active->value in CustomerResource
+                'status'        => $this->status === CustomerStatus::Active->value,
+
+            why do we need enum status while we have two values? - For future proof if u have string
 
 ### IMPLEMENT CUSTOMER SEARCH , BY NAME , EMAIL , PHONE
     - To implement search , CustomerController -> index()
@@ -214,9 +233,21 @@
                 ->orderBy($sortField, $sortDirection)
                 ->paginate($perPage);
 
+    - Search Laravel where concat 
+    - we need to joinn to the user table  
+            customers->join->users
+
 ### DEBUGGING LARAVEL ERROR
+    Search
+        ERROR: mapInto()
+    - Look join in Laravel documentation
+    - Laravel elequent join - Google
+    - Search  The problemis that you use UserResourcee::collection($this->user)
+    - Customer belongs to a user and User hasO
+
 ### RESTRICT DISABLED CUSTOMER LOGIN
-    - Customer who is disabled , should not logged in .
+    - Whenever the Customer who is disabled , should not logged in .
+        eg : John Emma is trying to login is able . STOP THIS
     - Go to app/Http/Controllers/Auth/AuthenticatedSessionController.php
             open \App\Http\Requests\Auth\LoginRequest
     - ERROR

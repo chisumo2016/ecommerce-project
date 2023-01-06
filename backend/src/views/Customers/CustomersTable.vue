@@ -4,7 +4,7 @@
         <div class="flex justify-between border-b-2 pb-3">
             <div class="flex items-center">
                 <span class="whitespace-nowrap mr-3">Per Page</span>
-                <select @change="getCustomers(null)" v-model="perPage"
+                <select @change="getcustomers(null)" v-model="perPage"
                         class="appearance-none relative block w-24 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -18,15 +18,16 @@
                 <input v-model="search"
                        @change="getCustomers(null)"
                        class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                       placeholder="Type to Search Customers">
+                       placeholder="Type to Search customers">
             </div>
         </div>
 
-<!--        <spinner v-if="Customers.loading" class="my-4"></spinner>-->
+<!--        <spinner v-if="customers.loading" class="my-4"></spinner>-->
 
             <table class="table-auto w-full">
                 <thead>
                 <tr>
+
                     <TableHeaderCell @click="sortCustomers('id')"  class="border-b-2 p-2 text-left" field="id" :sort-field="sortField" :sort-direction="sortDirection">ID</TableHeaderCell>
                     <TableHeaderCell @click="sortCustomers('name')"  class="border-b-2 p-2 text-left" field="name" :sort-field="sortField" :sort-direction="sortDirection">Name</TableHeaderCell>
                     <TableHeaderCell @click="sortCustomers('email')"  class="border-b-2 p-2 text-left" field="email" :sort-field="sortField" :sort-direction="sortDirection">Email</TableHeaderCell>
@@ -41,8 +42,10 @@
                 <tbody v-if="customers.loading.loading || !customers.data.length">
                     <tr>
                         <td colspan="7">
-                            <Spinner v-if="customers.loading"></Spinner>
-                            <p class="text-center py-8 text-gray-700">There are no customers</p>
+                            <spinner v-if="customers.loading" class="my-4"/>
+                            <p class="text-center py-8 text-gray-700">
+                                There are no customers
+                            </p>
                         </td>
                     </tr>
                 </tbody>
@@ -125,15 +128,14 @@
         <div
             v-if="!customers.loading"
             class="flex justify-between items-center mt-5">
-            <div v-if="customers.data.length">
+            <span>
                  Showing from {{ customers.from }} to {{ customers.to }}
-            </div>
-            <nav
-                v-if="customers.total >customers.limit"
-                class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px"
-                aria-label="Pagination">
+            </span>
+            <nav v-if="customers.total > customers.limit"
+                class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px" aria-label="Pagination">
             <!-- from backend -->
                 <a
+
                     v-for="(link, i) of customers.links"
                     :key="i"
                     :disabled="!link.url"
@@ -166,16 +168,12 @@ import TableHeaderCell from "../../components/core/Table/TableHeaderCell.vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import {DotsVerticalIcon, PencilIcon, TrashIcon} from '@heroicons/vue/outline'
 
-
 /**Define properties*/
 const    perPage   = ref(CUSTOMERS_PER_PAGE );
 const    search    = ref('');
 const    customers  = computed(() => store.state.customers);
 const    sortField = ref('updated_at');
 const    sortDirection = ref('desc');
-
-const customer = ref({})
-const showCustomerModal = ref(false);
 
 const emit = defineEmits(['clickEdit'])
 
@@ -187,20 +185,19 @@ onMounted(() =>{
 })
 
 function getCustomers(url = null) {
-    store.dispatch('getCustomers', { //getCustomers executed and get the Customers
+    store.dispatch('getCustomers', { //getCustomers executed and get the customers
         url ,
         search          : search.value,
         perPage         : perPage.value,
         sort_field      : sortField.value,
         sort_direction  : sortDirection.value
 
-    });
+    })
 }
 
 const  getForPage = (event , link ) => {
-    event.preventDefault();
     if (!link.url || link.active){
-        return;
+        return
     }
     getCustomers(link.url)
 }
@@ -219,18 +216,12 @@ const sortCustomers = (field) => {
     getCustomers();
 }
 
-
-function showModal() {
-    showCustomerModal.value = true
-}
-
 const editCustomer = (customer) => {
-    //debugger;
     emit('clickEdit', customer)
 }
 
 const deleteCustomer = (customer) => {
-  if (!confirm(`Are you sure you want to delete the Customer ?`)){
+  if (!confirm(`Are you sure you want to delete the customer ?`)){
       return
   }
   store.dispatch('deleteCustomer', customer.id)

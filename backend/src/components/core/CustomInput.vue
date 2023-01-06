@@ -2,28 +2,28 @@
     <div>
         <label class="sr-only">{{ label }}</label>
         <div class="mt-1 flex rounded-md shadow-sm">
-            <span
+            <span  v-if="prepend"
                 class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                 {{ prepend}}
             </span>
             <template v-if="type === 'select'">
-                <select
-                        :name="name"
+                <select :name="name"
                         :required="required"
                         :value="props.modelValue"
-                        @change="emit('update:modelValue', $event.target.value)"
-                        :class="inputClasses">
-                    <option v-for="option of selectOptions" :value="option.key">{{ option.text }}</option>
+                        :class="inputClasses"
+                        @change="emit('update:modelValue', $event.target.value)">
+                    <option v-for="option of selectOptions" :value="option.key">{{option.text}}</option>
                 </select>
             </template>
+
             <template v-else-if="type === 'textarea'">
-                <textarea :name="name"
-                          :required="required"
-                          :value="props.modelValue"
-                          @input="emit('update:modelValue', $event.target.value)"
-                          :class="inputClasses"
-                          :placeholder="label">
-                </textarea>
+              <textarea :name="name"
+                        :required="required"
+                        :value="props.modelValue"
+                        @input="emit('update:modelValue', $event.target.value)"
+                        :class="inputClasses"
+                        :placeholder="label">
+              </textarea>
             </template>
             <template v-else-if="type === 'file'">
                 <input :type="type"
@@ -52,11 +52,8 @@
                        @input="emit('update:modelValue', $event.target.value)"
                        :class="inputClasses"
                        :placeholder="label"
-                       step="0.01"
-
-                />
+                       step="0.01"/>
             </template>
-
 
             <span v-if="append"
                     class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
@@ -87,7 +84,14 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    selectOptions:Array
+    selectOptions: Array
+})
+
+//const id = ref(`${name}-${Math.floor(1000000 + Math.random() * 1000000)}`);
+const id = computed(() => {
+    /**Generate randoom number for id in checkbox*/
+    if (props.id) return props.id;
+    return `id-${Math.floor(1000000 + Math.random() * 1000000)}`;
 })
 
 const inputClasses = computed(() =>{
@@ -95,30 +99,24 @@ const inputClasses = computed(() =>{
         `block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`,
     ];
 
-    if (props.append && !props.prepend){
+    if (props.append && !props.prepend) {
         cls.push(`rounded-l-md`)
-    }else if(props.prepend && !props.append){
+    } else if (props.prepend && !props.append) {
         cls.push(`rounded-r-md`)
-    }else if (!props.prepend && !props.append){
-        cls.push(`rounded-md`)
+    } else if (!props.prepend && !props.append) {
+        cls.push('rounded-md')
     }
     return cls.join(' ')
 })
 
-
-
 const emit = defineEmits(['update:modelValue', 'change'])
 
-//const id = ref(`${name}-${Math.floor(1000000 + Math.random() * 1000000)}`);
-const id = computed(() => {
-    if (props.id) return props.id;
-    return `id-${Math.floor(1000000 + Math.random() * 1000000)}`;
-})
 
-function onChange(value) {
-    emit('update:modelValue', value)
-    emit('change', value)
-}
+
+// function onChange(value) {
+//     emit('update:modelValue', value)
+//     emit('change', value)
+// }
 </script>
 
 <style scoped>

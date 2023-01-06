@@ -1,4 +1,4 @@
-#### STRIPE CHECKOUT AND ORDERS
+#### STRIPE CHECKOUT AND ORDERS (PLEASE REWATCH THE VIDEO FROM CODEHOLIC)
 
 ### STRIPE ONLINE PAYMENTS CHECKOUT PARTS 1 (Integration of third party API on checkout)
     We gonna  use payments using stripes

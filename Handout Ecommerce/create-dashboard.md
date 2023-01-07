@@ -82,6 +82,22 @@
 
 
 ### IMPLEMENT LOADING LATEST 5 CUSTOMERS 
+    - Create a new  function called latestCustomers in dashboard controller
+    - create a api route for latest customers
+    - Call the latest customers in Dashboard.vue
+            const latestcustomers 
+            make a call to axiosClient
+            set  latestCustomers
+            add join users
+            whenever the user confirm the email address . let sset the status to be active
+            Open the app/Http/Controllers/Auth/VerifyEmailController.php
+                    $customer = $request->user()->customer;
+                    $customer->status = CustomerStatus::Active->value;
+                    $customer->save();
+            change div to router link
+
+
+
 ### DISPLAYING LATEST 10 ORDERS
 ### CREATE CURRENCY FORMATTING FILTER
 ### CHANGE CUSTOMER MODAL INTO PAGE AND LINK FROM DASHBOARD

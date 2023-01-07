@@ -3,7 +3,7 @@
    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
         <!-- Active Customers-->
        <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center bg-blue-100">
-           <label>Active Customers</label>
+           <label class="font-semibold mb-3 block text-lg">Active Customers</label>
            <template v-if="!loading.customersCount">
                <span class="text-3xl font-semibold">{{ customersCount }}</span>
            </template>
@@ -12,7 +12,7 @@
        <!--/ Active Customers-->
        <!-- Active Products-->
        <div class="bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center justify-center">
-           <label>Active Products</label>
+           <label class="font-semibold mb-3 block text-lg">Active Products</label>
            <template v-if="!loading.productsCount">
                <span class="text-3xl font-semibold">{{ productsCount }}</span>
            </template>
@@ -21,7 +21,7 @@
        <!--/ Active Products-->
        <!-- Paid Orders-->
        <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
-           <label>Paid Orders</label>
+           <label class="font-semibold mb-3 block text-lg">Paid Orders</label>
            <template v-if="!loading.paidOrders">
                <span class="text-3xl font-semibold">{{ paidOrders }}</span>
            </template>
@@ -30,7 +30,7 @@
        <!--/ Paid Orders-->
        <!-- Total Income-->
        <div class="bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center">
-           <label>Total Incomes</label>
+           <label class="font-semibold mb-3 block text-lg">Total Incomes</label>
            <template v-if="!loading.totalIncome">
                <span class="text-3xl font-semibold">{{ totalIncome}}</span>
            </template>
@@ -44,19 +44,30 @@
             Products
         </div>
         <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
-            <label>Orders by Country</label>
+            <label class="font-semibold mb-3 block text-lg">Orders by Country</label>
             <template v-if="!loading.ordersByCountry">
                 <DoughnutChart :width="140" :height="200" :data="ordersByCountry"/>
             </template>
             <Spinner v-else text="" class=""/>
         </div>
-        <div class=" bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
-            Customers
+        <div class=" bg-white py-6 px-5 rounded-lg shadow ">
+            <label class="font-semibold mb-3 block text-lg">Latest Customers</label>
+<!--                <pre>{{ latestCustomers}}</pre>-->
+            <router-link to="/" v-for="c of latestCustomers" :key="c.id" class="flex mb-3">
+                <div class="w-12 h-12 bg-gray-200 flex items-center justify-center rounded-full mr-2">
+                    <UserIcon class="w-5" />
+                </div>
+                <div>
+                    <h3>{{ c. first_name}} {{ c. last_name}}</h3>
+                    <p>{{ c . email}}</p>
+                </div>
+            </router-link>
         </div>
     </div>
 </template>
 
 <script setup>
+import  { UserIcon } from '@heroicons/vue/outline'
 import DoughnutChart from '../components/core/Charts/Doughnut.vue'
 import axiosClient from "../axios/axios.js";
 import { ref} from  "vue";
@@ -70,12 +81,14 @@ const  loading = ref({
     paidOrders: true,
     totalIncome: true,
     ordersByCountry: true,
+    latestCustomers: true,
 })
 const customersCount    = ref(0);
 const productsCount     = ref(0);
 const paidOrders        = ref(0);
 const totalIncome       = ref(0);
-const ordersByCountry = ref({});
+const ordersByCountry = ref([]);
+const latestCustomers = ref([]);
 
 axiosClient.get(`/dashboard/customers-count`).then(({ data }) => {
     //debugger;
@@ -114,6 +127,12 @@ axiosClient.get(`/dashboard/orders-by-country`).then(({ data: countries}) => {
         chartData.datasets[0].data.push(c.count)
     })
     ordersByCountry.value = chartData;
+})
+
+axiosClient.get(`/dashboard/latest-customers`).then(({ data: customers }) => {
+    latestCustomers.value = customers;
+
+    loading.value.latestCustomers = false;
 })
 
 

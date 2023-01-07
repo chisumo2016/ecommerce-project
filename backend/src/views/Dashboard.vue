@@ -2,7 +2,7 @@
     <h1 class="text-4xl mb-3">Dashboard</h1>
    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
         <!-- Active Customers-->
-       <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
+       <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center bg-blue-100">
            <label>Active Customers</label>
            <template v-if="!loading.customersCount">
                <span class="text-3xl font-semibold">{{ customersCount }}</span>
@@ -32,13 +32,14 @@
        <div class="bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center">
            <label>Total Incomes</label>
            <template v-if="!loading.totalIncome">
-               <span class="text-3xl font-semibold">$ {{ totalIncome}}</span>
+               <span class="text-3xl font-semibold">{{ totalIncome}}</span>
            </template>
            <Spinner v-else text="" class="py-2"/>
        </div>
        <!--/ Total Income-->
    </div>
-    <div class="grid grid-rows2 grid-flow-col  grid-cols-1 md:grid-cols-3 gap-3">
+        <!--Second Row     -->
+    <div class="grid grid-rows-2 grid-flow-col  grid-cols-1 md:grid-cols-3 gap-3">
         <div class="cols-span-2 row-span-2 bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
             Products
         </div>
@@ -47,6 +48,7 @@
             <template v-if="!loading.ordersByCountry">
                 <DoughnutChart :width="140" :height="200" :data="ordersByCountry"/>
             </template>
+            <Spinner v-else text="" class=""/>
         </div>
         <div class=" bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
             Customers
@@ -60,6 +62,7 @@ import axiosClient from "../axios/axios.js";
 import { ref} from  "vue";
 import Spinner from "../components/core/Spinner.vue";
 
+/**loading indicator*/
 const  loading = ref({
     /**Keys*/
     customersCount: true,
@@ -72,7 +75,6 @@ const customersCount    = ref(0);
 const productsCount     = ref(0);
 const paidOrders        = ref(0);
 const totalIncome       = ref(0);
-
 const ordersByCountry = ref({});
 
 axiosClient.get(`/dashboard/customers-count`).then(({ data }) => {
@@ -99,10 +101,12 @@ axiosClient.get(`/dashboard/orders-by-country`).then(({ data: countries}) => {
     const chartData = {
         labels: [],
         datasets:[{
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+             /**Push Single Object*/
+             backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
             data:[]
         }]
     }
+
     /**Iterate*/
     countries.forEach(c =>{
         /**Push Single Set*/

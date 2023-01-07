@@ -4,25 +4,32 @@
     - Dashboard 
     - First row
 -----------------------------
+    <!--One Row     -->
     1. Number of Active Customers
     1. Number of Active Products
     1. Number of Paid orders
     1. Total    Income
 
+    <!--Second Row     -->
     1. Orders by country(charts)
     2. 5 Top Selling Products
     3. Newly registered customers
-
+    
+    - Gonna write complex query
     - To start we need to create a dashboard controller
         php artisan make:controller Api/DashboardController  
     - Two approach on working on dashboard
             To return all the data at once,we gonna see single loader
-            To load each part independently 
+            To load each individual  part independently 
     - We gonna use the second options , implement these methods in Dashboard Controller
                  1. Number of Active Customers
+                        activeCustomers()
                  1. Number of Active Products
+                        activeProducts()
                  1. Number of Paid orders
+                        paidOrders()
                  1. Total    Income
+                        totalIncome()
     - Open an api route file , defines all routes
     - Open the Dashboard.vue file,  design Cards using Tailwindcss style ,
 
@@ -35,6 +42,7 @@
             Create a folder in backend/src/components/core/Charts/Doughnuts.vue
 
 ### CREATE PRODUCTS AND CUSTOMERS EMPTY CARDS
+    - Create a  second row 
     - Create an empty cards for products and customers.
 
 ### LOAD DATA FROM BACKEND FOR DASHBOARD SUMMARY CARDS
@@ -56,10 +64,22 @@
     - Add the ordersByCountry method in DashboardCController
     - Write few join table in OrdersByCountry
     - Add the api route
-    - Add the const ordersByCountry on Dashboard.vue file
+    - Add the const ordersByCountry on Dashboard.vue file annd group them by country
+    - Order belongs to Customer
+    - Customer has a address
+    - Join to users table
+    - Take user to be customer_id 
+    - Join Order to a Customer , then to customer address and group by country
+    - a is alias for customer_addresses
     - You have to make a request viao axiosClient   and apply the join
-    - Apply to Doughnut.vue , pass the data Object
+    - Apply to Doughnut.vue , pass the data Object, we have a data which contains an array
+        contains name and country
     - convert tthe data ,which contain name and country in axiosClient.get(`/dashboard/orders-by-country`).then(({ data: countries}) => {
+        Finish all logic in the 
+
+    ERROR:
+            Vue warn]: Missing required prop: "data" at <Doughnut chartData=
+
 
 ### IMPLEMENT LOADING LATEST 5 CUSTOMERS 
 ### DISPLAYING LATEST 10 ORDERS

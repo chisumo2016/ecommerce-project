@@ -95,10 +95,22 @@
                     $customer->status = CustomerStatus::Active->value;
                     $customer->save();
             change div to router link
+    Add the loading 
 
 
 
 ### DISPLAYING LATEST 10 ORDERS
+    - Create a new  function called latestOrders in dashboard controller
+    - create a api route for latest customers
+    - Call the latest customers in Dashboard.vue
+            const latestOrders 
+            make a call to axiosClient
+            set  latestOrders
+            add join users
+            change div to router link
+    - Cteate a dashboard resource
+            php artisan make:resource Dashboard/OrderResource  
+        
 ### CREATE CURRENCY FORMATTING FILTER
 ### CHANGE CUSTOMER MODAL INTO PAGE AND LINK FROM DASHBOARD
 ### ADD ANIMATION TO DASHBOARD  CARDS

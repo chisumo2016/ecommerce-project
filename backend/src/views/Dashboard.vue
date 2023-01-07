@@ -40,8 +40,26 @@
    </div>
         <!--Second Row     -->
     <div class="grid grid-rows-2 grid-flow-col  grid-cols-1 md:grid-cols-3 gap-3">
-        <div class="cols-span-2 row-span-2 bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
-            Products
+        <div class="cols-span-2 row-span-2 bg-white py-6 px-5 rounded-lg shadow ">
+            <label class="font-semibold mb-3 block text-lg">Latest Orders</label>
+            <template v-if="!loading.latestOrders">
+                <template v-if="!loading.latestOrders">
+                    <div v-for="o of latestOrders" :key="o.id" class="py-2 px-3 hover:bg-gray-50">
+                        <p>
+                            <router-link :to="{name: 'app.orders.view', params: {id: o.id}}" class="text-indigo-700 font-semibold">
+                                Order #{{ o.id }}
+                            </router-link>
+                            created {{ o.created_at }}. {{ o.items }} items
+                        </p>
+                        <p class="flex justify-between">
+                            <span>{{ o.first_name }} {{ o.last_name }}</span>
+                            <span>{{ $filters.currencyUSD(o.total_price) }}</span>
+                        </p>
+                    </div>
+                </template>
+            </template>
+            <Spinner v-else text="" class="py-2"/>
+
         </div>
         <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
             <label class="font-semibold mb-3 block text-lg">Orders by Country</label>
@@ -52,7 +70,7 @@
         </div>
         <div class=" bg-white py-6 px-5 rounded-lg shadow ">
             <label class="font-semibold mb-3 block text-lg">Latest Customers</label>
-<!--                <pre>{{ latestCustomers}}</pre>-->
+            <template v-if="!loading.latestCustomers">
             <router-link to="/" v-for="c of latestCustomers" :key="c.id" class="flex mb-3">
                 <div class="w-12 h-12 bg-gray-200 flex items-center justify-center rounded-full mr-2">
                     <UserIcon class="w-5" />
@@ -62,6 +80,8 @@
                     <p>{{ c . email}}</p>
                 </div>
             </router-link>
+            </template>
+            <Spinner v-else text="" class=""/>
         </div>
     </div>
 </template>
@@ -82,13 +102,15 @@ const  loading = ref({
     totalIncome: true,
     ordersByCountry: true,
     latestCustomers: true,
+    latestOrders: true,
 })
 const customersCount    = ref(0);
 const productsCount     = ref(0);
 const paidOrders        = ref(0);
 const totalIncome       = ref(0);
-const ordersByCountry = ref([]);
-const latestCustomers = ref([]);
+const ordersByCountry   = ref([]);
+const latestCustomers   = ref([]);
+const latestOrders      = ref([]);
 
 axiosClient.get(`/dashboard/customers-count`).then(({ data }) => {
     //debugger;
@@ -133,6 +155,12 @@ axiosClient.get(`/dashboard/latest-customers`).then(({ data: customers }) => {
     latestCustomers.value = customers;
 
     loading.value.latestCustomers = false;
+})
+
+axiosClient.get(`/dashboard/latest-orders`).then(({ data: orders }) => {
+    latestOrders.value = orders.data;
+
+    loading.value.latestOrders = false;
 })
 
 

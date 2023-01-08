@@ -101,7 +101,7 @@
 
 ### DISPLAYING LATEST 10 ORDERS
     - Create a new  function called latestOrders in dashboard controller
-    - create a api route for latest customers
+    - create a api route for latest latestOrders
     - Call the latest customers in Dashboard.vue
             const latestOrders 
             make a call to axiosClient
@@ -110,9 +110,165 @@
             change div to router link
     - Cteate a dashboard resource
             php artisan make:resource Dashboard/OrderResource  
+    - Add the Orderresource in the  latestOrders
         
 ### CREATE CURRENCY FORMATTING FILTER
+    - Filter the  for currency
+    - Implement the pipe , create a filters folder  backend/src/filters/currency.js
+                    export default function currencyUSD(value) {
+                    return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+                    .format(value);
+                    }
+    - Add filters in main.js
+            app.config.globalProperties.$filters = {
+            currencyUSD
+        }
+    - Import currency.js
+        import currencyUSD from './filters/currency.js'
+
 ### CHANGE CUSTOMER MODAL INTO PAGE AND LINK FROM DASHBOARD
+    - Update the modal  on this section.
+    - create a new router called app.customers.view
+         {
+                path: 'customers/:id',
+                name:'app.customers.show',
+                component:CustomerShow
+         },
+    - Copy OrderShow.vue into Customers folder and call CustomerShow 
+        Cut the form from the customerModal and paste into CustomerShow.vue
+        Take the logic of title fromm customerModal and Paste into CustomerShow.vue in <h1></h1>
+             {{ customer.id ? `Update customer: "${props.customer.first_name} ${props.customer.last_name}"` : 'Create new Customer' }}
+        To change the props into customer
+            {{ customer.id ? `Update customer: "${customer.first_name} ${customer.last_name}"` : 'Create new Customer' }}
+    - Take the loading indicator from CustomerMModal and Paste into CustomerShow
+        const loading = ref(false)
+
+            const customer = ref({ //we don't pass field as we're updating a .Two way binding
+            billingAddress: {},
+            shippingAddress: {}
+            })
+
+            const countries = computed(() => store.state.countries.map(c =>({ key: c.code, text: c.name})));
+
+            /**Billing country_code*/
+            const billingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.value.billingAddress.country_code));
+            
+            /**State Billing Option */
+            const billingStateOptions = computed(() => {
+            if (!billingCountry.value || !billingCountry.value.states) return [];
+            
+                /**Object of an array of array*/
+                return Object.entries(billingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
+            });
+            
+            /**Shipping country_code*/
+            const shippingCountry = computed(() => store.state.countries.find(c =>  c.code === customer.value.shippingAddress.country_code));
+            const shippingStateOptions = computed(() => {
+            if (!shippingCountry.value || !shippingCountry.value.states) return [];
+            
+                /**Object of an array of array*/
+                return Object.entries(shippingCountry.value.states).map(c => ({key: c[0], text: c[1]}))
+            });
+
+
+
+
+const onSubmit = () => {
+loading.value = true
+
+    if (customer.value.id){
+        console.log(customer.value.status )
+        customer.value.status = !!customer.value.status //convert into boolean
+        store.dispatch('updateCustomer', customer.value)
+        .then(response => {
+            loading.value = false;
+            if (response.status === 200){
+                /**Show Notification*/
+                store.dispatch('getCustomers')
+                closeModal()
+            }
+        })
+    }else{
+        store.dispatch('createCustomer', customer.value)
+        .then(response =>{
+            loading.value  = false;
+            if (response.status === 201){
+                /**Show Notification*/
+                store.dispatch('getCustomers')
+                closeModal()
+            }
+        })
+        .catch(error =>{
+            loading.value = false;
+            //debugger;
+        })
+    }
+    }
+    - Remove the following code from CustomerModal
+
+
+                const props = defineProps({
+                modelValue: Boolean,
+                
+                    /**Object*/
+                    customer:{
+                        required: true,
+                        type:Object
+                    }
+                })
+            const emit = defineEmits(['update:modelValue'])
+
+                const  show = computed({
+                get: () => props.modelValue,
+                set: (value) => emit('update:modelValue', value, 'close')
+                })
+
+            onUpdated(() =>{
+                customer.value = {
+                    id: props.customer.id,
+                    first_name: props.customer.first_name,
+                    last_name: props.customer.last_name,
+                    email: props.customer.email,
+                    phone: props.customer.phone,
+                    status: props.customer.status,
+            
+                    /**Billing & shipping from CustomerResource*/
+                    billingAddress:{
+                        ...props.customer.billingAddress
+                    },
+                    shippingAddress:{
+                        ...props.customer.shippingAddress
+                    }
+                }
+                    })
+                    
+                    function closeModal() {
+                    show.value = false
+                    emit('close')
+                    }
+
+    - Instead of closeModal() , redirect to the page ,customer list
+        const router = useRouter
+    - Open router.js file and the link
+            {
+                path: 'customers/:id',
+                name:'app.customers.show',
+                component:CustomerShow
+            },
+    - Open dashboard  and add   <router-link :to="{name: 'app.customers.show', params:{id: c.id}}"
+
+    ERROR:
+        TypeError: Cannot read properties of undefinned (reading 'states')
+
+    SOLUTION: Delete teh CustomerModal
+    
+    - Open the CustomersTable  change the edit <button to bee router link and remove 
+            @click="editCustomer(customer)"
+        remover 
+        // const editCustomer = (customer) => {
+        //     emit('clickEdit', customer)
+        // }
+
 ### ADD ANIMATION TO DASHBOARD  CARDS
 ### IMPLEMENT DATE PERIOD CHANGE
 ### UPDATE REPORT DATA BY CHOSEN DATE

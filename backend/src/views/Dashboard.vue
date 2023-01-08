@@ -39,8 +39,8 @@
        <!--/ Total Income-->
    </div>
         <!--Second Row     -->
-    <div class="grid grid-rows-2 grid-flow-col  grid-cols-1 md:grid-cols-3 gap-3">
-        <div class="cols-span-2 row-span-2 bg-white py-6 px-5 rounded-lg shadow ">
+    <div class="grid grid-rows-1 md:grid-rows-2 md:grid-flow-col  grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="col-span-1  md:col-span-2 row-span-1 md:row-span-2 bg-white py-6 px-5 rounded-lg shadow ">
             <label class="font-semibold mb-3 block text-lg">Latest Orders</label>
             <template v-if="!loading.latestOrders">
                 <template v-if="!loading.latestOrders">
@@ -68,10 +68,10 @@
             </template>
             <Spinner v-else text="" class=""/>
         </div>
-        <div class=" bg-white py-6 px-5 rounded-lg shadow ">
+        <div class="bg-white py-6 px-5 rounded-lg shadow ">
             <label class="font-semibold mb-3 block text-lg">Latest Customers</label>
             <template v-if="!loading.latestCustomers">
-            <router-link to="/" v-for="c of latestCustomers" :key="c.id" class="flex mb-3">
+            <router-link :to="{name: 'app.customers.show', params: {id: c.id }}" v-for="c of latestCustomers" :key="c.id" class="flex mb-3">
                 <div class="w-12 h-12 bg-gray-200 flex items-center justify-center rounded-full mr-2">
                     <UserIcon class="w-5" />
                 </div>

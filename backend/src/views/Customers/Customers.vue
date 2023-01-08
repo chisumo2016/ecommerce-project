@@ -5,19 +5,14 @@
     <h1 class="text-3xl font-semibold">customers</h1>
 </div>
 <!--    <pre>{{showModal}}</pre>-->
-    <customerModal
-        v-model="showModal"
-        :customer="customerModel"
-        @close="onModalClose">
 
-    </customerModal>
     <!-- Card   -->
     <CustomersTable @clickEdit="editCustomer" />
 </template>
 
 <script setup>
 import CustomersTable from "./CustomersTable.vue";
-import CustomerModal from "./CustomerModal.vue";
+
 import {computed, ref} from "vue";
 import store from "../../store";
 

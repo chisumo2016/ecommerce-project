@@ -273,6 +273,26 @@ loading.value = true
     - add animation to all four animate-fade-in-down"  in dashboard
         style="animation-delay: 0.2s"
 ### IMPLEMENT DATE PERIOD CHANGE
+    - Add the dropdown next to the dashboard title.using select
+            <select name="" id="">
+                <option value="">Last Day</option>
+                <option value="">Last Week</option>
+                <option value="">Last Month</option>
+                <option value="">Last 3 Month</option>
+                <option value="">Last 3 Month </option>
+            </select>
+    - Whenever we choose this ,we gonna update the dashboard.
+    - Change tthe @change in the CustomInput to be onChange abd call the function on it
+                function onChange(value) {
+                    emit('update:modelValue', value)
+                    emit('change', value)
+                }
+    - All the request goes to updateDashboard() in Dasboard.vue
+    - Loading value should changed innto ttrue
+    - add const  d = chosenDate.value
+    - pass the d in all request {params: { d }}
+    - use it in DashboardConntroller
+
 ### UPDATE REPORT DATA BY CHOSEN DATE
 
 

@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
 
-    public function activeCustomers()
+    public function activeCustomers(Request $request )
     {
+        $d = $request->get('d');
         return Customer::where('status', CustomerStatus::Active->value)->count();
     }
 

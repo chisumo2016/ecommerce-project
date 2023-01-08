@@ -41,7 +41,7 @@
        <!--/ Paid Orders-->
        <!-- Total Income-->
        <div class="animate-fade-in-down bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center" style="animation-delay: 0.3s">
-           <label class="font-semibold mb-3 block text-lg">Total Incomes</label>
+           <label class="font-semibold mb-3 block text-lg">Total Income</label>
            <template v-if="!loading.totalIncome">
                <span class="text-3xl font-semibold">{{ totalIncome}}</span>
            </template>
@@ -131,7 +131,7 @@ const dateOptions  = ref([
     {key: '1m' , text: 'Last Month'},
     {key: '3m' , text: 'Last 3 Month'},
     {key: '6m' , text: 'Last 6 Month'},
-    {key: 'all' , text: 'All Timme'},
+    {key: 'all' , text: 'All Time'},
 
 ])
 

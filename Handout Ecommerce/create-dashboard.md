@@ -291,9 +291,13 @@ loading.value = true
     - Loading value should changed innto ttrue
     - add const  d = chosenDate.value
     - pass the d in all request {params: { d }}
-    - use it in DashboardConntroller
+    - use it in DashboardConntroller on index
 
 ### UPDATE REPORT DATA BY CHOSEN DATE
+    - Add the private function called getFromDate in api/DashbaordController
+    - call to both function in DashboardCController
+
+
 
 
 

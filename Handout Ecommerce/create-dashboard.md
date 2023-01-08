@@ -268,8 +268,10 @@ loading.value = true
         // const editCustomer = (customer) => {
         //     emit('clickEdit', customer)
         // }
-
+    - add animate-fade-in-down" in customerShow.vue
 ### ADD ANIMATION TO DASHBOARD  CARDS
+    - add animation to all four animate-fade-in-down"  in dashboard
+        style="animation-delay: 0.2s"
 ### IMPLEMENT DATE PERIOD CHANGE
 ### UPDATE REPORT DATA BY CHOSEN DATE
 

@@ -1,8 +1,10 @@
 <template>
-    <h1 class="text-4xl mb-3">Dashboard</h1>
+    <div class="mb-2">
+        <h1 class="text-3xl mb-3">Dashboard</h1>
+    </div>
    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
         <!-- Active Customers-->
-       <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center bg-blue-100">
+       <div class="animate-fade-in-down bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center bg-blue-100">
            <label class="font-semibold mb-3 block text-lg">Active Customers</label>
            <template v-if="!loading.customersCount">
                <span class="text-3xl font-semibold">{{ customersCount }}</span>
@@ -11,7 +13,7 @@
        </div>
        <!--/ Active Customers-->
        <!-- Active Products-->
-       <div class="bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center justify-center">
+       <div class="animate-fade-in-down bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center justify-center" style="animation-delay: 0.1s">
            <label class="font-semibold mb-3 block text-lg">Active Products</label>
            <template v-if="!loading.productsCount">
                <span class="text-3xl font-semibold">{{ productsCount }}</span>
@@ -20,7 +22,7 @@
        </div>
        <!--/ Active Products-->
        <!-- Paid Orders-->
-       <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
+       <div class="animate-fade-in-down bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center" style="animation-delay: 0.2s">
            <label class="font-semibold mb-3 block text-lg">Paid Orders</label>
            <template v-if="!loading.paidOrders">
                <span class="text-3xl font-semibold">{{ paidOrders }}</span>
@@ -29,13 +31,13 @@
        </div>
        <!--/ Paid Orders-->
        <!-- Total Income-->
-       <div class="bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center">
+       <div class="animate-fade-in-down bg-white py-6  px-5 rounded-lg shadow flex flex-col items-center" style="animation-delay: 0.3s">
            <label class="font-semibold mb-3 block text-lg">Total Incomes</label>
            <template v-if="!loading.totalIncome">
                <span class="text-3xl font-semibold">{{ totalIncome}}</span>
            </template>
            <Spinner v-else text="" class="py-2"/>
-       </div>
+       </div >
        <!--/ Total Income-->
    </div>
         <!--Second Row     -->

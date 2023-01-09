@@ -80,6 +80,11 @@
                                     v-model="product.price"
                                     class="mb-2"
                                     label="Product Price" prepend="$"/>
+                                <CustomInput
+                                    type="checkbox"
+                                    v-model="product.published"
+                                    class="mb-2"
+                                    label="Published"/>
 
                             </div>
                             <footer class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -129,6 +134,7 @@ const product = ref({
     image : props. product.image,
     description: props. product.description,
     price : props. product.price,
+    published : props. product.published,
 })
 
 const props = defineProps({
@@ -155,6 +161,7 @@ onUpdated(() =>{
         image : props. product.image,
         description: props. product.description,
         price : props. product.price,
+        published : props. product.published,
     }
 })
 

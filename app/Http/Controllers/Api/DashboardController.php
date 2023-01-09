@@ -25,7 +25,7 @@ class DashboardController extends Controller
 
     public function activeProducts()
     {
-        return Product::count();
+        return Product::where('published', '=' , 1)->count();
     }
 
     public function paidOrders()

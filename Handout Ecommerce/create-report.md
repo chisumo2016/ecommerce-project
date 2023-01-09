@@ -22,10 +22,31 @@
             add into dashboard.vue minimumFractionDigits
 
 
-
-
-
 ## CREATE REPORT ROUTES IN VUEJS
+    Reports
+    ----------------
+        1:Number of orders per day 
+             we gonna use bar charts
+        2: Nummber of new customers per pay
+             we gonna use line charts
+
+    - Create folder called  Reports
+        backend/src/views/Reports/CustomersReport.vue
+        backend/src/views/Reports/OrdersReport.vue
+        backend/src/views/Reports/Report.vue
+    - Will be a container of nested routes
+            Report.vue
+                <router link>Orders Reposrt</router-link>
+                <router link>Customers Report</router-link>
+                <router view />
+    - Define all routes in index.js 
+            report parent
+                ordersReport children
+                customersReport children
+           add redirect: '/app/dashboard',
+    - Add the route-liink in side bar
+
+    
 ## CREATE REPORT TAB COMPONENTS
 ## APPLY STYLES TO ACTIVE REPORT TAB
 ## CREATE REUSABLE TRAIT

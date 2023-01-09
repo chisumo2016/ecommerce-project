@@ -15,6 +15,9 @@ import OrderShow from "../views/Orders/OrderShow.vue";
 import Users from "../views/Users/Users.vue";
 import Customers from "../views/Customers/Customers.vue";
 import CustomerShow from "../views/Customers/CustomerShow.vue";
+import Report from "../views/Reports/Report.vue";
+import OrdersReports from "../views/Reports/OrdersReports.vue";
+import CustomersReport from "../views/Reports/CustomersReport.vue";
 
 /**Define an array of routes*/
 const  routes = [
@@ -22,6 +25,7 @@ const  routes = [
     {
         path: '/app',
         name: 'app',
+        redirect: '/app/dashboard',
         component: AppLayout,
         meta:{
             requiresAuth:true
@@ -62,8 +66,33 @@ const  routes = [
                 name:'app.customers.show',
                 component:CustomerShow
             },
+
+            /**Define parent Report root**/
+            {
+                path: '/report',
+                name: 'reports',
+                component: Report,
+                meta:{
+                    requiresAuth:true
+                },
+                /**Define children Report**/
+                children: [
+                    {
+                        path: 'orders',
+                        name:'reports.orders',
+                        component:OrdersReports
+                    },
+
+                    {
+                        path: 'customers',
+                        name:'reports.customers',
+                        component:CustomersReport
+                    },
+                ]
+            },
         ]
     },
+
 
     {
         path: '/login',

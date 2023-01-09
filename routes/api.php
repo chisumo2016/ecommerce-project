@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,13 +46,13 @@ Route::middleware(['auth:sanctum', 'admin'])
    /**Users Route Resource**/
         Route::apiResource('users', UserController::class);
 
-   /**Customers Route Resource**/
+   /**Customers Route Resources**/
         Route::apiResource('customers', CustomerController::class);
 
    /**Country Route */
         Route::get('/countries', [CountryController::class, 'countries']);
 
-   /**Dashboard Route */
+   /**Dashboard Routes */
         Route::get('/dashboard/customers-count', [DashboardController::class,'activeCustomers']);
         Route::get('/dashboard/products-count',  [DashboardController::class,'activeProducts']);
         Route::get('/dashboard/orders-count',    [DashboardController::class,'paidOrders']);
@@ -59,6 +60,10 @@ Route::middleware(['auth:sanctum', 'admin'])
         Route::get('/dashboard/orders-by-country',  [DashboardController::class,'ordersByCountry']);
         Route::get('/dashboard/latest-customers',  [DashboardController::class,'latestCustomers']);
         Route::get('/dashboard/latest-orders',  [DashboardController::class,'latestOrders']);
+
+   /**Report  Routes */
+        Route::get('/report/orders',[ReportController::class, 'orders']);
+        Route::get('/report/customers',[ReportController::class, 'customers']);
 
 
 

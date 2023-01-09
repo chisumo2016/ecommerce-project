@@ -73,14 +73,31 @@
              use ReportTrait;
     - Take the getFromDate()  from Dashboard a put into traits.
 
-    - UUse the same traits in Report Controller
-
-
-
-
+    - Use the same traits in Report Controller
+            use ReportTrait
 
 
 ## CREATE BACKEND API ENDPOINTS TO GET ORDERS DATA
+    - Write a logic in the ReportController on orders() function
+    - Add the api routes  and add two routes for orders and customers
+    - Open the OrderReport.vue file and add setup
+        Use axiosClient.get() to get the data from the server
+    - Create a components called Bar.vue
+    - Call in OrdersReportt.vue
+
+        ERROR:
+            Failed to reload in backend/src/views/Reports/OrdersReports.vue .
+            Typerror:Cannot destructure property 'default' of 'undefined' as it is undefined.
+        SOLUTION:
+            Remove the plugin and PropType
+
+        ERROR: Uncought (in promise) referencesError: data is not defined at proxy  Bar.vue
+
+        SOLUTION: 
+            Inside the Bar.vue we gonna access the data chartData: data, TO chartData: props.data,
+
+    
+    
 ## PROCESS ORDERS DATA FOR CHARTS
 ## CREATE CUSTOMERS REPORTS
 ## IMPLEMENT DATE RANGE PICKER IN REPORTS 

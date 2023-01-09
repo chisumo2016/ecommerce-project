@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Order;
 use App\Traits\ReportTrait;
 use Carbon\Carbon;
@@ -16,47 +17,55 @@ class ReportController extends Controller
 
     public function orders()
     {
-        $fromDate = $this->getFromDate() ?: Carbon::now()->subDay(30);
-        $query = Order::query()
-            ->select([DB::raw('CAST(created_at as DATE) AS day'), DB::raw('COUNT(created_at) AS count')])
-            ->groupBy(DB::raw('CAST(created_at as DATE)'));
-        if($fromDate){
-            $query->where('created_at','>' , $fromDate);
-        }
 
-        /**Order will be an associative array*/
-        $orders = $query->get()->keyBy('day');;
+        $query = Order::query();
 
-        /**Process for chartjs*/
-        $days = [];
-        $labels = [];
-        $now = Carbon::now();
-        while ($fromDate < $now) {
-            $label = $fromDate->format('Y-m-d');
-            $labels[] = $label;
-            $fromDate = $fromDate->addDay(1);
-            $days[] =  isset($orders[$label]) ? $orders[$label]['count'] : 0;
-        }
-
-        return [
-            'labels' => $labels,
-            'datasets' => [[
-                'label'=> 'orders By Day',
-                'backgroundColor' => '#f87979',
-                'data' => $days
-            ]]
-        ];
+        return $this->prepareDataForBarChart($query, 'Orders By Day');
 
     }
 
     public  function  customers()
     {
-
+        $query = Customer::query();
+        return $this->prepareDataForBarChart($query, 'Customers By Day');
     }
 
-    private function fillGaps(Collection|array $orders)
+    private  function  prepareDataForBarChart($query, $label)
     {
-        /**Return received order*/
-        return $orders;
+        $fromDate = $this->getFromDate() ?: Carbon::now()->subDay(30);
+
+        /**Query in Database*/
+         $query
+             ->select([DB::raw('CAST(created_at as DATE) AS day'), DB::raw('COUNT(created_at) AS count')])
+             ->groupBy(DB::raw('CAST(created_at as DATE)'));
+
+        /**Check if fromDate */
+        if($fromDate){
+            $query->where('created_at','>' , $fromDate);
+        }
+
+        /**Order will be an associative array*/
+        $records = $query->get()->keyBy('day');;
+
+        /**Process for chart.js*/
+        $days   = [];
+        $labels = [];
+        $now    = Carbon::now();
+        while ($fromDate < $now) {
+            $key = $fromDate->format('Y-m-d');
+            $labels[] = $key;
+            $fromDate = $fromDate->addDay(1);
+            $days[]   =  isset($records[$key]) ? $records[$key]['count'] : 0;
+        }
+
+        return [
+            'labels' => $labels,
+            'datasets' => [[
+                'label'=> $label,
+                'backgroundColor' => '#f87979',
+                'data' => $days
+            ]]
+        ];
     }
+
 }

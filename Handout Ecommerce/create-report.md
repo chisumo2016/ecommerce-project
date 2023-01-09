@@ -106,6 +106,45 @@
     - SQL
         SELECT CAST(created_at AS DATE) as day, count(id) FROM orders
         GROUP BY 
+    - Add all logic into OrderController
+    - add api route
 ## CREATE CUSTOMERS REPORTS
+    - Copy bar and paste - called Line.vue
+    - Copy OrdersReport.vue and paste - CustomersReport.vue
+        Add the axiosClient.get()
+    - Go to ReportController 
+        logic in the customers() function
+            $fromDate = $this->getFromDate() ?: Carbon::now()->subDay(30);
+        $query = Customer::query()
+            ->select([DB::raw('CAST(created_at as DATE) AS day'), DB::raw('COUNT(user_id) AS count')])
+            ->groupBy(DB::raw('CAST(created_at as DATE)'));
+        if($fromDate){
+            $query->where('created_at','>' , $fromDate);
+        }
+
+        /**Order will be an associative array*/
+        $orders = $query->get()->keyBy('day');;
+
+        /**Process for chartjs*/
+        $days = [];
+        $labels = [];
+        $now = Carbon::now();
+        while ($fromDate < $now) {
+            $label = $fromDate->format('Y-m-d');
+            $labels[] = $label;
+            $fromDate = $fromDate->addDay(1);
+            $days[] =  isset($orders[$label]) ? $orders[$label]['count'] : 0;
+        }
+
+        return [
+            'labels' => $labels,
+            'datasets' => [[
+                'label'=> 'Customers By Day',
+                'backgroundColor' => '#f87979',
+                'data' => $days
+            ]]
+        ];
+
+    - Put on separate method  as private prepareDataForBarChart(){}
 ## IMPLEMENT DATE RANGE PICKER IN REPORTS 
 ## CREATE REPORT

@@ -74,9 +74,11 @@
         </div>
         <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
             <label class="font-semibold mb-3 block text-lg">Orders by Country</label>
+
             <template v-if="!loading.ordersByCountry">
-                <DoughnutChart :width="140" :height="200" :data="ordersByCountry"/>
+                <DoughnutChart :width="140" :height="200" :data="ordersByCountry" />
             </template>
+
             <Spinner v-else text="" class=""/>
         </div>
         <div class="bg-white py-6 px-5 rounded-lg shadow ">

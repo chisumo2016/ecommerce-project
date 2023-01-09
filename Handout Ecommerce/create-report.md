@@ -96,9 +96,16 @@
         SOLUTION: 
             Inside the Bar.vue we gonna access the data chartData: data, TO chartData: props.data,
 
-    
+        
     
 ## PROCESS ORDERS DATA FOR CHARTS
+    - Display report per day 
+            x-axis days  -labelss
+            y-axis no of orders
+    - Tale the orders and grouped by days
+    - SQL
+        SELECT CAST(created_at AS DATE) as day, count(id) FROM orders
+        GROUP BY 
 ## CREATE CUSTOMERS REPORTS
 ## IMPLEMENT DATE RANGE PICKER IN REPORTS 
 ## CREATE REPORT

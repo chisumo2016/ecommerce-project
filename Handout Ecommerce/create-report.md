@@ -57,8 +57,29 @@
     - Add the active link to the router link
         eg active-class="text-indigo-600 bg-indigo-50"
     - Take it and assign to cusstomer report router link
+    - give some css onn the router-view
         
 ## CREATE REUSABLE TRAIT
+    -  Where we gonna return the report for customer or orders report from backend side.
+    - Create a ReportController
+        php artisan make:controller ReportController 
+    - Create two functions
+        orders() 
+            select for specific period
+        orders() 
+            select for specific period
+    - Create traits folder in app of root project and call ReportTrait.php
+    - Call the Traits in the dashboardController , dashboard is like reporting page.Especially wee want to display something by date
+             use ReportTrait;
+    - Take the getFromDate()  from Dashboard a put into traits.
+
+    - UUse the same traits in Report Controller
+
+
+
+
+
+
 ## CREATE BACKEND API ENDPOINTS TO GET ORDERS DATA
 ## PROCESS ORDERS DATA FOR CHARTS
 ## CREATE CUSTOMERS REPORTS

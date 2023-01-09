@@ -44,10 +44,17 @@
                 ordersReport children
                 customersReport children
            add redirect: '/app/dashboard',
-    - Add the route-liink in side bar
+    - Add the route-link in side bar
 
     
 ## CREATE REPORT TAB COMPONENTS
+    - give the name routes in Reports.vue in router link
+        eg <router-link to="{name: 'reports.orders}" >Orders Report</router-link>
+    - Let put router view in some div
+    - Give some styles to the router links
+
+
+
 ## APPLY STYLES TO ACTIVE REPORT TAB
 ## CREATE REUSABLE TRAIT
 ## CREATE BACKEND API ENDPOINTS TO GET ORDERS DATA

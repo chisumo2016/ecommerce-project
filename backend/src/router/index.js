@@ -78,13 +78,13 @@ const  routes = [
                 /**Define children Report**/
                 children: [
                     {
-                        path: 'orders',
+                        path: 'orders:date?',
                         name:'reports.orders',
                         component:OrdersReports
                     },
 
                     {
-                        path: 'customers',
+                        path: 'customers:date?',
                         name:'reports.customers',
                         component:CustomersReport
                     },

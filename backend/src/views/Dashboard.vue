@@ -103,10 +103,13 @@
 import  { UserIcon } from '@heroicons/vue/outline'
 import DoughnutChart from '../components/core/Charts/Doughnut.vue'
 import axiosClient from "../axios/axios.js";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import Spinner from "../components/core/Spinner.vue";
 import CustomInput from "../components/core/CustomInput.vue";
 
+import {useStore} from "vuex";
+
+const store = useStore()
 /**loading indicator*/
 const  loading = ref({
     /**Keys*/
@@ -126,16 +129,7 @@ const ordersByCountry   = ref([]);
 const latestCustomers   = ref([]);
 const latestOrders      = ref([]);
 
-const dateOptions  = ref([
-    {key: '2d' , text: 'Last Day'},
-    {key: '1w' , text: 'Last Week'},
-    {key: '2w' , text: 'Last 2 Week'},
-    {key: '1m' , text: 'Last Month'},
-    {key: '3m' , text: 'Last 3 Month'},
-    {key: '6m' , text: 'Last 6 Month'},
-    {key: 'all' , text: 'All Time'},
-
-])
+const dateOptions  = computed(() => store.state.dateOptions);
 
 const chosenDate = ref('all')
 

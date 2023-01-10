@@ -147,4 +147,53 @@
 
     - Put on separate method  as private prepareDataForBarChart(){}
 ## IMPLEMENT DATE RANGE PICKER IN REPORTS 
+    - Put a date range dropdown in Report.vue file
+    - Open report.vue and put two router link in a div and another below router view for select
+    - Take the select snipet code fromm Dashboard.vue , however we donnt have the choseDate , OnDatePickerChange and dateOption
+    - We need to specify the useRouter , useRoute  
+    - Open the router/index.js and add  the params date in both orders and customers
+            eg.   {
+                        path: 'orders',
+                        name:'reports.orders',
+                        component:OrdersReports
+                    },
+    - dateOptions is loooks as code duplicated , to move into state
+        const dateOptions  = ref([
+                {key: '2d' , text: 'Last Day'},
+                {key: '1w' , text: 'Last Week'},
+                {key: '2w' , text: 'Last 2 Week'},
+                {key: '1m' , text: 'Last Month'},
+                {key: '3m' , text: 'Last 3 Month'},
+                {key: '6m' , text: 'Last 6 Month'},
+                {key: 'all' , text: 'All Time'},
+            
+            ])
+        To 
+        const dateOptions  = computed(() => store.state.dateOptions); See on state
+
+    ERRR:
+        Missing required param "data" at object.stringify
+    SOLUTION:
+        Go in the router/index.js and make params optional
+                    {
+                        path: 'orders:date?',
+                        name:'reports.orders',
+                        component:OrdersReports
+                    },
+    - Add the  current routte in OrdersReport.vue
+            const route = useRoute();
+        Watch the current route params
+
+            watch(route.params, (rt)=>{
+                console.log(rt.params.date)
+            }, {deep:true})
+
+            watch(route, (rt)=>{
+                console.log(rt.params.date)
+            })
+
+    - create a getData and pass the request ,and call getData() inside the watch()
+    - We have to do the similar to customersReport.vue.
+
+
 ## CREATE REPORT
